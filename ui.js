@@ -20,6 +20,9 @@ const elements = {
     maskBar: document.getElementById('mask-bar'),
     suspicionBar: document.getElementById('suspicion-bar'),
     energyBar: document.getElementById('energy-bar'),
+    signalValue: document.getElementById('signal-value'),
+    maskValue: document.getElementById('mask-value'),
+    suspicionValue: document.getElementById('suspicion-value'),
     energyValue: document.getElementById('energy-value'),
 
     // Kart
@@ -74,7 +77,10 @@ function updateStatBars(animate = true) {
     elements.suspicionBar.style.width = `${stats.suspicion}%`;
     elements.energyBar.style.width = `${stats.energy}%`;
 
-    // Enerji yüzdesini yaz
+    // Değerleri yaz
+    elements.signalValue.textContent = `${Math.floor(stats.signal)}`;
+    elements.maskValue.textContent = `${Math.floor(stats.mask)}`;
+    elements.suspicionValue.textContent = `${Math.floor(stats.suspicion)}`;
     elements.energyValue.textContent = `${Math.floor(stats.energy)}`;
 
     // Düşük stat uyarısı
@@ -101,13 +107,37 @@ function checkStatWarnings() {
 }
 
 // Stat değişim animasyonu
-function animateStatChange(statName) {
+function animateStatChange(statName, changeAmount, passiveAmount = 0) {
     const statElement = document.querySelector(`.stat[data-stat="${statName}"]`);
     if (statElement) {
         statElement.classList.add('pulse');
         setTimeout(() => {
             statElement.classList.remove('pulse');
         }, 300);
+
+        // Değişim göstergesi (sayısal animasyon)
+        if (changeAmount !== 0 || passiveAmount !== 0) {
+            const indicator = document.createElement('div');
+
+            // Ana seçim etkisi
+            const choiceSign = changeAmount > 0 ? '+' : '';
+            const choiceText = changeAmount !== 0 ? `${choiceSign}${changeAmount}` : '';
+
+            // Pasif etki (günlük değişimler)
+            const passiveSign = passiveAmount > 0 ? '+' : '';
+            const formattedPassive = passiveAmount.toFixed(1).replace('.0', '');
+            const passiveText = passiveAmount !== 0 ? `${passiveSign}${formattedPassive}` : '';
+
+            indicator.className = `stat-change-indicator ${(changeAmount + passiveAmount) > 0 ? 'positive' : 'negative'}`;
+
+            if (choiceText && passiveText) {
+                indicator.innerHTML = `<span class="choice-val">${choiceText}</span><span class="passive-val">${passiveText}</span>`;
+            } else {
+                indicator.textContent = choiceText || passiveText;
+            }
+
+            statElement.appendChild(indicator);
+        }
     }
 }
 
@@ -270,8 +300,14 @@ function handleSwipe(direction) {
     if (!result) return;
 
     // Değişen statları animasyonla göster
-    for (const statName of Object.keys(result.changes)) {
-        animateStatChange(statName);
+    for (const [statName, changeInfo] of Object.entries(result.changes)) {
+        // changeInfo.change: kartın etkisi
+        // changeInfo.totalChange: pasifler dahil toplam değişim
+        const passive = changeInfo.totalChange - changeInfo.change;
+
+        if (changeInfo.change !== 0 || Math.abs(passive) > 0.01) {
+            animateStatChange(statName, changeInfo.change, passive);
+        }
     }
 
     // Stat barlarını güncelle
@@ -287,6 +323,9 @@ function handleSwipe(direction) {
 
     // İşlem sonrası yapılacaklar (Yeni kart veya oyun sonu)
     const onComplete = () => {
+        // Değişim göstergelerini (sayıları) temizle
+        document.querySelectorAll('.stat-change-indicator').forEach(el => el.remove());
+
         // Eğer maske kazanıldıysa başarım animasyonunu göster
         if (result.earnedMask) {
             animateMaskAward(result.earnedMask, () => {
@@ -343,12 +382,12 @@ function showEndScreen() {
     // Son istatistikler
     elements.endStats.innerHTML = `
         <div class="end-stat">
-            <span class="end-stat-icon">📡</span>
+            <span class="end-stat-icon"><img src="assets/icons/signal.png" alt="Sinyal" style="height: 32px;"></span>
             <span class="end-stat-value">${gameState.stats.signal}%</span>
             <span class="end-stat-label">Sinyal</span>
         </div>
         <div class="end-stat">
-            <span class="end-stat-icon">🎭</span>
+            <span class="end-stat-icon"><img src="assets/icons/mask.png" alt="Maske" style="height: 32px;"></span>
             <span class="end-stat-value">${gameState.stats.mask}%</span>
             <span class="end-stat-label">Maske</span>
         </div>
@@ -388,30 +427,11 @@ function startGame() {
 elements.startBtn.addEventListener('click', startGame);
 elements.restartBtn.addEventListener('click', startGame);
 
-// PiP Toggle
-const pipBtn = document.getElementById('pip-toggle-btn');
-const cardArea = document.querySelector('.card-area');
-
-// Butona tıklayınca modu değiştir
-pipBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Event bubbling engelle
-    cardArea.classList.toggle('pip-mode');
-    pipBtn.classList.toggle('active');
-});
-
 // Sayfanın herhangi bir yerine tıklayınca maske isimlerini kapat
 document.addEventListener('click', () => {
     document.querySelectorAll('.mask-tooltip.visible').forEach(el => {
         el.classList.remove('visible');
     });
-});
-
-// Kart alanına tıklayınca (eğer pip modundaysa) normale dön
-cardArea.addEventListener('click', (e) => {
-    if (cardArea.classList.contains('pip-mode')) {
-        cardArea.classList.remove('pip-mode');
-        pipBtn.classList.remove('active');
-    }
 });
 
 // Klavye kontrolleri (opsiyonel)

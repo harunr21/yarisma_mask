@@ -142,58 +142,73 @@ body::before {
    =================================== */
 .start-content {
     text-align: center;
-    /* Framed Look */
-    background: rgba(15, 28, 37, 0.9);
-    padding: var(--spacing-xxl);
+    background: rgba(15, 28, 37, 0.8);
+    padding: var(--spacing-lg);
+    /* Removing the small restricted box look */
+    width: 95%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* Distribute vertically */
     border: 4px solid var(--accent-secondary);
     box-shadow: 0 0 0 4px #000, 0 10px 20px rgba(0, 0, 0, 0.5);
-    max-width: 90%;
 }
 
 .logo {
-    margin-bottom: var(--spacing-xxl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
 }
 
-.alien-icon {
-    font-size: 6rem;
+.game-logo {
+    max-width: 100%;
+    height: auto;
+    max-height: 45vh;
+    /* Much larger logo */
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
     margin-bottom: var(--spacing-lg);
-    text-shadow: var(--shadow-text);
-    filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.5));
-}
-
-.logo h1 {
-    font-size: 4rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    color: var(--accent-primary);
-    text-shadow: 4px 4px 0 #000;
-    margin-bottom: var(--spacing-md);
-    text-transform: uppercase;
 }
 
 .tagline {
-    font-size: 1.5rem;
-    color: var(--text-secondary);
+    font-size: 2rem;
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.6);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--accent-secondary);
     font-weight: 400;
     text-shadow: 1px 1px 0 #000;
+    margin-top: auto;
+    /* Push down/up effectively */
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
 }
 
 /* Buttons - Pixel Style */
 .btn-primary {
     background: var(--accent-primary);
     color: #2C1E12;
-    /* Dark text on gold button */
     border: 4px solid #000;
-    padding: var(--spacing-md) var(--spacing-xxl);
+    padding: var(--spacing-lg) 4rem;
+    /* Wider button */
     font-family: var(--font-primary);
-    font-size: 1.5rem;
+    font-size: 2.5rem;
+    /* Larger text */
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 4px 4px 0 #000;
+    box-shadow: 6px 6px 0 #000;
     position: relative;
     top: 0;
     left: 0;
-    transition: top 0.1s, left 0.1s, box-shadow 0.1s;
+    transition: all 0.1s;
+    margin-bottom: var(--spacing-xl);
+    /* Space from bottom */
 }
 
 .btn-primary:hover {
@@ -229,6 +244,9 @@ body::before {
     background: rgba(0, 0, 0, 0.4);
     border-radius: var(--radius-lg);
     border: 2px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 210;
+    /* Day overlay (200) üzerinde görünmesi için */
 }
 
 .stat {
@@ -237,11 +255,24 @@ body::before {
     align-items: center;
     gap: var(--spacing-xs);
     flex: 1;
+    position: relative;
+    /* Göstergeler için referans noktası */
 }
 
 .stat-icon {
-    font-size: 1.8rem;
-    text-shadow: 2px 2px 0 #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    /* Fixed height for icon area */
+}
+
+.stat-icon img {
+    height: 100%;
+    width: auto;
+    max-width: 60px;
+    object-fit: contain;
+    filter: drop-shadow(2px 2px 0 #000);
 }
 
 .stat-bar {
@@ -569,9 +600,24 @@ body::before {
 }
 
 /* Response Modifiers */
+/* Response Modifiers */
 @media (max-width: 480px) {
-    .logo h1 {
-        font-size: 3rem;
+    .game-logo {
+        max-height: 30vh;
+    }
+
+    .start-content {
+        padding: var(--spacing-sm);
+    }
+
+    .tagline {
+        font-size: 1.2rem;
+        padding: var(--spacing-xs) var(--spacing-md);
+    }
+
+    .btn-primary {
+        font-size: 1.8rem;
+        padding: var(--spacing-md) var(--spacing-xl);
     }
 
     .card-container {
@@ -595,68 +641,6 @@ body::before {
     .stat-icon {
         font-size: 1.5rem;
     }
-
-    .btn-primary {
-        padding: var(--spacing-sm) var(--spacing-lg);
-        font-size: 1.2rem;
-    }
-}
-
-/* ===================================
-   PiP MODE (Picture in Picture)
-   =================================== */
-.pip-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--bg-card);
-    border: 2px solid var(--accent-secondary);
-    color: var(--accent-primary);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-card);
-    transition: transform 0.2s;
-}
-
-.pip-btn:hover {
-    transform: scale(1.1);
-    background: var(--bg-secondary);
-}
-
-/* PiP Mode Styles */
-.card-area.pip-mode {
-    position: absolute;
-    top: 80px;
-    left: 20px;
-    width: auto;
-    height: auto;
-    min-height: auto;
-    flex: none;
-    transform-origin: top left;
-    transform: scale(0.6);
-    z-index: 50;
-    padding: 0;
-    margin: 0;
-}
-
-.card-area.pip-mode .choice-hint {
-    font-size: 2rem;
-}
-
-.card-area.pip-mode .card-container {
-    margin: 0;
-}
-
-.pip-btn.active {
-    background: var(--accent-primary);
-    color: var(--bg-primary);
 }
 
 /* ===================================
@@ -895,6 +879,12 @@ body::before {
     animation: bounce 1s infinite alternate;
 }
 
+.achievement-icon img {
+    height: 80px;
+    width: auto;
+    filter: drop-shadow(0 0 10px var(--accent-primary));
+}
+
 .achievement-title {
     font-size: 2.5rem;
     color: var(--accent-primary);
@@ -943,5 +933,59 @@ body::before {
 
     100% {
         opacity: 0.5;
+    }
+}
+
+/* ===================================
+   STAT CHANGE INDICATORS
+   =================================== */
+.stat-change-indicator {
+    position: absolute;
+    top: -30px;
+    /* Barın üstünde */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+    pointer-events: none;
+    animation: slideInAndStay 0.5s ease-out forwards;
+    z-index: 100;
+    white-space: nowrap;
+}
+
+.stat-change-indicator.positive {
+    color: var(--success);
+}
+
+.stat-change-indicator.negative {
+    color: var(--danger);
+}
+
+.stat-change-indicator .passive-val {
+    font-size: 0.9rem;
+    margin-left: 6px;
+    opacity: 0.8;
+    vertical-align: middle;
+}
+
+.stat-change-indicator .passive-val::before {
+    content: '(';
+}
+
+.stat-change-indicator .passive-val::after {
+    content: ')';
+}
+
+@keyframes slideInAndStay {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
     }
 }

@@ -100,12 +100,13 @@ class GameState {
     applyDailyPassives() {
         // PASİF GÜNLÜK ETKİLER
         // Yaşam enerjisi -= 0.2
-        // Maske -= 1
-        // Şüphe += 1
-        // Sinyal pasif değişmez (0)
+        // Maske -= 0.5
+        // Şüphe += 1 (şu an kapalı)
+        // Sinyal += 0.25
 
         this.stats.energy = Math.max(0, this.stats.energy - 0.2);
         this.stats.mask = Math.max(0, this.stats.mask - 0.5);
+        this.stats.signal = Math.min(100, this.stats.signal + 0.25);
         //this.stats.suspicion = Math.min(100, this.stats.suspicion + 1);
     }
 
@@ -202,19 +203,42 @@ class GameState {
 
     /**
      * Tüm sorular bittiğinde final sonunu belirle
+     * SON 1: sinyal = 100 → Kesin kurtuluş (anagemi gelir)
+     * SON 2: maske = 0 → Kesin ölüm (checkGameEnd'de kontrol edilir)
+     * SON 3: sinyal >= 85, şüphe <= 45, İletişim Maskesi → Köprü (iki dünyada yaşam)
+     * SON 4: sinyal <= 85, şüphe <= 30, Güven Maskesi → Dünya'da kalıcı yaşam
+     * SON 5: şüphe = 100 veya enerji = 0 → Game Over (checkGameEnd'de kontrol edilir)
      */
     checkFinalEnding() {
-        // Sinyal %100'e ulaştıysa: Eve Dönüş
+        // SON 1: Sinyal %100'e ulaştıysa: Kesin Kurtuluş - Anagemi gelir
         if (this.stats.signal >= 100) {
             this.isGameOver = true;
             this.endReason = 'win';
             return;
         }
 
-        // Tüm sorular tamamlandı ama sinyal yeterli değil
-        // Mask durumuna göre son belirlenir
+        // SON 3: Köprü Sonu - İnsanlar ve uzaylılar arasında köprü
+        // Koşullar: sinyal >= 85, şüphe <= 45, İletişim Maskesi kazanılmış
+        const hasCommsunationMask = this.collectedMasks.includes('İletişim Maskesi');
+        if (this.stats.signal >= 85 && this.stats.suspicion <= 45 && hasCommsunationMask) {
+            this.isGameOver = true;
+            this.endReason = 'bridge';
+            return;
+        }
+
+        // SON 4: Dünya'da Kalıcı Yaşam
+        // Koşullar: sinyal <= 85, şüphe <= 30, Güven Maskesi kazanılmış
+        const hasTrustMask = this.collectedMasks.includes('Güven Maskesi');
+        if (this.stats.signal <= 85 && this.stats.suspicion <= 30 && hasTrustMask) {
+            this.isGameOver = true;
+            this.endReason = 'earth_permanent';
+            return;
+        }
+
+        // Tüm sorular tamamlandı ama hiçbir özel sona ulaşılamadı
+        // Mask durumuna göre alternatif son belirlenir
         if (this.stats.mask >= 50) {
-            // Maske sağlam ama sinyal yetersiz - Dünya'da kaldı
+            // Maske sağlam ama koşullar yetersiz - Dünya'da kaldı (geçici)
             this.isGameOver = true;
             this.endReason = 'stayed_on_earth';
         } else {
@@ -225,70 +249,115 @@ class GameState {
     }
 
     checkGameEnd() {
-        // Kazanma: Sinyal %100
+        // SON 1: Kazanma - Sinyal %100 = Kesin Kurtuluş (Anagemi gelir)
         if (this.stats.signal >= 100) {
             this.isGameOver = true;
             this.endReason = 'win';
             return;
         }
 
-        // Kaybetme: Maske 0
+        // SON 2: Kaybetme - Maske 0 = Kesin Ölüm
         if (this.stats.mask <= 0) {
             this.isGameOver = true;
             this.endReason = 'mask_destroyed';
             return;
         }
 
-        // Kaybetme: Şüphe %100
+        // SON 5a: Kaybetme - Şüphe %100
         if (this.stats.suspicion >= 100) {
             this.isGameOver = true;
             this.endReason = 'caught';
             return;
         }
 
-        // Kaybetme: Enerji 0 (opsiyonel - daha zor mod için)
+        // SON 5b: Kaybetme - Enerji 0
         if (this.stats.energy <= 0) {
-            // Enerji 0 olduğunda maske daha hızlı çürüsün
-            this.stats.mask = Math.max(0, this.stats.mask - 5);
+            this.isGameOver = true;
+            this.endReason = 'energy_depleted';
+            return;
         }
     }
 
     getEndMessage() {
         switch (this.endReason) {
+            // SON 1: Kesin Kurtuluş - Sinyal 100
             case 'win':
                 return {
-                    title: 'EVE DÖNÜŞ!',
-                    icon: '🚀',
-                    description: `Tebrikler! ${this.day} günde ve ${this.totalQuestionsAnswered} kararla sinyal gücünü maksimuma çıkardın. Anagemin seni almaya geliyor!`,
-                    isWin: true
+                    title: 'ANAGEMİ GELDİ!',
+                    icon: '🛸',
+                    description: `Tebrikler! ${this.day} günde ve ${this.totalQuestionsAnswered} kararla sinyal gücünü maksimuma çıkardın. Anagemin seni kurtarmaya geldi! Gökyüzünde parlayan ışık, seni eve götürecek geminin işareti. Artık özgürsün!`,
+                    isWin: true,
+                    endingType: 'rescue'
                 };
+
+            // SON 3: Köprü Sonu - İki dünyada yaşam hakkı
+            case 'bridge':
+                return {
+                    title: 'İKİ DÜNYANIN KÖPRÜSÜ',
+                    icon: '🌌',
+                    description: `Muhteşem! ${this.day} günde İletişim Maskesi sayesinde insanlar ve kendi türün arasında bir köprü kurdun. Artık hem Dünya'da hem de kendi gezegeninde yaşama hakkın var. Elçi olarak iki türü birleştireceksin!`,
+                    isWin: true,
+                    endingType: 'bridge'
+                };
+
+            // SON 4: Dünya'da Kalıcı Yaşam - Güven Maskesi ile
+            case 'earth_permanent':
+                return {
+                    title: 'DÜNYA\'DA YENİ BİR HAYAT',
+                    icon: '🏡',
+                    description: `${this.day} günde Güven Maskesi sayesinde insanların güvenini kazandın. Artık Dünya senin yeni evin. Masken sadece bir kılık değil, gerçek kimliğin oldu. Burada kalıcı ve mutlu bir hayat seni bekliyor!`,
+                    isWin: true,
+                    endingType: 'earth_permanent'
+                };
+
+            // Alternatif son: Dünya'da kaldı (ama kalıcı değil)
             case 'stayed_on_earth':
                 return {
                     title: 'DÜNYA\'DA KALDIN',
                     icon: '🌍',
-                    description: `${this.day} gün ve ${this.totalQuestionsAnswered} kararın sonunda, sinyal yeterli güce ulaşamadı. Ama masken sağlam kaldı. Belki bu dünya o kadar da kötü değildir...`,
-                    isWin: true // Alternatif bir "iyi" son
+                    description: `${this.day} gün ve ${this.totalQuestionsAnswered} kararın sonunda, sinyal yeterli güce ulaşamadı. Masken sağlam kaldı ama güven maskesini kazanamadın. Dünya'da kalıyorsun... ama ne zamana kadar?`,
+                    isWin: false,
+                    endingType: 'stayed'
                 };
+
+            // Belirsiz son
             case 'uncertain':
                 return {
                     title: 'BELİRSİZ SON',
                     icon: '❓',
-                    description: `${this.day} gün geçti. Ne eve dönebildin ne de burada kalmayı başardın. Geleceğin belirsiz...`,
-                    isWin: false
+                    description: `${this.day} gün geçti. Ne eve dönebildin ne de burada kalmayı başardın. Masken zayıfladı, geleceğin belirsiz...`,
+                    isWin: false,
+                    endingType: 'uncertain'
                 };
+
+            // SON 2: Kesin Ölüm - Maske 0
             case 'mask_destroyed':
                 return {
                     title: 'MASKE ÇÜRÜDÜ',
                     icon: '💀',
-                    description: `${this.day}. günde masken tamamen çürüdü. Gerçek formun ortaya çıktı ve insanlar panikle kaçıştı.`,
-                    isWin: false
+                    description: `${this.day}. günde masken tamamen çürüdü. Gerçek formun ortaya çıktı ve insanlar panikle kaçıştı. Artık saklanacak yer yok...`,
+                    isWin: false,
+                    endingType: 'death'
                 };
+
+            // SON 5a: Şüphe 100 - Yakalandın
             case 'caught':
                 return {
                     title: 'YAKALANDIN!',
                     icon: '🚨',
-                    description: `${this.day}. günde şüpheler doruk noktasına ulaştı. İnsanlar seni yakaladı!`,
-                    isWin: false
+                    description: `${this.day}. günde şüpheler doruk noktasına ulaştı. İnsanlar seni yakaladı! Artık kaçış yok...`,
+                    isWin: false,
+                    endingType: 'caught'
+                };
+
+            // SON 5b: Enerji 0 - Tükeniş
+            case 'energy_depleted':
+                return {
+                    title: 'ENERJİN TÜKENDİ',
+                    icon: '⚡',
+                    description: `${this.day}. günde enerjin tamamen tükendi. Hareket edemez hale geldin. Masken yavaşça çürümeye başlıyor...`,
+                    isWin: false,
+                    endingType: 'energy_depleted'
                 };
             default:
                 return {

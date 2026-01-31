@@ -16,8 +16,7 @@
     <div id="start-screen" class="screen active">
         <div class="start-content">
             <div class="logo">
-                <div class="alien-icon">👽</div>
-                <h1>MASK OF DESTINY</h1>
+                <img src="assets/images/logo.png" alt="Mask of Destiny" class="game-logo">
                 <p class="tagline">Kimliğini gizle. Sinyali güçlendir. Eve dön.</p>
             </div>
             <button id="start-btn" class="btn-primary">OYUNU BAŞLAT</button>
@@ -26,34 +25,31 @@
 
     <!-- Oyun Ekranı -->
     <div id="game-screen" class="screen">
-        <!-- PiP Toggle Button -->
-        <button id="pip-toggle-btn" class="pip-btn" title="Kartı Küçült/Büyüt">⤢</button>
-
         <!-- Stat Barları -->
         <div class="stat-container">
             <div class="stat" data-stat="signal">
-                <span class="stat-icon">📡</span>
+                <span class="stat-icon"><img src="assets/icons/signal.png" alt="Sinyal"></span>
                 <div class="stat-bar">
                     <div class="stat-fill signal-fill" id="signal-bar"></div>
                 </div>
-                <span class="stat-label">Sinyal</span>
+                <span class="stat-label">Sinyal <span id="signal-value"></span></span>
             </div>
             <div class="stat" data-stat="mask">
-                <span class="stat-icon">🎭</span>
+                <span class="stat-icon"><img src="assets/icons/mask.png" alt="Maske"></span>
                 <div class="stat-bar">
                     <div class="stat-fill mask-fill" id="mask-bar"></div>
                 </div>
-                <span class="stat-label">Maske</span>
+                <span class="stat-label">Maske <span id="mask-value"></span></span>
             </div>
             <div class="stat" data-stat="suspicion">
-                <span class="stat-icon">👁️</span>
+                <span class="stat-icon"><img src="assets/icons/suspicion.png" alt="Şüphe"></span>
                 <div class="stat-bar">
                     <div class="stat-fill suspicion-fill" id="suspicion-bar"></div>
                 </div>
-                <span class="stat-label">Şüphe</span>
+                <span class="stat-label">Şüphe <span id="suspicion-value"></span></span>
             </div>
             <div class="stat" data-stat="energy">
-                <span class="stat-icon">⚡</span>
+                <span class="stat-icon"><img src="assets/icons/energy.png" alt="Enerji"></span>
                 <div class="stat-bar">
                     <div class="stat-fill energy-fill" id="energy-bar"></div>
                 </div>
@@ -105,7 +101,7 @@
         <!-- Achievement Overlay -->
         <div id="achievement-overlay" class="achievement-overlay">
             <div class="achievement-content">
-                <div class="achievement-icon">🎭</div>
+                <div class="achievement-icon"><img src="assets/icons/mask.png" alt="Maske"></div>
                 <h2 class="achievement-title">MASKE KAZANILDI</h2>
                 <div id="achievement-mask-name" class="achievement-mask-name"></div>
                 <div id="achievement-mask-image-container" class="achievement-mask-image-container"></div>

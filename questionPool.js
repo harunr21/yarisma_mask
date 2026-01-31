@@ -329,6 +329,144 @@ const QUESTION_POOL = {
                         }
                     }
                 ]
+            },
+            8: { // 1.8 — BONUS (Y odaklı): İlk Büyük Enerji Fırsatları
+                theme: "ENERJI_AVI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "1.8-A",
+                        scene: "Enkazdan uzaklaşırken, yarı gömülü bir elektrik kablosu bulursun; ucunda hâlâ sıcak bir titreşim vardır.",
+                        choices: {
+                            left: { text: "Kabloyu takip et", result: "Güç bulursun ama kablo seni görünür bir çizgi gibi taşır.", effects: { signal: 2, mask: -1, suspicion: 4, energy: 5 } },
+                            right: { text: "Kısa bir 'yudum' al", result: "Az güç alırsın ama etrafta fazla kalmazsın.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "1.8-B",
+                        scene: "Yol kenarında çalışır bir elektrikli bisiklet şarj istasyonu var; yanında tek bir güvenlik kamerası asılı.",
+                        choices: {
+                            left: { text: "Normal biri gibi şarj al", result: "Daha inandırıcı görünürsün ama gözler üzerinde kalır.", effects: { signal: 0, mask: -2, suspicion: 3, energy: 4 } },
+                            right: { text: "Kamera açısını kolla", result: "Sessiz kalırsın ama fırsat kısa sürer.", effects: { signal: 0, mask: 0, suspicion: -1, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "1.8-C",
+                        scene: "Terk bir kulübede jeneratör sesi gelir; içerisi sıcak ve karanlık.",
+                        choices: {
+                            left: { text: "İçeri girip enerji al", result: "Güçlenirsin ama 'izinsiz' giriş hissi büyür.", effects: { signal: 0, mask: -1, suspicion: 4, energy: 5 } },
+                            right: { text: "Dışarıdan kablo uzat", result: "Daha az görünür olursun ama daha uzun sürer.", effects: { signal: 0, mask: 0, suspicion: 2, energy: 3 } }
+                        }
+                    },
+                    {
+                        id: "1.8-D",
+                        scene: "Bir marketin arkasında açık bırakılmış bir uzatma kablosu sarkar; kablo, içerideki hayatın damarına bağlı.",
+                        choices: {
+                            left: { text: "Kabloyu kullan", result: "Güç gelir ama birinin 'fark etme' ihtimali doğar.", effects: { signal: 0, mask: 0, suspicion: 3, energy: 4 } },
+                            right: { text: "Kabloyu kesip al", result: "Sonra işe yarar ama bu 'hırsızlık' hissi gölge bırakır.", effects: { signal: 1, mask: -1, suspicion: 4, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "1.8-E",
+                        scene: "Yağmur sonrası su birikintisinde elektrik parıldar; tehlike, ödül gibi parlar.",
+                        choices: {
+                            left: { text: "Risk alıp güç topla", result: "Büyük rahatlama gelir ama maske titreyebilir.", effects: { signal: 0, mask: -3, suspicion: 2, energy: 5 } },
+                            right: { text: "Güvenli yola sap", result: "Daha az risk alırsın ama güçsüzlük sürer.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -1 } }
+                        }
+                    }
+                ]
+            },
+            9: { // 1.9 — BONUS (M odaklı): Maskeyi Erken Toparlama / İlk Yıpranma
+                theme: "MASKE_BIYOMEKANIGI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "1.9-A",
+                        scene: "Maskenin içi buhar yapar; kenarlarında ince bir sızıntı hissedersin, yüzün 'kayacak' gibi.",
+                        choices: {
+                            left: { text: "Karanlık köşede ayarla", result: "Masken toparlar ama zaman kaybın olur.", effects: { signal: 0, mask: 4, suspicion: -1, energy: -2 } },
+                            right: { text: "Ayarı ertele", result: "Hız kazanırsın ama küçük bir hata büyüyebilir.", effects: { signal: 1, mask: -2, suspicion: 1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "1.9-B",
+                        scene: "Enkazdan düşen ince bir 'reçine' benzeri madde bulursun; maskenin yüzeyine uyumlu görünüyor.",
+                        choices: {
+                            left: { text: "Reçineyi uygula", result: "Maske daha sağlam durur ama yabancı bir koku bırakabilir.", effects: { signal: 0, mask: 4, suspicion: 2, energy: -1 } },
+                            right: { text: "Reçineyi sakla", result: "Şimdi risk azalır ama maske yıpranmaya devam eder.", effects: { signal: 0, mask: -1, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "1.9-C",
+                        scene: "Aynada yüzünü görürsün; göz kırpman gecikmeli, mimiklerin 'fazla düzgün.'",
+                        choices: {
+                            left: { text: "Duygu provası yap", result: "Masken daha inandırıcı olur ama yorulursun.", effects: { signal: 0, mask: 3, suspicion: -2, energy: -2 } },
+                            right: { text: "Daha az mimik yap", result: "Kısa vadede güvenli olursun ama 'soğukluk' şüphe doğurabilir.", effects: { signal: 0, mask: 1, suspicion: 2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "1.9-D",
+                        scene: "Maskenin kenarı kıyafetine takılır; hafif bir 'çat' sesi duyar gibi olursun.",
+                        choices: {
+                            left: { text: "Hemen kontrol et", result: "Maske kurtulur ama dikkat çekebilirsin.", effects: { signal: 0, mask: 3, suspicion: 2, energy: -1 } },
+                            right: { text: "Kontrolü ertele", result: "Görünmez kalırsın ama çatlak ihtimali kalır.", effects: { signal: 0, mask: -2, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "1.9-E",
+                        scene: "Islak hava maskeyi zorlar; yüzün 'şekil değiştirmiş' gibi hissedilir.",
+                        choices: {
+                            left: { text: "Kuru yere gir", result: "Maske rahatlar ama zaman kaybedersin.", effects: { signal: 0, mask: 3, suspicion: 0, energy: -2 } },
+                            right: { text: "Dışarıda idare et", result: "Zaman kazanırsın ama maske yıpranır.", effects: { signal: 1, mask: -2, suspicion: 0, energy: 0 } }
+                        }
+                    }
+                ]
+            },
+            10: { // 1.10 — BONUS (S odaklı): Küçük Sinyal Adımları
+                theme: "SINYAL_PARAZIT",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "1.10-A",
+                        scene: "Tepede eski bir anten silüeti görürsün; rüzgâr uğultusu cihazın cızırtısına karışır.",
+                        choices: {
+                            left: { text: "Tepeye çık, dene", result: "İlerleme hissi gelir ama görünür olursun.", effects: { signal: 5, mask: -1, suspicion: 4, energy: -2 } },
+                            right: { text: "Tepeyi işaretle, çekil", result: "Risk azalır ama sinyal gecikir.", effects: { signal: 1, mask: 0, suspicion: -1, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "1.10-B",
+                        scene: "Cihaz bir an 'yanıt' gibi bir titreşim verir; sanki bir şey duymuştur ama emin değildir.",
+                        choices: {
+                            left: { text: "Aynı ayarı sürdür", result: "Sinyal güçlenir gibi olur ama iz bırakma ihtimali doğar.", effects: { signal: 4, mask: 0, suspicion: 3, energy: -1 } },
+                            right: { text: "Ayarı kıs", result: "İz azalır ama o 'kapı' kapanabilir.", effects: { signal: 1, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "1.10-C",
+                        scene: "Gece, sokak lambaları titrer; senin küçük denemenin şehirde yankısı var.",
+                        choices: {
+                            left: { text: "Denemeyi uzat", result: "İlerlersin ama dikkat çekebilirsin.", effects: { signal: 5, mask: -1, suspicion: 4, energy: -2 } },
+                            right: { text: "Hemen kes", result: "Sessiz kalırsın ama ilerleme az olur.", effects: { signal: 1, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "1.10-D",
+                        scene: "Bir binanın çatısında kablo karmaşası; doğru kablo sinyalini büyütebilir.",
+                        choices: {
+                            left: { text: "Kabloları kurcala", result: "Sinyal için küçük bir sıçrama yakalayabilirsin.", effects: { signal: 4, mask: -1, suspicion: 3, energy: -2 } },
+                            right: { text: "Dokunmadan çekil", result: "Risk azalır ama fırsat kaçabilir.", effects: { signal: 0, mask: 0, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "1.10-E",
+                        scene: "Radyo cızırtısı duyarsın; kaynağı belli değil ama 'iletişim' gibi gelir.",
+                        choices: {
+                            left: { text: "Kaynağa yaklaş", result: "Sinyal yolunda bir ipucu yakalarsın.", effects: { signal: 4, mask: 0, suspicion: 2, energy: -1 } },
+                            right: { text: "Uzaklaş", result: "Şimdilik güvende kalırsın.", effects: { signal: 0, mask: 0, suspicion: -1, energy: 0 } }
+                        }
+                    }
+                ]
             }
         }
     },
@@ -655,6 +793,144 @@ const QUESTION_POOL = {
                         choices: {
                             left: { text: "'Hayır.'", result: "Saklanma yolun sertleşir.", effects: { signal: 2, mask: 0, suspicion: 0, energy: 0 } },
                             right: { text: "'Evet.'", result: "Güven yoluna psikolojik kapı açılır.", effects: { signal: 0, mask: 2, suspicion: 0, energy: 1 } }
+                        }
+                    }
+                ]
+            },
+            8: { // 2.8 — BONUS (Y odaklı): Şehirde Büyük Enerji
+                theme: "ENERJI_AVI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "2.8-A",
+                        scene: "Hastane arkasında acil jeneratör odası var; kapı yarım aralık, içeride uğultu.",
+                        choices: {
+                            left: { text: "İçeri gir, enerji al", result: "Güç gelir ama kameralar hatırlayabilir.", effects: { signal: 0, mask: -1, suspicion: 4, energy: 5 } },
+                            right: { text: "Dış prizlerden idare et", result: "Daha az risk alırsın ama daha az güç alırsın.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "2.8-B",
+                        scene: "Elektrikli araç şarj alanında gece temizlik görevlileri var; sen 'gölge' gibi dolaşırsın.",
+                        choices: {
+                            left: { text: "Temizlikçi gibi davran", result: "İnsan gibi görünürsün ama uzun süre kalırsın.", effects: { signal: 0, mask: -2, suspicion: -2, energy: 4 } },
+                            right: { text: "Hızlıca bağlan ve kaç", result: "Hızlı çıkarsın ama az alırsın.", effects: { signal: 0, mask: 0, suspicion: 2, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "2.8-C",
+                        scene: "Metro istasyonunda bakım paneli açık; içeride saf enerji var ama uyarı tabelaları asılı.",
+                        choices: {
+                            left: { text: "Panelden güç çek", result: "Çok kazanırsın ama alarm hissi artar.", effects: { signal: 1, mask: -1, suspicion: 5, energy: 5 } },
+                            right: { text: "Paneli kapat, uzaklaş", result: "Sessiz kalırsın ama fırsat gider.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "2.8-D",
+                        scene: "Kütüphanede prizler dolu; insanlar okuyor, sen de 'okuyormuş' gibi oturabilirsin.",
+                        choices: {
+                            left: { text: "Uzun süre şarj al", result: "Daha güvenli görünürsün ama sosyal sınav uzar.", effects: { signal: 0, mask: -2, suspicion: -1, energy: 4 } },
+                            right: { text: "Kısa süre al, kalk", result: "Sosyal risk azalır ama güç az olur.", effects: { signal: 0, mask: 0, suspicion: 0, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "2.8-E",
+                        scene: "Kara pazarda 'yüksek kapasiteli batarya' görürsün; fiyatı para değil, bedel gibi.",
+                        choices: {
+                            left: { text: "Al", result: "Güçlenirsin ama bir gölge peşine takılabilir.", effects: { signal: 0, mask: 0, suspicion: 4, energy: 5 } },
+                            right: { text: "Reddet", result: "Temiz kalırsın ama enerji baskısı sürer.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -1 } }
+                        }
+                    }
+                ]
+            },
+            9: { // 2.9 — BONUS (S odaklı): Şehirde Sinyal Sıçraması
+                theme: "SINYAL_PARAZIT",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "2.9-A",
+                        scene: "Çatı antenine çıkarsın; aşağıda siren sesi uzaktan gelir, yukarıda rüzgâr cızırtıyı taşır.",
+                        choices: {
+                            left: { text: "Tam güç kısa dene", result: "Büyük ilerleme hissi gelir ama şehir seni 'duyabilir.'", effects: { signal: 6, mask: -2, suspicion: 5, energy: -2 } },
+                            right: { text: "Kademeli dene", result: "Daha kontrollü ilerlersin ama daha yavaş.", effects: { signal: 3, mask: 0, suspicion: 2, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "2.9-B",
+                        scene: "Sunucu odasında kabloların içinde 'konum verisi' gibi bir şey bulursun; cihazın ışığı değişir.",
+                        choices: {
+                            left: { text: "Veriyi sinyale bağla", result: "Sinyal daha anlamlı hale gelir ama iz bırakabilir.", effects: { signal: 5, mask: 0, suspicion: 4, energy: -2 } },
+                            right: { text: "Veriyi bırak, çık", result: "Risk azalır ama ilerleme kaçabilir.", effects: { signal: 1, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "2.9-C",
+                        scene: "Karakol yakını en güçlü sinyali verir; aynı yerde en güçlü göz de vardır.",
+                        choices: {
+                            left: { text: "Risk al, ping at", result: "Sinyal sıçrar ama avın sesi de artar.", effects: { signal: 6, mask: -1, suspicion: 5, energy: -2 } },
+                            right: { text: "Vazgeç", result: "Güvende kalırsın ama hedef uzaklaşır.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "2.9-D",
+                        scene: "Elektronikler bir an titrer; senin sinyalin şehrin damarlarına değmiştir.",
+                        choices: {
+                            left: { text: "Devam et", result: "İlerlersin ama söylentiler büyüyebilir.", effects: { signal: 5, mask: -1, suspicion: 4, energy: -2 } },
+                            right: { text: "Kes", result: "Sessizlik kazanırsın ama sinyal zayıflar.", effects: { signal: 1, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "2.9-E",
+                        scene: "Radyo kulübü 'bu frekans temiz' der; senin cihazın da aynı anda sakinleşir.",
+                        choices: {
+                            left: { text: "Frekansı kullan", result: "Sinyal daha düzenli akar ama dikkat çekebilir.", effects: { signal: 5, mask: 0, suspicion: 3, energy: -1 } },
+                            right: { text: "Ertele", result: "Risk azalır, fırsat soğur.", effects: { signal: 1, mask: 0, suspicion: -1, energy: 0 } }
+                        }
+                    }
+                ]
+            },
+            10: { // 2.10 — BONUS (M odaklı): Şehirde Maskeyi Onarma / Kamuflaj
+                theme: "MASKE_BIYOMEKANIGI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "2.10-A",
+                        scene: "Bir terzi dükkânının vitrininde maske gibi duran yüz kalıpları görürsün; içerisi loş.",
+                        choices: {
+                            left: { text: "İçeri gir, malzeme ara", result: "Masken güçlenebilir ama yakından bakış riski doğar.", effects: { signal: 0, mask: 4, suspicion: 3, energy: -2 } },
+                            right: { text: "Vitrinden uzaklaş", result: "Gizli kalırsın ama maske yıpranır.", effects: { signal: 0, mask: -1, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "2.10-B",
+                        scene: "Maskenin kenarı kabarıyor; bir aynalı tuvalette kendini düzeltme şansın var.",
+                        choices: {
+                            left: { text: "Tuvalette ayarla", result: "Daha iyi görünürsün ama 'fazla kalma' riski var.", effects: { signal: 0, mask: 3, suspicion: 2, energy: -1 } },
+                            right: { text: "Çıkıp git", result: "Hızlı olursun ama hata birikir.", effects: { signal: 0, mask: -2, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "2.10-C",
+                        scene: "Yağmurdan sonra maske yüzeyinde ince çizgiler oluşur; ışıkta daha görünür.",
+                        choices: {
+                            left: { text: "Kuru yere gir, temizle", result: "Masken toparlar, zaman kaybedersin.", effects: { signal: 0, mask: 3, suspicion: 0, energy: -2 } },
+                            right: { text: "İdare et", result: "Zaman kazanırsın ama çizgiler büyüyebilir.", effects: { signal: 1, mask: -2, suspicion: 1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "2.10-D",
+                        scene: "Bir çocuk 'yüzün neden hep aynı?' diye sorar; bu soru maskenin tam kalbini deler.",
+                        choices: {
+                            left: { text: "Mimik çalış, sıcak davran", result: "Şüpheyi yumuşatırsın ama maske yorulur.", effects: { signal: 0, mask: -2, suspicion: -4, energy: -1 } },
+                            right: { text: "Kısa kes, uzaklaş", result: "Maske korunur ama soğukluk hissi kalır.", effects: { signal: 0, mask: 1, suspicion: 2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "2.10-E",
+                        scene: "Maskenin içi ısınıyor; cilt dokusu 'kayacak' gibi.",
+                        choices: {
+                            left: { text: "Soğutma yolu bul", result: "Maske daha stabil olur.", effects: { signal: 0, mask: 3, suspicion: 1, energy: -2 } },
+                            right: { text: "Dayan", result: "Hızlı ilerlersin ama yıpranma artar.", effects: { signal: 1, mask: -2, suspicion: 0, energy: 0 } }
                         }
                     }
                 ]
@@ -987,6 +1263,144 @@ const QUESTION_POOL = {
                         }
                     }
                 ]
+            },
+            8: { // 3.8 — BONUS (Y odaklı): Enerjiyi Güvenceye Alma
+                theme: "ENERJI_AVI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "3.8-A",
+                        scene: "Müttefik evinde gece herkes uyurken, prizler sessiz bir kurtuluş gibi durur.",
+                        choices: {
+                            left: { text: "Uzun süre enerji al", result: "Toparlanırsın ama 'fazla kalma' riski büyür.", effects: { signal: 0, mask: -1, suspicion: 3, energy: 5 } },
+                            right: { text: "Kısa al, dur", result: "Daha az risk alırsın ama daha az toparlanırsın.", effects: { signal: 0, mask: 0, suspicion: 0, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "3.8-B",
+                        scene: "Hastane koridorunda nöbetçi az; priz çok.",
+                        choices: {
+                            left: { text: "İçeride kal, enerji al", result: "Güçlenirsin ama kamera ihtimali artar.", effects: { signal: 0, mask: -1, suspicion: 4, energy: 5 } },
+                            right: { text: "Dış prizlerle yetin", result: "Daha sessiz olursun ama daha az güç alırsın.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 2 } }
+                        }
+                    },
+                    {
+                        id: "3.8-C",
+                        scene: "Şehirde elektrik kesintisi olur; bazı yerlerde jeneratör devreye girer.",
+                        choices: {
+                            left: { text: "Jeneratör kaynağına yönel", result: "Enerji için büyük fırsat doğar, risk de doğar.", effects: { signal: 1, mask: -1, suspicion: 4, energy: 5 } },
+                            right: { text: "Kesintiyi fırsat bil, saklan", result: "Şüphe azalır gibi olur ama güç azalır.", effects: { signal: 0, mask: 0, suspicion: -3, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "3.8-D",
+                        scene: "Kara pazarda 'yüksek kapasiteli hücre' önerirler; bedeli para değil, bağlılık gibi.",
+                        choices: {
+                            left: { text: "Al", result: "Enerji sorunu azalır ama yeni bir gölge başlar.", effects: { signal: 0, mask: 0, suspicion: 4, energy: 5 } },
+                            right: { text: "Reddet", result: "Temiz kalırsın ama zorluk sürer.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "3.8-E",
+                        scene: "Depoda bulduğun eski akü hâlâ canlı; üzerinde pas ve uyarı etiketi var.",
+                        choices: {
+                            left: { text: "Dene", result: "Büyük kazanç olabilir, bedel de.", effects: { signal: 0, mask: -2, suspicion: 2, energy: 5 } },
+                            right: { text: "Dokunma", result: "Risk azalır, ihtiyaç artar.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -1 } }
+                        }
+                    }
+                ]
+            },
+            9: { // 3.9 — BONUS (S odaklı): Sinyali "Bilerek" Yönetme
+                theme: "SINYAL_PARAZIT",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "3.9-A",
+                        scene: "Çatı anteni boş; gökyüzü açık. Bu kez sinyal atmak kolay ama anlamı ağır.",
+                        choices: {
+                            left: { text: "Güçlü sinyal dene", result: "Kurtuluş yaklaşır ama şehir de yaklaşır.", effects: { signal: 6, mask: -2, suspicion: 5, energy: -2 } },
+                            right: { text: "Kademeli sinyal dene", result: "İlerlersin ama daha kontrollü kalırsın.", effects: { signal: 3, mask: 0, suspicion: 2, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "3.9-B",
+                        scene: "İletişim Maskesi varsa cihaz daha 'temiz' konuşur; yoksa cızırtı daha serttir.",
+                        choices: {
+                            left: { text: "Frekansı optimize et", result: "Sinyal daha netleşir, bedel doğabilir.", effects: { signal: 5, mask: -1, suspicion: 3, energy: -2 } },
+                            right: { text: "'Şimdilik dur' de", result: "Risk azalır ama ilerleme yavaşlar.", effects: { signal: 1, mask: 0, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "3.9-C",
+                        scene: "Radyo kulübü 'son bir deneme' ister; senin için bu 'son bir risk.'",
+                        choices: {
+                            left: { text: "Dene", result: "İlerlersin, iz büyüyebilir.", effects: { signal: 5, mask: 0, suspicion: 4, energy: -2 } },
+                            right: { text: "Reddet", result: "İz azalır, fırsat sönebilir.", effects: { signal: 1, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "3.9-D",
+                        scene: "Sinyal yüzünden mahallede telefonlar anlık kesilir; insanlar huzursuz olur.",
+                        choices: {
+                            left: { text: "Devam et", result: "İlerlersin ama söylenti büyür.", effects: { signal: 5, mask: -1, suspicion: 5, energy: -2 } },
+                            right: { text: "Kes", result: "Söylenti azalır ama ilerleme de.", effects: { signal: 1, mask: 0, suspicion: -3, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "3.9-E",
+                        scene: "Müttefik 'bunu yapma, korkuyorlar' der; senin sinyalin onların gecesine karışır.",
+                        choices: {
+                            left: { text: "Yine de dene", result: "Kurtuluş hızlanır ama güven çatlayabilir.", effects: { signal: 5, mask: -2, suspicion: 3, energy: -2 } },
+                            right: { text: "Müttefiği dinle", result: "Güven güçlenir ama kurtuluş gecikir.", effects: { signal: 0, mask: 2, suspicion: -2, energy: 0 } }
+                        }
+                    }
+                ]
+            },
+            10: { // 3.10 — BONUS (M odaklı): Maskeyi Güçlendirme / Çatlak Yönetimi
+                theme: "MASKE_BIYOMEKANIGI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "3.10-A",
+                        scene: "Maskenin kenarında çatlak büyür; artık ışıkta seçiliyor.",
+                        choices: {
+                            left: { text: "Onarmayı seç", result: "Masken toparlar ama bedeli ağır gelir.", effects: { signal: 0, mask: 4, suspicion: 2, energy: -3 } },
+                            right: { text: "Ertele", result: "Zaman kazanırsın ama risk büyür.", effects: { signal: 1, mask: -2, suspicion: 0, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "3.10-B",
+                        scene: "Müttefik, maske dokusuna benzer bir 'yapıştırıcı' bulur; eline verir.",
+                        choices: {
+                            left: { text: "Kullan", result: "Masken güçlenir ama yakın temas riski doğar.", effects: { signal: 0, mask: 4, suspicion: 2, energy: -1 } },
+                            right: { text: "Sakla", result: "Şimdi risk azalır ama maske yıpranır.", effects: { signal: 0, mask: -1, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "3.10-C",
+                        scene: "Sığınakta birisi yüzüne çok yakından bakmak ister; maske bu mesafeyi sevmez.",
+                        choices: {
+                            left: { text: "Mesafeyi şakayla kapat", result: "Şüphe yumuşar ama maske yorulur.", effects: { signal: 0, mask: -2, suspicion: -3, energy: -1 } },
+                            right: { text: "Geri çekil", result: "Maske korunur ama soğukluk doğar.", effects: { signal: 0, mask: 1, suspicion: 2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "3.10-D",
+                        scene: "Maskenin içi ısınıp 'kayma' hissi verir; yüzün sanki oturmuyor.",
+                        choices: {
+                            left: { text: "Soğutma ve ayar yap", result: "Maske stabil olur.", effects: { signal: 0, mask: 3, suspicion: 1, energy: -2 } },
+                            right: { text: "Dayan", result: "Hızlı gidersin ama yıpranma artar.", effects: { signal: 1, mask: -2, suspicion: 0, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "3.10-E",
+                        scene: "Aynada kendini görürsün; yüzün 'insan' gibi ama biraz fazla 'kusursuz.'",
+                        choices: {
+                            left: { text: "Kusuru taklit et", result: "İnandırıcılık artar ama maske zorlanır.", effects: { signal: 0, mask: -2, suspicion: -3, energy: -1 } },
+                            right: { text: "Daha az mimik yap", result: "Maske korunur ama dikkat çekebilirsin.", effects: { signal: 0, mask: 1, suspicion: 2, energy: 0 } }
+                        }
+                    }
+                ]
             }
         }
     },
@@ -1315,6 +1729,144 @@ const QUESTION_POOL = {
                         choices: {
                             left: { text: "Çıkarma", result: "Dünya ile temas gecikir/bozulur.", effects: { signal: 2, mask: 0, suspicion: -1, energy: 0 } },
                             right: { text: "Çıkar", result: "Dünya ile gerçek temas başlar.", effects: { signal: 0, mask: 4, suspicion: 5, energy: -1 } }
+                        }
+                    }
+                ]
+            },
+            8: { // 4.8 — BONUS (Y odaklı): Son Dakika Enerji Krizi Çözümleri
+                theme: "ENERJI_AVI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "4.8-A",
+                        scene: "Son düzlükte enerji tükenir; bacakların ağır, maske titrek. Yakında bir elektrik panosu var.",
+                        choices: {
+                            left: { text: "Risk al, panoya yönel", result: "Toparlanırsın ama görünürlük artar.", effects: { signal: 1, mask: -1, suspicion: 4, energy: 5 } },
+                            right: { text: "Uzak dur, idare et", result: "Sessiz kalırsın ama güçsüzlük büyür.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -2 } }
+                        }
+                    },
+                    {
+                        id: "4.8-B",
+                        scene: "Müttefik evinde kısa bir fırsat: herkes uykuya dalmış, prizler boş.",
+                        choices: {
+                            left: { text: "Enerji al", result: "Son hamle için nefes kazanırsın.", effects: { signal: 0, mask: 0, suspicion: 2, energy: 4 } },
+                            right: { text: "Alma", result: "Kontrol sende kalır ama zorlanırsın.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "4.8-C",
+                        scene: "Şehirde elektrikli araç şarjı; çevrede birkaç kişi var, ama senin zamanın az.",
+                        choices: {
+                            left: { text: "Normal görünerek şarj al", result: "Güç kazanırsın ama bakışlar hissedilir.", effects: { signal: 0, mask: -2, suspicion: 3, energy: 4 } },
+                            right: { text: "Vazgeç, hızlan", result: "Görünmez kalırsın ama tükenirsin.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -2 } }
+                        }
+                    },
+                    {
+                        id: "4.8-D",
+                        scene: "Boş bir istasyonda acil jeneratör devrede; uğultu senin kalbin gibi atıyor.",
+                        choices: {
+                            left: { text: "Yaklaş, enerji al", result: "Toparlanırsın ama iz bırakabilirsin.", effects: { signal: 0, mask: -1, suspicion: 3, energy: 5 } },
+                            right: { text: "Uzaklaş", result: "Risk azalır ama güç azalır.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } }
+                        }
+                    },
+                    {
+                        id: "4.8-E",
+                        scene: "Fırtına yaklaşır; hava elektrik kokar.",
+                        choices: {
+                            left: { text: "Fırtınadan enerji topla", result: "Büyük güç gelir ama bedel de gelebilir.", effects: { signal: 1, mask: -3, suspicion: 2, energy: 5 } },
+                            right: { text: "Saklan", result: "Güvende kalırsın ama zayıf kalırsın.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } }
+                        }
+                    }
+                ]
+            },
+            9: { // 4.9 — BONUS (S odaklı): Sinyalde Son Sıçrama
+                theme: "SINYAL_PARAZIT",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "4.9-A",
+                        scene: "Cihaz 'yakın' hissi verir; sanki tek bir doğru ayar her şeyi tamamlayacak.",
+                        choices: {
+                            left: { text: "Ayarı büyüt", result: "Kurtuluş hızlanır ama şehir uyanır.", effects: { signal: 7, mask: -2, suspicion: 5, energy: -2 } },
+                            right: { text: "Ayarı kıs", result: "Şehir sakinleşir ama kurtuluş gecikir.", effects: { signal: 2, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.9-B",
+                        scene: "Açık alanda gökyüzü net; sinyal buradan 'daha temiz' akar.",
+                        choices: {
+                            left: { text: "Buradan dene", result: "Sinyal güçlenir ama görünür olursun.", effects: { signal: 6, mask: -1, suspicion: 4, energy: -2 } },
+                            right: { text: "Kapalı alana çekil", result: "Gizli kalırsın ama sinyal zorlaşır.", effects: { signal: 2, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.9-C",
+                        scene: "Radyo kulübü son bir 'temiz frekans' verir; bu frekans final gibi.",
+                        choices: {
+                            left: { text: "Kullan", result: "Sinyal netleşir ama iz büyüyebilir.", effects: { signal: 6, mask: 0, suspicion: 4, energy: -2 } },
+                            right: { text: "Kullanma", result: "Risk azalır ama fırsat kaçar.", effects: { signal: 1, mask: 0, suspicion: -2, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.9-D",
+                        scene: "Sinyal gönderince sokak ışıkları tekrar titrer; birkaç kişi durup göğe bakar.",
+                        choices: {
+                            left: { text: "Devam et", result: "İlerlersin ama söylenti büyür.", effects: { signal: 6, mask: -1, suspicion: 5, energy: -2 } },
+                            right: { text: "Kes", result: "Söylenti azalır ama ilerleme de.", effects: { signal: 1, mask: 0, suspicion: -3, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.9-E",
+                        scene: "Cihaz 'konum' ister; yanlış bir hamle iz bırakabilir.",
+                        choices: {
+                            left: { text: "Net hamle yap", result: "Kurtuluş yaklaşır ama risk artar.", effects: { signal: 7, mask: -1, suspicion: 4, energy: -2 } },
+                            right: { text: "Parça parça ilerle", result: "Daha kontrollü ilerlersin ama daha yavaş.", effects: { signal: 3, mask: 0, suspicion: 1, energy: -1 } }
+                        }
+                    }
+                ]
+            },
+            10: { // 4.10 — BONUS (M odaklı): Maskenin Son Tamiri
+                theme: "MASKE_BIYOMEKANIGI",
+                critical: false,
+                alternatives: [
+                    {
+                        id: "4.10-A",
+                        scene: "Maskenin kenarı artık çıtırdıyor; her mimik, çatlağı büyütüyor.",
+                        choices: {
+                            left: { text: "Son bir onarım yap", result: "Masken toparlar ama zaman/bedel ağır gelir.", effects: { signal: 0, mask: 5, suspicion: 2, energy: -3 } },
+                            right: { text: "Onarımı ertele, hızlan", result: "Hız kazanırsın ama maske kırılganlaşır.", effects: { signal: 1, mask: -3, suspicion: 0, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.10-B",
+                        scene: "Müttefik 'şu malzeme yüzüne iyi gelir' diyerek küçük bir kutu verir.",
+                        choices: {
+                            left: { text: "Hemen uygula", result: "Masken güçlenir ama yakın bakış riski doğar.", effects: { signal: 0, mask: 4, suspicion: 2, energy: -1 } },
+                            right: { text: "Sakla", result: "Şimdi risk azalır ama maske yıpranır.", effects: { signal: 0, mask: -1, suspicion: -1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.10-C",
+                        scene: "Maske ter ve buhar yüzünden 'kaymış' gibi; gözlerin doğru yerde değilmiş gibi hissedersin.",
+                        choices: {
+                            left: { text: "Kısa ayar yap", result: "Daha inandırıcı olursun ama görünür olursun.", effects: { signal: 0, mask: 3, suspicion: 2, energy: -1 } },
+                            right: { text: "Dayan", result: "Hızlı ilerlersin ama hata büyür.", effects: { signal: 1, mask: -2, suspicion: 1, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.10-D",
+                        scene: "Işık altında yüzün 'fazla kusursuz' görünüyor; kusursuzluk bazen en büyük şüphedir.",
+                        choices: {
+                            left: { text: "Küçük kusur taklit et", result: "İnandırıcılık artar ama maske yorulur.", effects: { signal: 0, mask: -2, suspicion: -4, energy: -1 } },
+                            right: { text: "Donuk kal", result: "Maske korunur ama dikkat çekebilirsin.", effects: { signal: 0, mask: 1, suspicion: 3, energy: 0 } }
+                        }
+                    },
+                    {
+                        id: "4.10-E",
+                        scene: "Son anda maskenin içinden metalik bir 'klik' gelir; sanki kilit gevşemiştir.",
+                        choices: {
+                            left: { text: "Kilidi yerine oturt", result: "Maske stabil olur.", effects: { signal: 0, mask: 4, suspicion: 1, energy: -2 } },
+                            right: { text: "Umursama", result: "Zaman kazanırsın ama kırılganlık artar.", effects: { signal: 1, mask: -2, suspicion: 0, energy: 0 } }
                         }
                     }
                 ]
