@@ -50,7 +50,8 @@
                         <img src="assets/icons/energy.png" alt="Enerji">
                     </div>
                     <p>4 ana kaynağını dengede tut. Herhangi biri <strong>0</strong> olur veya Şüphe
-                        <strong>100</strong> olursa elenirsin!</p>
+                        <strong>100</strong> olursa elenirsin!
+                    </p>
                 </div>
 
                 <div class="tutorial-step">
@@ -173,6 +174,20 @@
             <div class="end-stats" id="end-stats"></div>
             <button id="restart-btn" class="btn-primary">TEKRAR OYNA</button>
         </div>
+    </div>
+
+    <!-- Video Overlay (Tüm ekranların üzerinde) -->
+    <div id="video-overlay" class="video-overlay">
+        <div class="video-container">
+            <div class="video-header">
+                <span class="video-header-icon">🎬</span>
+                <span id="video-header-title" class="video-header-title"></span>
+            </div>
+            <video id="story-video" class="story-video" playsinline>
+                <source src="" type="video/mp4">
+            </video>
+        </div>
+        <button id="skip-video-btn" class="skip-video-btn">ATLA ⏭️</button>
     </div>
 
     <!-- JavaScript Dosyaları -->

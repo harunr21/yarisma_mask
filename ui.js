@@ -63,7 +63,12 @@ const elements = {
     // Başarım Overlay
     achievementOverlay: document.getElementById('achievement-overlay'),
     achievementMaskName: document.getElementById('achievement-mask-name'),
-    achievementMaskImageContainer: document.getElementById('achievement-mask-image-container')
+    achievementMaskImageContainer: document.getElementById('achievement-mask-image-container'),
+
+    // Video Overlay
+    videoOverlay: document.getElementById('video-overlay'),
+    storyVideo: document.getElementById('story-video'),
+    skipVideoBtn: document.getElementById('skip-video-btn')
 };
 
 // Ekran geçişleri
@@ -314,6 +319,7 @@ function updateCollectedMasks(masks) {
 // Swipe işlendikten sonra
 function handleSwipe(direction) {
     const oldDay = gameState.day; // Animasyon için eski günü kaydet
+    const oldAct = gameState.currentAct; // ACT değişikliği kontrolü için
     const result = gameState.applyChoice(direction);
 
     if (!result) return;
@@ -340,6 +346,35 @@ function handleSwipe(direction) {
         updateCollectedMasks(result.collectedMasks);
     }
 
+    // ACT değişikliği kontrolü
+    const actChanged = result.currentAct !== oldAct && result.currentAct >= 2 && result.currentAct <= 4;
+
+    // Sonraki kartı göster (ACT değiştiyse video ile birlikte)
+    const showNextCard = () => {
+        if (result.isGameOver) {
+            setTimeout(() => {
+                showEndScreen();
+            }, 500);
+        } else {
+            // ACT değiştiyse önce video oynat
+            if (actChanged) {
+                const actVideoKey = `act${result.currentAct}`;
+                if (!watchedVideos.has(actVideoKey)) {
+                    playVideo(actVideoKey, () => {
+                        swipeHandler.reset();
+                        const nextCard = gameState.getNextCard();
+                        renderCard(nextCard);
+                    });
+                    return;
+                }
+            }
+
+            swipeHandler.reset();
+            const nextCard = gameState.getNextCard();
+            renderCard(nextCard);
+        }
+    };
+
     // İşlem sonrası yapılacaklar (Yeni kart veya oyun sonu)
     const onComplete = () => {
         // Değişim göstergelerini (sayıları) temizle
@@ -349,29 +384,11 @@ function handleSwipe(direction) {
         if (result.earnedMask) {
             animateMaskAward(result.earnedMask, () => {
                 updateDayCounter();
-
-                if (result.isGameOver) {
-                    setTimeout(() => {
-                        showEndScreen();
-                    }, 500);
-                } else {
-                    swipeHandler.reset();
-                    const nextCard = gameState.getNextCard();
-                    renderCard(nextCard);
-                }
+                showNextCard();
             });
         } else {
             updateDayCounter();
-
-            if (result.isGameOver) {
-                setTimeout(() => {
-                    showEndScreen();
-                }, 500);
-            } else {
-                swipeHandler.reset();
-                const nextCard = gameState.getNextCard();
-                renderCard(nextCard);
-            }
+            showNextCard();
         }
     };
 
@@ -463,26 +480,148 @@ function showEndScreen() {
     showScreen('end');
 }
 
+// Video oynatma fonksiyonu
+const videoSources = {
+    intro: 'editli_videolar/1.mp4',  // Oyun başlangıcı
+    act1: 'editli_videolar/2.mp4',   // ACT 1 başlangıcı
+    act2: 'editli_videolar/3.mp4',   // ACT 2 başlangıcı
+    act3: 'editli_videolar/4.mp4',   // ACT 3 başlangıcı
+    act4: 'editli_videolar/5.mp4'    // ACT 4 başlangıcı
+};
+
+// Video başlıkları
+const videoTitles = {
+    intro: 'BAŞLANGIÇ',
+    act1: 'BÖLÜM 1 - ENKAZ VE İLK TAKLİT',
+    act2: 'BÖLÜM 2 - ŞEHİR SENİ ÖĞRENİYOR',
+    act3: 'BÖLÜM 3 - YAKINLIK VE GÜVEN',
+    act4: 'BÖLÜM 4 - SON DÜZLÜK'
+};
+
+// İzlenen videolar (tekrar izlenmemesi için)
+let watchedVideos = new Set();
+
+// Video başlık elementi
+const videoHeaderTitle = document.getElementById('video-header-title');
+
+function playVideo(videoKey, callback) {
+    const videoSrc = videoSources[videoKey];
+    if (!videoSrc) {
+        if (callback) callback();
+        return;
+    }
+
+    // Video elementini güncelle
+    elements.storyVideo.src = videoSrc;
+    elements.storyVideo.load();
+
+    // Video başlığını güncelle
+    if (videoHeaderTitle) {
+        videoHeaderTitle.textContent = videoTitles[videoKey] || '';
+    }
+
+    // Fade-out class'ını kaldır (önceki animasyonlardan kalmış olabilir)
+    elements.videoOverlay.classList.remove('fade-out');
+
+    // Video overlay'i göster
+    elements.videoOverlay.classList.add('active');
+
+    // Atla butonunu sıfırla (animasyon tekrar çalışsın)
+    elements.skipVideoBtn.style.animation = 'none';
+    elements.skipVideoBtn.offsetHeight; // Reflow tetikle
+    elements.skipVideoBtn.style.animation = 'fadeInSkipBtn 0.8s ease 1.5s forwards';
+
+    // Video bittiğinde
+    const onVideoEnd = () => {
+        closeVideoWithFade(callback);
+    };
+
+    // Atla butonuna tıklama
+    const onSkip = () => {
+        closeVideoWithFade(callback);
+    };
+
+    // Video bittiğinde tetiklenir
+    elements.storyVideo.addEventListener('ended', onVideoEnd, { once: true });
+
+    // Atla butonuna tıklama
+    elements.skipVideoBtn.addEventListener('click', onSkip, { once: true });
+
+    // Video oynatmayı başlat
+    elements.storyVideo.play().catch(err => {
+        console.log('Video oynatılamadı:', err);
+        closeVideoWithFade(callback);
+    });
+
+    function closeVideoWithFade(cb) {
+        // Event listener'ları temizle
+        elements.storyVideo.removeEventListener('ended', onVideoEnd);
+        elements.skipVideoBtn.removeEventListener('click', onSkip);
+
+        // Fade-out animasyonunu başlat
+        elements.videoOverlay.classList.add('fade-out');
+
+        // Animasyon bitince overlay'i tamamen kapat
+        setTimeout(() => {
+            elements.storyVideo.pause();
+            elements.videoOverlay.classList.remove('active');
+            elements.videoOverlay.classList.remove('fade-out');
+            watchedVideos.add(videoKey);
+            if (cb) cb();
+        }, 600); // CSS transition süresiyle eşleş
+    }
+}
+
+// ACT değişikliğini kontrol et ve video oynat
+let lastAct = 0;
+
+function checkAndPlayActVideo(callback) {
+    const currentAct = gameState.currentAct;
+
+    // ACT değiştiyse ve bu ACT için video henüz izlenmediyse
+    if (currentAct !== lastAct && currentAct >= 1 && currentAct <= 4) {
+        const actVideoKey = `act${currentAct}`;
+
+        if (!watchedVideos.has(actVideoKey)) {
+            lastAct = currentAct;
+            playVideo(actVideoKey, callback);
+            return;
+        }
+    }
+
+    lastAct = currentAct;
+    if (callback) callback();
+}
+
 // Oyunu başlat
 function startGame() {
     gameState.reset();
-    updateStatBars(false);
-    updateDayCounter();
-    updateDayCounter();
-    updateActProgress();
-    updateCollectedMasks([]); // Maskeleri sıfırla
+    watchedVideos.clear(); // İzlenen videoları sıfırla
+    lastAct = 0;
 
-    const firstCard = gameState.getNextCard();
-    renderCard(firstCard);
+    // Önce intro videosunu oynat
+    playVideo('intro', () => {
+        updateStatBars(false);
+        updateDayCounter();
+        updateDayCounter();
+        updateActProgress();
+        updateCollectedMasks([]); // Maskeleri sıfırla
 
-    showScreen('game');
+        // ACT 1 videosunu oynat
+        checkAndPlayActVideo(() => {
+            const firstCard = gameState.getNextCard();
+            renderCard(firstCard);
 
-    // Swipe handler'ı başlat
-    if (!swipeHandler) {
-        swipeHandler = new SwipeHandler(elements.card, handleSwipe);
-    } else {
-        swipeHandler.reset();
-    }
+            showScreen('game');
+
+            // Swipe handler'ı başlat
+            if (!swipeHandler) {
+                swipeHandler = new SwipeHandler(elements.card, handleSwipe);
+            } else {
+                swipeHandler.reset();
+            }
+        });
+    });
 }
 
 elements.soundToggle.addEventListener('click', () => {
