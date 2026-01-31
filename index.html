@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Mask of Destiny - Dünyaya zorunlu iniş yapmış bir uzaylının hayatta kalma mücadelesi">
+    <title>Mask of Destiny</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Başlangıç Ekranı -->
+    <div id="start-screen" class="screen active">
+        <div class="start-content">
+            <div class="logo">
+                <div class="alien-icon">👽</div>
+                <h1>MASK OF DESTINY</h1>
+                <p class="tagline">Kimliğini gizle. Sinyali güçlendir. Eve dön.</p>
+            </div>
+            <button id="start-btn" class="btn-primary">OYUNU BAŞLAT</button>
+        </div>
+    </div>
+
+    <!-- Oyun Ekranı -->
+    <div id="game-screen" class="screen">
+        <!-- PiP Toggle Button -->
+        <button id="pip-toggle-btn" class="pip-btn" title="Kartı Küçült/Büyüt">⤢</button>
+
+        <!-- Stat Barları -->
+        <div class="stat-container">
+            <div class="stat" data-stat="signal">
+                <span class="stat-icon">📡</span>
+                <div class="stat-bar">
+                    <div class="stat-fill signal-fill" id="signal-bar"></div>
+                </div>
+                <span class="stat-label">Sinyal</span>
+            </div>
+            <div class="stat" data-stat="mask">
+                <span class="stat-icon">🎭</span>
+                <div class="stat-bar">
+                    <div class="stat-fill mask-fill" id="mask-bar"></div>
+                </div>
+                <span class="stat-label">Maske</span>
+            </div>
+            <div class="stat" data-stat="suspicion">
+                <span class="stat-icon">👁️</span>
+                <div class="stat-bar">
+                    <div class="stat-fill suspicion-fill" id="suspicion-bar"></div>
+                </div>
+                <span class="stat-label">Şüphe</span>
+            </div>
+            <div class="stat" data-stat="energy">
+                <span class="stat-icon">⚡</span>
+                <div class="stat-bar">
+                    <div class="stat-fill energy-fill" id="energy-bar"></div>
+                </div>
+                <span class="stat-label">Enerji <span id="energy-value"></span></span>
+            </div>
+        </div>
+
+        <!-- Kart Alanı -->
+        <div class="card-area">
+            <div class="choice-hint left-hint">
+                <span class="hint-text" id="left-choice-text">Reddet</span>
+            </div>
+
+            <div class="card-container" id="card-container">
+                <div class="card" id="current-card">
+                    <div class="card-image" id="card-image">
+                        <span class="card-emoji">🏠</span>
+                    </div>
+                    <h2 class="card-title" id="card-title">Kart Başlığı</h2>
+                    <p class="card-description" id="card-description">Kart açıklaması burada görünecek...</p>
+                </div>
+            </div>
+
+            <div class="choice-hint right-hint">
+                <span class="hint-text" id="right-choice-text">Kabul Et</span>
+            </div>
+        </div>
+
+        <!-- Gün Sayacı -->
+        <div class="day-counter">
+            <span>GÜN</span>
+            <span class="day-number" id="day-number">1</span>
+        </div>
+    </div>
+
+    <!-- Oyun Sonu Ekranı -->
+    <div id="end-screen" class="screen">
+        <div class="end-content">
+            <div class="end-icon" id="end-icon">🚀</div>
+            <h2 class="end-title" id="end-title">OYUN BİTTİ</h2>
+            <p class="end-description" id="end-description">Sonuç açıklaması...</p>
+            <div class="end-stats" id="end-stats"></div>
+            <button id="restart-btn" class="btn-primary">TEKRAR OYNA</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Dosyaları -->
+    <script src="cards.js"></script>
+    <script src="game.js"></script>
+    <script src="swipe.js"></script>
+    <script src="ui.js"></script>
+</body>
+
+</html>
