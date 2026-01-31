@@ -44,7 +44,16 @@ const elements = {
     dayOverlay: document.getElementById('day-overlay'),
     dayOverlayLabel: document.querySelector('.day-overlay-label'),
     dayOverlayNumber: document.getElementById('day-overlay-number'),
-    dayOverlayResult: document.getElementById('day-overlay-result')
+    dayOverlayNumber: document.getElementById('day-overlay-number'),
+    dayOverlayResult: document.getElementById('day-overlay-result'),
+
+    // Toplanan maskeler
+    collectedMasksContainer: document.getElementById('collected-masks-container'),
+
+    // Başarım Overlay
+    achievementOverlay: document.getElementById('achievement-overlay'),
+    achievementMaskName: document.getElementById('achievement-mask-name'),
+    achievementMaskImageContainer: document.getElementById('achievement-mask-image-container')
 };
 
 // Ekran geçişleri
@@ -138,6 +147,9 @@ function animateDayPass(startDay, endDay, resultText, callback) {
 
     elements.dayOverlay.classList.add('active');
 
+    // İmleci normal yap, tıklama hazır olunca pointer olacak
+    elements.dayOverlay.style.cursor = 'default';
+
     // Sonuç metnini ayarla
     if (elements.dayOverlayResult) {
         elements.dayOverlayResult.textContent = resultText || '';
@@ -157,13 +169,97 @@ function animateDayPass(startDay, endDay, resultText, callback) {
 
         if (current >= endDay) {
             clearInterval(interval);
-            // Gün sayacı durduğunda biraz daha uzun bekle ki sonuç metni okunsun (600ms -> 2500ms)
+
+            // Sayaç bittiğinde tıklama ile geçişi aktifleştir
             setTimeout(() => {
-                elements.dayOverlay.classList.remove('active');
-                if (callback) callback();
-            }, 2500);
+                // Görsel ipucu: imleci pointer yap
+                elements.dayOverlay.style.cursor = 'pointer';
+
+                const onOverlayClick = () => {
+                    elements.dayOverlay.classList.remove('active');
+                    if (callback) callback();
+                };
+
+                elements.dayOverlay.addEventListener('click', onOverlayClick, { once: true });
+            }, 500); // 500ms bekle ki yanlışlıkla hemen geçilmesin
         }
     }, durationPerStep);
+}
+
+// Başarım animasyonu
+function animateMaskAward(maskName, callback) {
+    const maskImages = {
+        "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
+        "Güven Maskesi": "assets/masks/guven_maskesi.png"
+    };
+
+    elements.achievementMaskName.textContent = maskName;
+
+    // Görsel ekle
+    const imagePath = maskImages[maskName];
+    if (imagePath) {
+        elements.achievementMaskImageContainer.innerHTML = `<img src="${imagePath}" alt="${maskName}">`;
+    } else {
+        elements.achievementMaskImageContainer.innerHTML = '';
+    }
+
+    elements.achievementOverlay.classList.add('active');
+
+    // Tıklayınca kapat
+    const onAchievementClick = () => {
+        elements.achievementOverlay.classList.remove('active');
+        if (callback) callback();
+    };
+
+    elements.achievementOverlay.addEventListener('click', onAchievementClick, { once: true });
+}
+
+// Toplanan maskeleri güncelle
+function updateCollectedMasks(masks) {
+    if (!elements.collectedMasksContainer) return;
+
+    elements.collectedMasksContainer.innerHTML = '';
+
+    // Sabit slotlar oluşturabiliriz veya sadece toplananları gösterebiliriz.
+    // Kullanıcı "kazandıkça o slota yerleşsin" dediği için şimdilik sadece var olanları gösterelim.
+    // Ancak "slot" hissi için boş slotlar da ekleyebiliriz ama şimdilik dinamik yapalım.
+
+    if (!masks || masks.length === 0) return;
+
+    const maskImages = {
+        "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
+        "Güven Maskesi": "assets/masks/guven_maskesi.png"
+    };
+
+    masks.forEach(maskName => {
+        const imagePath = maskImages[maskName];
+        if (imagePath) {
+            const maskEl = document.createElement('div');
+            maskEl.className = 'collected-mask-slot';
+            maskEl.innerHTML = `
+                <img src="${imagePath}" alt="${maskName}" class="collected-mask-image">
+                <div class="mask-tooltip">${maskName}</div>
+            `;
+
+            // Tıklama ile isni göster/gizle
+            maskEl.addEventListener('click', (e) => {
+                e.stopPropagation(); // Event bubbling engelle
+
+                // Diğer tüm tooltipleri kapat
+                document.querySelectorAll('.mask-tooltip').forEach(el => {
+                    if (el !== maskEl.querySelector('.mask-tooltip')) {
+                        el.classList.remove('visible');
+                    }
+                });
+
+                // Tıklanan slotun tooltip'ini toggle et
+                const tooltip = maskEl.querySelector('.mask-tooltip');
+                tooltip.classList.toggle('visible');
+            });
+
+            elements.collectedMasksContainer.appendChild(maskEl);
+        }
+    });
 }
 
 // Swipe işlendikten sonra
@@ -184,18 +280,40 @@ function handleSwipe(direction) {
     // ACT göstergesini güncelle
     updateActProgress();
 
+    // Maskeleri güncelle
+    if (result.collectedMasks) {
+        updateCollectedMasks(result.collectedMasks);
+    }
+
     // İşlem sonrası yapılacaklar (Yeni kart veya oyun sonu)
     const onComplete = () => {
-        updateDayCounter();
+        // Eğer maske kazanıldıysa başarım animasyonunu göster
+        if (result.earnedMask) {
+            animateMaskAward(result.earnedMask, () => {
+                updateDayCounter();
 
-        if (result.isGameOver) {
-            setTimeout(() => {
-                showEndScreen();
-            }, 500);
+                if (result.isGameOver) {
+                    setTimeout(() => {
+                        showEndScreen();
+                    }, 500);
+                } else {
+                    swipeHandler.reset();
+                    const nextCard = gameState.getNextCard();
+                    renderCard(nextCard);
+                }
+            });
         } else {
-            swipeHandler.reset();
-            const nextCard = gameState.getNextCard();
-            renderCard(nextCard);
+            updateDayCounter();
+
+            if (result.isGameOver) {
+                setTimeout(() => {
+                    showEndScreen();
+                }, 500);
+            } else {
+                swipeHandler.reset();
+                const nextCard = gameState.getNextCard();
+                renderCard(nextCard);
+            }
         }
     };
 
@@ -249,7 +367,9 @@ function startGame() {
     gameState.reset();
     updateStatBars(false);
     updateDayCounter();
+    updateDayCounter();
     updateActProgress();
+    updateCollectedMasks([]); // Maskeleri sıfırla
 
     const firstCard = gameState.getNextCard();
     renderCard(firstCard);
@@ -277,6 +397,13 @@ pipBtn.addEventListener('click', (e) => {
     e.stopPropagation(); // Event bubbling engelle
     cardArea.classList.toggle('pip-mode');
     pipBtn.classList.toggle('active');
+});
+
+// Sayfanın herhangi bir yerine tıklayınca maske isimlerini kapat
+document.addEventListener('click', () => {
+    document.querySelectorAll('.mask-tooltip.visible').forEach(el => {
+        el.classList.remove('visible');
+    });
 });
 
 // Kart alanına tıklayınca (eğer pip modundaysa) normale dön

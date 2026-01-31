@@ -16,6 +16,7 @@ class GameState {
         this.day = 1;
         this.isGameOver = false;
         this.endReason = null;
+        this.collectedMasks = []; // Toplanan maskeler
 
         // ACT tabanlı ilerleme sistemi
         this.currentAct = 1;           // Şu anki bölüm (1-4)
@@ -98,14 +99,14 @@ class GameState {
     // Günlük pasif etkileri uygula
     applyDailyPassives() {
         // PASİF GÜNLÜK ETKİLER
-        // Yaşam enerjisi -= 0.5
+        // Yaşam enerjisi -= 0.2
         // Maske -= 1
         // Şüphe += 1
         // Sinyal pasif değişmez (0)
 
-        this.stats.energy = Math.max(0, this.stats.energy - 0.5);
-        this.stats.mask = Math.max(0, this.stats.mask - 1);
-        this.stats.suspicion = Math.min(100, this.stats.suspicion + 1);
+        this.stats.energy = Math.max(0, this.stats.energy - 0.2);
+        this.stats.mask = Math.max(0, this.stats.mask - 0.5);
+        //this.stats.suspicion = Math.min(100, this.stats.suspicion + 1);
     }
 
     applyChoice(direction) {
@@ -114,6 +115,9 @@ class GameState {
         const choice = direction === 'left'
             ? this.currentQuestion.choices.left
             : this.currentQuestion.choices.right;
+
+        // Seçim öncesi değerleri kaydet
+        const beforeStats = { ...this.stats };
 
         // 1. ÖNCE: Karar anındaki enerjiye göre bekleme süresini hesapla
         const daysToWait = this.getDaysUntilNextCard(this.stats.energy);
@@ -130,20 +134,37 @@ class GameState {
 
         const changes = {};
         const effects = choice.effects;
+        let earnedMask = null;
 
         // 3. DAHA SONRA: Soru efektlerini uygula (Eğer oyun bitmediyse)
         if (!this.isGameOver) {
+            // Soru efektlerini uygula - TÜM statları kontrol et (0 dahil)
             for (const [stat, value] of Object.entries(effects)) {
+                const oldValue = this.stats[stat];
+                // Sadece 0 olmayan değerleri uygula
                 if (value !== 0) {
-                    const oldValue = this.stats[stat];
                     this.stats[stat] = Math.max(0, Math.min(100, this.stats[stat] + value));
+                }
+                // Tüm statların değişimini kaydet (pasif + soru efekti toplam)
+                const totalChange = this.stats[stat] - beforeStats[stat];
+                if (totalChange !== 0 || value !== 0) {
                     changes[stat] = {
-                        oldValue,
+                        oldValue: beforeStats[stat],
                         newValue: this.stats[stat],
-                        change: value
+                        change: value, // Soru efekti
+                        totalChange: totalChange // Pasif + soru efekti toplam
                     };
                 }
             }
+
+            // Maske ödülü kontrolü
+            if (choice.award) {
+                if (!this.collectedMasks.includes(choice.award)) {
+                    this.collectedMasks.push(choice.award);
+                    earnedMask = choice.award;
+                }
+            }
+
             // Efektlerden sonra tekrar kontrol
             this.checkGameEnd();
         }
@@ -167,12 +188,15 @@ class GameState {
         return {
             choice,
             changes,
+            effects, // Soru efeklerini de döndür
             day: this.day,
             isGameOver: this.isGameOver,
             endReason: this.endReason,
             currentAct: this.currentAct,
             currentQuestionInAct: this.currentQuestionInAct,
-            totalQuestionsAnswered: this.totalQuestionsAnswered
+            totalQuestionsAnswered: this.totalQuestionsAnswered,
+            earnedMask: earnedMask,
+            collectedMasks: this.collectedMasks
         };
     }
 
@@ -285,7 +309,8 @@ class GameState {
             currentQuestionInAct: this.currentQuestionInAct,
             totalQuestionsAnswered: this.totalQuestionsAnswered,
             totalQuestions: 28, // 4 ACT x 7 soru
-            actName: this.currentAct <= 4 ? QUESTION_POOL[this.currentAct].name : 'Tamamlandı'
+            actName: this.currentAct <= 4 ? QUESTION_POOL[this.currentAct].name : 'Tamamlandı',
+            collectedMasks: this.collectedMasks
         };
     }
 
@@ -299,6 +324,7 @@ class GameState {
         this.day = 1;
         this.isGameOver = false;
         this.endReason = null;
+        this.collectedMasks = [];
 
         // ACT tabanlı ilerleme sıfırla
         this.currentAct = 1;
