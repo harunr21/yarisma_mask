@@ -38,7 +38,12 @@ const elements = {
     endIcon: document.getElementById('end-icon'),
     endTitle: document.getElementById('end-title'),
     endDescription: document.getElementById('end-description'),
-    endStats: document.getElementById('end-stats')
+    endStats: document.getElementById('end-stats'),
+
+    // Gün animasyon overlay
+    dayOverlay: document.getElementById('day-overlay'),
+    dayOverlayLabel: document.querySelector('.day-overlay-label'),
+    dayOverlayNumber: document.getElementById('day-overlay-number')
 };
 
 // Ekran geçişleri
@@ -118,8 +123,40 @@ function updateDayCounter() {
     elements.dayNumber.textContent = gameState.day;
 }
 
+// Gün geçiş animasyonu
+function animateDayPass(startDay, endDay, callback) {
+    if (startDay >= endDay) {
+        if (callback) callback();
+        return;
+    }
+
+    elements.dayOverlay.classList.add('active');
+
+    // Animasyon başlangıç değeri
+    let current = startDay;
+    elements.dayOverlayNumber.textContent = current;
+
+    // Fark arttıkça hızlan, ama çok hızlı da olmasın
+    const diff = endDay - startDay;
+    const durationPerStep = Math.max(50, Math.min(200, 1000 / diff));
+
+    const interval = setInterval(() => {
+        current++;
+        elements.dayOverlayNumber.textContent = current;
+
+        if (current >= endDay) {
+            clearInterval(interval);
+            setTimeout(() => {
+                elements.dayOverlay.classList.remove('active');
+                if (callback) callback();
+            }, 600); // Overlay kapanmadan önce biraz bekle
+        }
+    }, durationPerStep);
+}
+
 // Swipe işlendikten sonra
 function handleSwipe(direction) {
+    const oldDay = gameState.day; // Animasyon için eski günü kaydet
     const result = gameState.applyChoice(direction);
 
     if (!result) return;
@@ -129,24 +166,34 @@ function handleSwipe(direction) {
         animateStatChange(statName);
     }
 
-    // UI güncelle
+    // Stat barlarını güncelle
     updateStatBars();
-    updateDayCounter();
 
-    // Oyun bittiyse
-    if (result.isGameOver) {
+    // İşlem sonrası yapılacaklar (Yeni kart veya oyun sonu)
+    const onComplete = () => {
+        updateDayCounter();
+
+        if (result.isGameOver) {
+            setTimeout(() => {
+                showEndScreen();
+            }, 500);
+        } else {
+            swipeHandler.reset();
+            const nextCard = gameState.getNextCard();
+            renderCard(nextCard);
+        }
+    };
+
+    // Gün geçişi olduysa animasyonu oynat
+    if (result.day > oldDay) {
+        // Kartın çıkış animasyonunu bekle (400ms)
         setTimeout(() => {
-            showEndScreen();
-        }, 500);
-        return;
+            animateDayPass(oldDay, result.day, onComplete);
+        }, 400);
+    } else {
+        // Gün değişmediyse (bazen olabilir)
+        setTimeout(onComplete, 400);
     }
-
-    // Yeni kart göster
-    setTimeout(() => {
-        swipeHandler.reset();
-        const nextCard = gameState.getNextCard();
-        renderCard(nextCard);
-    }, 400);
 }
 
 // Oyun sonu ekranını göster

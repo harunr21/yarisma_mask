@@ -63,7 +63,7 @@ class GameState {
         // Şüphe += 1
         // Sinyal pasif değişmez (0)
 
-        this.stats.energy = Math.max(0, this.stats.energy - 2);
+        this.stats.energy = Math.max(0, this.stats.energy - 0.5);
         this.stats.mask = Math.max(0, this.stats.mask - 1);
         this.stats.suspicion = Math.min(100, this.stats.suspicion + 1);
     }
