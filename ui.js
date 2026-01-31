@@ -183,22 +183,42 @@ function animateDayPass(startDay, endDay, resultText, callback) {
     }
 
     elements.dayOverlay.classList.add('active');
+    elements.dayOverlay.style.cursor = 'pointer'; // Her zaman tıklanabilir yapalım
 
-    // İmleci normal yap, tıklama hazır olunca pointer olacak
-    elements.dayOverlay.style.cursor = 'default';
-
-    // Sonuç metnini ayarla
     if (elements.dayOverlayResult) {
         elements.dayOverlayResult.textContent = resultText || '';
     }
 
-    // Animasyon başlangıç değeri
     let current = startDay;
     elements.dayOverlayNumber.textContent = current;
 
-    // Fark arttıkça hızlan, ama çok hızlı da olmasın
     const diff = endDay - startDay;
     const durationPerStep = Math.max(50, Math.min(200, 1000 / diff));
+
+    let isFinishPending = false;
+
+    const finishAnimation = () => {
+        if (isFinishPending) return;
+        isFinishPending = true;
+
+        clearInterval(interval);
+        elements.dayOverlayNumber.textContent = endDay;
+
+        // Animasyonun bittiğini belirtmek için küçük bir bekleme (opsiyonel)
+        setTimeout(() => {
+            elements.dayOverlay.classList.remove('active');
+            // Event listener'ları temizle
+            document.removeEventListener('keydown', handleSkip);
+            elements.dayOverlay.removeEventListener('click', finishAnimation);
+            if (callback) callback();
+        }, 100);
+    };
+
+    const handleSkip = (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
+            finishAnimation();
+        }
+    };
 
     const interval = setInterval(() => {
         current++;
@@ -206,21 +226,13 @@ function animateDayPass(startDay, endDay, resultText, callback) {
 
         if (current >= endDay) {
             clearInterval(interval);
-
-            // Sayaç bittiğinde tıklama ile geçişi aktifleştir
-            setTimeout(() => {
-                // Görsel ipucu: imleci pointer yap
-                elements.dayOverlay.style.cursor = 'pointer';
-
-                const onOverlayClick = () => {
-                    elements.dayOverlay.classList.remove('active');
-                    if (callback) callback();
-                };
-
-                elements.dayOverlay.addEventListener('click', onOverlayClick, { once: true });
-            }, 500); // 500ms bekle ki yanlışlıkla hemen geçilmesin
+            // Sayaç doğal bittiğinde de tıklamayı beklesin veya tıklandıysa zaten bitecek
         }
     }, durationPerStep);
+
+    // Hem tıklama hem klavye ile geçme desteği
+    elements.dayOverlay.addEventListener('click', finishAnimation);
+    document.addEventListener('keydown', handleSkip);
 }
 
 // Başarım animasyonu
@@ -481,8 +493,12 @@ document.addEventListener('click', () => {
 
 // Klavye kontrolleri (Ok tuşlarıyla seçim yapma)
 document.addEventListener('keydown', (e) => {
-    // Sadece oyun ekranı aktifse ve oyun bitmediyse çalışsın
-    if (screens.game.classList.contains('active') && !gameState.isGameOver) {
+    // Statik ekranlar veya overlay'ler açıkken kart kaydırmayı engelle
+    const isOverlayActive = elements.dayOverlay.classList.contains('active') ||
+        elements.achievementOverlay.classList.contains('active');
+
+    // Sadece oyun ekranı aktifse, oyun bitmediyse ve bir overlay açık değilse çalışsın
+    if (screens.game.classList.contains('active') && !gameState.isGameOver && !isOverlayActive) {
         if (e.key === 'ArrowLeft') {
             elements.card.classList.add('swipe-left');
             setTimeout(() => handleSwipe('left'), 300);
