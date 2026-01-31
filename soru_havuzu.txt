@@ -1,0 +1,825 @@
+Aşağıda aynı yapıyı hiç bozmadan (ACT × slot × 5 alternatif), sadece her sorunun sahnesini daha detaylı yazarak güncelledim. Şıklar aynı mantıkta; sonuç cümleleri de yine tek cümle, ama bağlamı daha iyi taşıyacak şekilde biraz zenginleştirildi.
+
+⸻
+
+ACT 1 — Enkaz ve İlk Taklit (7 slot)
+
+1.1 — Enkazdan Çıkış ve İlk Risk
+
+1.1-A
+Sahne: Enkazın yarı açık kabininin içinden ritmik bir titreşim geliyor; metal aralıklardan mavi bir ışık sızıyor ve maske bunu hissedince içten ince bir cızırtı çıkarıyor.
+	•	A) Kaynağa yaklaş. → Bir fırsat yakalarsın ama metal sürtünmesi ve ışık, etrafı daha “sesli” yapar.
+	•	B) Geri çekil. → Sessiz kalırsın ama içindeki merak, peşine yapışır.
+
+1.1-B
+Sahne: Dumanın içinde iki parça metal birbirine sürtünüyor; her sürtünmede kıvılcım atıyor ve karanlıkta küçük bir fener gibi parlıyor.
+	•	A) Parçaları yokla. → Bir şey kurtarabilirsin ama kıvılcımın görgü tanığı olur.
+	•	B) Yoluna devam et. → İz bırakmazsın ama “orada bir şey vardı” hissi büyür.
+
+1.1-C
+Sahne: Enkazın üstünde kırmızı bir acil durum lambası hâlâ yanıp sönüyor; her yanışında etrafı bir anlığına gündüz gibi açıyor.
+	•	A) Lambayı söndürmeye çalış. → Gizlilik artar ama uğraşın seni o noktaya bağlar.
+	•	B) Dokunma. → Hızlı uzaklaşırsın ama o ışık geride “işaret” bırakır.
+
+1.1-D
+Sahne: Enkazın yan tarafında küçük bir servis kapağı aralanmış; içeriden soğuk hava ve elektrik kokusu geliyor.
+	•	A) İçine bak. → İşe yarar bir şey bulabilirsin ama eğildiğin an “yakalanma” gibi hissedilir.
+	•	B) Kapatıp geç. → Daha güvenli ilerlersin ama belki de tek fırsatı geride bırakmış olursun.
+
+1.1-E
+Sahne: Uzakta bir kuş sürüsü, sanki görünmeyen bir şeyden ürkmüş gibi bir anda havalanıyor; sesleri bir dalga gibi yayılıyor.
+	•	A) Sesin kaynağını araştır. → Gerçeğe yaklaşırsın ama aynı zamanda görünür olursun.
+	•	B) Ters yöne sap. → Kendini korursun ama yön duygun bulanıklaşır.
+
+⸻
+
+1.2 — Maskeyi İlk Kez “İnsan” Gibi Kullanma
+
+1.2-A
+Sahne: Maskeyi taktığında yüz çizgilerin fazla pürüzsüz; sanki gerçek bir yüz değil de iyi yapılmış bir poster gibi duruyor.
+	•	A) Aynada prova yap. → Daha doğal görünürsün ama zaman, sessizce erir.
+	•	B) Provasız çık. → Hız kazanırsın ama küçük bir hata “geri dönebilir.”
+
+1.2-B
+Sahne: Konuşmayı denediğinde sesin metalik tınlıyor; kelimeler doğru ama tını “yanlış.”
+	•	A) Fısıltıyla konuş. → Daha az dikkat çekersin ama bu kez de “neden bu kadar kısık?” sorusu doğabilir.
+	•	B) Normal konuş. → İnandırıcı olabilirsin ama her kelime bir sınav olur.
+
+1.2-C
+Sahne: Gülümsemeyi deniyorsun; dudakların tam olması gereken yerde ama duygu eksik, simetri fazla.
+	•	A) Gülümsemeyi azalt. → Daha güvenli olursun ama biraz soğuk görünürsün.
+	•	B) Bilerek şaka yap. → Sıcak görünürsün ama maske daha çok çalışır.
+
+1.2-D
+Sahne: Maske içi buhar yapıyor; görüşün daralıyor, sanki gözlerin camın arkasına itilmiş gibi.
+	•	A) Kısa havalandır. → Masken rahatlar ama o an “açıkta” kalma hissi artar.
+	•	B) Dayan. → Dışarıya daha az iz bırakırsın ama maske yorulur.
+
+1.2-E
+Sahne: Bir vitrinde yansımanı görüyorsun; göz kırpman gecikmeli ve ters, sanki yanlış sinyale cevap veriyor.
+	•	A) Düzeltmeye çalış. → Daha iyi taklit edersin ama orada fazla kalırsın.
+	•	B) Umursama. → Hızlı ilerlersin ama bu küçük hata bir gün büyüyebilir.
+
+⸻
+
+1.3 — İlk Enerji Arayışı
+
+1.3-A
+Sahne: Arka sokakta kırık bir priz; kapağı yok, kablo ucu çıplak. Elektrik, sanki seni çağırıyor.
+	•	A) Uzun süre bağlan. → Güçlenirsin ama kıvılcım sesi merak uyandırır.
+	•	B) Kısa dokun. → Az alırsın ama sessiz kalırsın.
+
+1.3-B
+Sahne: Köşe başında şarjda bir scooter; göstergesi yanıp sönüyor, sahibinin kim olduğu belirsiz.
+	•	A) Bataryayı sök. → Enerji kazanırsın ama geride iz bırakabilirsin.
+	•	B) Dokunmadan geç. → Güvende kalırsın ama güçsüzlük artar.
+
+1.3-C
+Sahne: Bir trafo kutusu; kapak kilitli ama gevşek, içerden hafif uğultu geliyor.
+	•	A) Açmayı dene. → Büyük kazanç olabilir, büyük risk de.
+	•	B) Uzak dur. → Risk azalır, ihtiyaç büyür.
+
+1.3-D
+Sahne: Bir uzatma kablosu, bir pencerenin altından sarkıyor; kapalı perdelerin arkasında yaşam var.
+	•	A) Bağlan. → Kısa rahatlama gelir ama biri fark edebilir.
+	•	B) Kesip al. → Sonra işine yarar, ama “görünmez” kalmak zorlaşır.
+
+1.3-E
+Sahne: Bir marketin dış duvarında priz var; insanlar girip çıkıyor, gözler dolaşıyor.
+	•	A) Sıradan biri gibi yaklaş. → Normal görünürsen kısa bir fırsat yakalarsın.
+	•	B) Gece gelmeyi planla. → Gözlerden kaçarsın ama belirsizlik artar.
+
+⸻
+
+1.4 — İlk Gözetim / Tehlike
+
+1.4-A
+Sahne: Uzakta bir far seni tarıyor; ışık üstüne geldiğinde maske içten soğuk bir titreme yapıyor.
+	•	A) Donup normal görün. → Kurtulursun ama o anın gerilimi içerde kalır.
+	•	B) Çalılığa dal. → Kaybolursun ama hareket izleri bırakabilirsin.
+
+1.4-B
+Sahne: Köşe başında kamera; üstünde küçük bir kırmızı nokta yanıyor, sanki seni “seçmiş” gibi.
+	•	A) Kör nokta bekle. → Doğru anı yakalarsan izsiz geçersin.
+	•	B) Hızla geç. → Zaman kazanırsın ama kayıt ihtimali artar.
+
+1.4-C
+Sahne: Bir polis arabası yavaşlayıp yanından süzülüyor; içerideki gözler kısa bir an senin gözlerinde duruyor.
+	•	A) Yürüyüşünü normal tut. → İnandınabilir olursan geçersin.
+	•	B) Ara sokağa sap. → Gözden kaçarsın ama şüphe büyüyebilir.
+
+1.4-D
+Sahne: Birinin telefonu elinde; kamerayı açıp açmadığı belli değil ama ekranın parıltısı sana dönük.
+	•	A) Normal yürümeye devam et. → Doğal görünürsen sorun çıkmayabilir.
+	•	B) Başını çevir. → Gizlersin ama bu kez daha garip görünebilirsin.
+
+1.4-E
+Sahne: Bir köpek havlamaya başlar; havlama sesi sokakta yankılanır, kapılar aralanır.
+	•	A) Sakinleşip yavaşla. → Ortam yatışır, ses sönümlenir.
+	•	B) Koş. → Ses büyür, gözler döner.
+
+⸻
+
+1.5 — İlk Sosyal Temas
+
+1.5-A
+Sahne: Bir çocuk elindeki balonu sallayıp seni “kostüm” sanıyor; gözleri saf bir merakla parlıyor.
+	•	A) El salla. → Kısa bir “normal” an yaşarsın.
+	•	B) Uzaklaş. → Kendini korursun, soğuk görünürsün.
+
+1.5-B
+Sahne: Yaşlı biri, elindeki poşetlerle durup “iyi misin?” diye soruyor; sesinde tehdit yok, sadece alışkanlık var.
+	•	A) Kısa cevap ver. → Sıradan görünürsen geçer.
+	•	B) Görmezden gel. → Sessiz kalırsın ama şüphe doğabilir.
+
+1.5-C
+Sahne: Kasiyer küçük bir sohbetle seni “sınıflandırmak” ister: “Nerelisin?”
+	•	A) Küçük bir hikâye uydur. → Anlık geçiştirirsin, yalanın gölgesi uzar.
+	•	B) Konuyu değiştir. → Kısa kesersin, soğuk görünebilirsin.
+
+1.5-D
+Sahne: Yardım noktasında sıcak çorba; buharı bile “ev” gibi kokuyor ama kuyrukta yüzler var.
+	•	A) Kuyruğa gir. → Biraz nefes alırsın ama gözler artar.
+	•	B) Uzak dur. → Sessiz kalırsın ama güçsüzleşirsin.
+
+1.5-E
+Sahne: Birisi battaniye uzatır; elinle alırsan, mesafe kapanır.
+	•	A) Kabul et. → Sıcaklık gelir, yakınlık da gelir.
+	•	B) Reddet. → Mesafe korursun, yalnızlık artar.
+
+⸻
+
+1.6 — İlk Sinyal Denemesi
+
+1.6-A
+Sahne: Eski bir yangın merdiveni çatıya çıkıyor; yukarıda antenler, aşağıda gözler var.
+	•	A) Çıkıp dene. → Bir ilerleme hissi gelir, görünürlük artar.
+	•	B) Çıkma. → Gizli kalırsın, ilerleme yavaşlar.
+
+1.6-B
+Sahne: Cihaz kısa süre cızırdar; ekranında anlamsız çizgiler koşar, sanki bir şey “duymuş” gibi.
+	•	A) Aynı ayarı sürdür. → İlerlersin ama iz büyüyebilir.
+	•	B) Ayarı kıs. → İz azalır, ilerleme yavaşlar.
+
+1.6-C
+Sahne: Yakındaki sokak lambaları bir an titrer; insanlar başlarını kaldırır ama sonra devam eder.
+	•	A) Devam et. → Daha güçlü bir işaret doğar.
+	•	B) Kes. → Şehir sakinleşir.
+
+1.6-D
+Sahne: Çatıda anten silüeti görürsün; rüzgâr anteni sallarken, içindeki umut da sallanır.
+	•	A) Yaklaş. → Kapı aralanır.
+	•	B) Uzak dur. → Kapı kapanır.
+
+1.6-E
+Sahne: Bir radyo cızırtısı duyarsın; sanki başka bir dünyadan gelen nefes.
+	•	A) Kaynağa yönel. → İleride kritik bir fırsat doğabilir.
+	•	B) Uzaklaş. → Risk düşer.
+
+⸻
+
+1.7 — Act 1 Kapanış: “Ben ne yapıyorum?”
+
+1.7-A
+Sahne: Karanlık bir camda yansımanı görürsün; maskeyi çıkarıp bakma arzusu boğazında düğümlenir.
+	•	A) Kısacık bak. → Kendini hatırlarsın ama risk büyür.
+	•	B) Bakmazsın. → Güvende kalırsın, yabancılaşma artar.
+
+1.7-B
+Sahne: Enkaz geride kalır; ayaklarının altındaki toprak bile “başka” hissedilir.
+	•	A) “Sadece kurtulmalıyım.” → Kararlar sertleşir.
+	•	B) “Yaşamak istiyorum.” → Kararlar yumuşar.
+
+1.7-C
+Sahne: Gecenin sessizliğinde “nefessiz” olduğunu hatırlarsın; yine de boğazında bir sıkışma var.
+	•	A) Rutin kurmaya çalış. → Kontrol hissi artar.
+	•	B) Şansa bırak. → Hızlı gidersin, hatalar artabilir.
+
+1.7-D
+Sahne: Şehir ışıkları uzakta parlıyor; hem davet hem tehdit gibi.
+	•	A) Şehre yaklaş. → Fırsatlar artar, gözler de.
+	•	B) Kıyıda kal. → Risk azalır, imkân azalır.
+
+1.7-E
+Sahne: Maskenin içinden metalik bir “tıng” gelir; sanki maske de yorgunluğunu söylüyor.
+	•	A) Onarmayı düşün. → Maske toparlanır, sen yorulursun.
+	•	B) Ertele. → Zaman kazanırsın, risk büyür.
+
+⸻
+
+ACT 2 — Şehir Seni Öğreniyor (7 slot)
+
+2.1 — Şehre Giriş / Kalabalık
+
+2.1-A
+Sahne: Neon tabelalar, hızla akan kalabalık ve çarpışan omuzlar; burada kaybolmak kolay ama “insan” olmak zor.
+	•	A) Akışa karış. → Saklanırsın ama masken çok çalışır.
+	•	B) Ara yola sap. → Sessiz kalırsın, yalnızlık artar.
+
+2.1-B
+Sahne: Metro girişinde güvenlik turnikesi; insanların kart sesi bir ritim gibi, senin ritmin ise farklı.
+	•	A) Sıradan biri gibi gir. → Doğal görünürsen geçersin.
+	•	B) Uzak dur. → Risk azalır, fırsat azalır.
+
+2.1-C
+Sahne: Büyük bir ekran haber döndürüyor; “garip ışıklar” ve “tuhaf görüntüler” gibi kelimeler seçiyorsun.
+	•	A) İzleyip öğren. → Dünyayı daha iyi okursun.
+	•	B) Bakmadan geç. → Zaman kazanırsın, bilgi kaybedersin.
+
+2.1-D
+Sahne: Sokak müzisyeni etrafında küçük bir çember; yüzler birbirine dönerken, senin yüzün de sınanır.
+	•	A) Orada dur. → Kalabalıkta erirsin.
+	•	B) Uzaklaş. → Sessiz kalırsın.
+
+2.1-E
+Sahne: Bir satıcı gözünün içine bakıp seslenir; bu şehirde görmezden gelmek bile bir cevap.
+	•	A) Kısa cevap ver. → İnsan gibi görünürsün.
+	•	B) Görmezden gel. → Soğuk görünürsün.
+
+⸻
+
+2.2 — Gözetim Baskısı Artıyor
+
+2.2-A
+Sahne: Kamera direğinin altından geçmek zorundasın; kırmızı ışık yanıp sönüyor, sanki seni sayıyor.
+	•	A) Kör nokta bekle. → Doğru anı yakalarsan izsiz geçersin.
+	•	B) Hızla geç. → Hız kazanırsın, kayıt riski artar.
+
+2.2-B
+Sahne: Polis kontrol noktası uzakta; şeritler, bariyerler ve “bakışlar.”
+	•	A) Kalabalıkla geç. → Doğal görünürsen kurtulursun.
+	•	B) Ters yöne dön. → Risk azalır, zaman kaybedersin.
+
+2.2-C
+Sahne: Birinin bakışı sende uzun kalır; tanımıyor ama “tanır gibi” bakar.
+	•	A) Gülümseyip selam ver. → Sıcaklık şüpheyi yumuşatabilir.
+	•	B) Başını çevir. → Gizlersin ama daha dikkat çekebilirsin.
+
+2.2-D
+Sahne: Telefon ekranı parıldar; kamera açık mı değil mi bilmiyorsun ama “ihtimal” bile yetiyor.
+	•	A) Normal yürü. → Doğal görünürsen sorun olmaz.
+	•	B) Araya girip kaybol. → Görünmez olursun ama iz bırakabilirsin.
+
+2.2-E
+Sahne: Siren sesi yaklaşır; bir an herkesin yüzü aynı yöne döner ve sen de dönmek zorunda hissedersin.
+	•	A) Bir dükkâna gir. → Anlık koruma bulursun.
+	•	B) Sokakta kal. → Kontrol sende kalır ama risk artar.
+
+⸻
+
+2.3 — Sinyal İştahı / Parazit
+
+2.3-A
+Sahne: Cihaz “parazit” uyarısı verir; ekran çizgileri titrer, sanki başka bir şey araya giriyor.
+	•	A) Çözmeyi dene. → Zor ama temiz bir yol açılır.
+	•	B) Görmezden gel. → Kolay olur, sonra bedel doğabilir.
+
+2.3-B
+Sahne: Sinyal denemesinde sokak lambaları hafif titrer; iki kişi durup yukarı bakar.
+	•	A) Devam et. → İlerlersin, şehir fark eder.
+	•	B) Kes. → İz azalır, ilerleme yavaşlar.
+
+2.3-C
+Sahne: Çatı anteni uzakta görünür; oraya çıkmak bir itiraf gibi “ben buradayım” demektir.
+	•	A) Çıkmayı planla. → Sinyal umudu büyür.
+	•	B) Vazgeç. → Risk azalır.
+
+2.3-D
+Sahne: Sunucu odasının kapısı aralık; içerisi soğuk, düzenli, sessiz. Senin gibi.
+	•	A) İçeri gir. → Güçlenirsin, alarm riski doğar.
+	•	B) Kapatıp geç. → Sessiz kalırsın.
+
+2.3-E
+Sahne: Cihaz bir an “YANIT” gibi bir kelime gösterir; sonra sanki utanıp susar.
+	•	A) Takip et. → Büyük bir kapı aralanabilir.
+	•	B) Kapat. → Kendini korursun.
+
+⸻
+
+2.4 — KRİTİK: İLETİŞİM MASKESİ KAPISI (5 varyant)
+
+2.4-A — Frekans Kapısı
+Sahne: Radyo kulübünde biri kulaklığı sana uzatır; cızırtının içinde ritim var, ritmin içinde bir “dil.”
+	•	A) Çözmeyi denersin. → Maske içinde yeni bir mod uyanır; iki dil birbirine yaklaşır (İletişim Maskesi yolu).
+	•	B) Bağlantıyı kesersin. → Köprü ihtimali kapanır, yalnız hedef kalır.
+
+2.4-B — Çeviri Deneyi
+Sahne: Ekranda tekrar eden bir dizilim akıyor; kulüpteki kişi “bunu kimse anlamıyor” der, gözleri senden bir mucize bekler.
+	•	A) Ritmi anlamlandırıp cevap üretirsin. → Maske, anlamı sese çevirmeyi öğrenir (İletişim Maskesi yolu).
+	•	B) Ritmi susturursun. → Risk azalır, ama kapı kapanır.
+
+2.4-C — “Paylaşalım mı?”
+Sahne: Kulüpte biri fısıldar: “Bunu yayınlarsak insanlar korkar.” Cihazın ekranı kısa kısa parıldar.
+	•	A) Korkuyu azaltacak şekilde iletirsin. → Sözlerin köprü olur; maske iletişimi kazanır (İletişim Maskesi yolu).
+	•	B) Hiç iletmezsin. → Güvenlik artar, köprü kapanır.
+
+2.4-D — Yanıtın Bedeli
+Sahne: Yanıt göndermek için daha fazla güç, daha fazla zaman ve daha fazla görünürlük gerekir; kulüpteki sessizlik ağırlaşır.
+	•	A) Bedeli göze alırsın. → Maske iletişimi öğrenir; karşılık verme yetisi doğar (İletişim Maskesi yolu).
+	•	B) Bedeli reddedersin. → Kendini korursun, iletişim yolu söner.
+
+2.4-E — İki Tarafın Korkusu
+Sahne: “İnsanlar korkar,” der biri; “biz de korkarız,” diye düşünürsün. O an maske, yalnız bir kılık değil, bir dil olur.
+	•	A) İkisini de sakinleştirecek mesaj kurarsın. → İletişim Maskesi yolu açılır.
+	•	B) Her şeyi kesip çıkarsın. → Köprü kurma ihtimali kaybolur.
+
+⸻
+
+2.5 — Kara Pazar / Bedel
+
+2.5-A
+Sahne: Neon ışıkların altında batarya satıcısı gülümser; gülümsemesi çok hızlı, çok profesyonel.
+	•	A) Yaklaş. → Kısa rahatlama, uzun gölge.
+	•	B) Uzak dur. → Temiz kalma, zorlanma.
+
+2.5-B
+Sahne: Telefonuna “Seni gördüm” mesajı düşer; mesajın geldiği anda sokaktaki bir bakış sana değmiş gibi.
+	•	A) Ödemeyi düşün. → Anlık rahatlama, borç ihtimali.
+	•	B) Yok say. → Zaman kazanma, risk büyütme.
+
+2.5-C
+Sahne: Bir gölge “yardım” teklif eder; yardımın tonu, iyilikten çok alışveriş gibidir.
+	•	A) Kabul. → Kapı açılır, tuzak da olabilir.
+	•	B) Reddet. → Kontrol sende kalır.
+
+2.5-D
+Sahne: “Sahte kimlik” diyen biri, parmaklarıyla küçük bir kartı oynatır; kartın üzerinde sahte bir hayat var.
+	•	A) Dener. → Şimdilik işe yarar, sonra yakabilir.
+	•	B) Demez. → Zor ama temiz.
+
+2.5-E
+Sahne: “Bu parça sinyali büyütür,” derler; parça küçük, sonuç büyük.
+	•	A) Al. → İlerlersin, iz büyür.
+	•	B) Alma. → İz azalır, ilerleme azalır.
+
+⸻
+
+2.6 — Act 2 Sonuna Yaklaşma (işaretler)
+
+2.6-A
+Sahne: Gökyüzünde ince bir titreme; sanki hava, görünmez bir şeye yol açıyor.
+	•	A) Takip et. → Kurtuluş izleri artar.
+	•	B) Saklan. → Şehirden koparsın.
+
+2.6-B
+Sahne: Elektronikler kısa süre bozulur; birinin telefonu kapanır, biri bağırır, birinin gözü korkuyla açılır.
+	•	A) Devam et. → İlerlersin, dikkat çekersin.
+	•	B) Kes. → Sakinlik gelir, zaman gider.
+
+2.6-C
+Sahne: Bir kafede insanlar “garip ışıklar” konuşur; kelimeler büyüdükçe söylenti de büyür.
+	•	A) Söylentiyi yumuşat. → Şüphe yavaşlar.
+	•	B) Uzaklaş. → Sen kurtulursun, söylenti büyür.
+
+2.6-D
+Sahne: Polis devriyesi bir sokakta iki kez görünür; bu kez tesadüf değildir.
+	•	A) Yer değiştir. → İz silinir.
+	•	B) Aynı kal. → Kök salarsın, risk artar.
+
+2.6-E
+Sahne: Cihaz ısınıp titrer; elinle tuttuğunda, sanki canlı bir şey tutuyormuşsun gibi.
+	•	A) Soğutmayı dene. → Kontrol artar.
+	•	B) Bas geç. → Hız artar.
+
+⸻
+
+2.7 — Act 2 Kapanış (yön belirleme)
+
+2.7-A
+Sahne: Bir duvar yazısında “EVE DÖN” gibi bir kelime görürsün; içinden “benim evim neresi?” sorusu geçer.
+	•	A) “Eve döneceğim.” → Kurtuluş yoluna ağırlık verirsin.
+	•	B) “Burada da hayat var.” → Dünya yolu güçlenir.
+
+2.7-B
+Sahne: Müttefik olabilecek biri “iyi misin?” derken gözleri bir saniye maskenin kenarında takılır.
+	•	A) Konuş. → Bağ kurma ihtimali artar.
+	•	B) Sus. → Güvenlik artar, bağ azalır.
+
+2.7-C
+Sahne: Radyo kulübünün kapısını arkanda bırakınca, cızırtı bile sanki “gel” der gibi kalır.
+	•	A) Yeniden dönmeyi düşün. → Köprü ihtimali canlı kalır.
+	•	B) Tamamen kop. → Tek hedef kurtuluş olur.
+
+2.7-D
+Sahne: Şehir seni konuşuyor gibi; her yerde küçük ipuçları, küçük bakışlar.
+	•	A) Daha görünmez ol. → Şüphe azalır gibi olur.
+	•	B) Daha normal ol. → Bağ artar ama maskeye yük biner.
+
+2.7-E
+Sahne: İç sesin sorar: “Maskeyi bir gün çıkaracak mısın?” Soru, bir tehdit gibi değil, bir ihtimal gibi.
+	•	A) “Evet.” → Güven yoluna psikolojik kapı açılır.
+	•	B) “Hayır.” → Saklanma yolun sertleşir.
+
+⸻
+
+ACT 3 — Yakınlık ve Güven (7 slot)
+
+3.1 — Barınma / Rutin Kurma
+
+3.1-A
+Sahne: Terk depoda bir köşe; yerde paletler, duvarda rutubet izleri, tavanda tek bir ampul.
+	•	A) Yerleş. → Güvenli his gelir, sinyal zorlaşır.
+	•	B) Gezgin kal. → Özgürlük gelir, yorgunluk artar.
+
+3.1-B
+Sahne: Bir evin kapısı bu kez daha uzun açık kalır; içeriden çay kokusu gelir.
+	•	A) Gir. → Yakınlık artar.
+	•	B) Girme. → Kontrol sende kalır.
+
+3.1-C
+Sahne: Sığınakta yer kavgası; bir battaniye uğruna sesler yükselir.
+	•	A) Yatıştır. → İnsanlık artar.
+	•	B) Uzak dur. → Güvenlik artar.
+
+3.1-D
+Sahne: Uykusuzluk çöker; maskenin içi sıcak, dışarısı soğuk, düşünceler karışık.
+	•	A) Kısa uyku. → Toparlanırsın, risk doğar.
+	•	B) Uyanık kal. → Kontrol artar, tükenirsin.
+
+3.1-E
+Sahne: Bir rutini seçebilirsin: aynı sokaklar, aynı saatler, aynı davranışlar; rutin bazen kamuflajdır.
+	•	A) Plan yap. → Hatalar azalır gibi olur.
+	•	B) Akışa bırak. → Hız artar, sürpriz artar.
+
+⸻
+
+3.2 — Sosyal Bağlar Derinleşiyor
+
+3.2-A
+Sahne: Biri sana battaniye uzatır; parmakların battaniyeye değerse, mesafe kapanır.
+	•	A) Al. → Sıcaklık yakınlık getirir.
+	•	B) Alma. → Mesafe güvenlik getirir.
+
+3.2-B
+Sahne: Birisi kalabalığın içinde “O kötü biri değil” diye seni savunur; sesi titrer ama kararlıdır.
+	•	A) Sessiz kal. → Bağ zayıf ama sürer.
+	•	B) Teşekkür et. → Bağ güçlenir, risk artar.
+
+3.2-C
+Sahne: Bir çocuk seni oyununa çağırır; gözler kısa süreliğine seni “tehdit” olarak değil “insan” olarak görür.
+	•	A) Katıl. → Şehir seni daha az korkutucu görür.
+	•	B) Reddet. → Gizli kalırsın, soğuk görünürsün.
+
+3.2-D
+Sahne: Komşu “çay” der; bu kelime, seni bir odaya değil, bir hayata davet eder.
+	•	A) Git. → Güven ihtimali artar.
+	•	B) Gitme. → Gizlilik artar.
+
+3.2-E
+Sahne: Birisi sırrını fısıldar; “kimseye söyleme” derken aslında “yanımda kal” demek ister.
+	•	A) Dinle. → Bağ doğar.
+	•	B) Umursama. → Bağ kopar.
+
+⸻
+
+3.3 — Gölgeler ve Tehditler
+
+3.3-A
+Sahne: “Seni gördüm” mesajı yine gelir; mesajın geldiği anda bir araba yavaşlar ve senin gölgen uzar.
+	•	A) Yer değiştir. → İz azalır.
+	•	B) Kaynağı araştır. → Çözebilirsin, tuzağa da düşebilirsin.
+
+3.3-B
+Sahne: Kara pazarda bir satıcı fiyatın yanına bir de “iyilik” yazar: “Sonra ödersin.”
+	•	A) Pazarlık yap. → Zaman kazanırsın.
+	•	B) Uzaklaş. → Risk azalır.
+
+3.3-C
+Sahne: Sığınakta biri seni ele vermekle tehdit eder; sesi alçak ama keskindir: “Beni de yakarsın.”
+	•	A) Yardım ederek sustur. → Geçici huzur, uzun gölge.
+	•	B) Kaç. → Hızlı kurtuluş, büyük dalga.
+
+3.3-D
+Sahne: Polis devriyesi aynı bölgede tekrar belirir; bu kez sokak senin için daralır.
+	•	A) Sessiz rotaya geç. → Şehir senden uzaklaşır.
+	•	B) Normal görün. → Bağ sürer, maskeye yük biner.
+
+3.3-E
+Sahne: İnternette bir görüntünün dolaştığını hissedersin; gözlerin değil, şehir seni izliyordur artık.
+	•	A) İzleri temizlemeye çalış. → Zor ama mümkün.
+	•	B) Görmezden gel. → Kolay ama tehlikeli.
+
+⸻
+
+3.4 — KRİTİK: GÜVEN MASKESİ KAPISI (5 varyant)
+
+3.4-A — Kaybolan Çocuk
+Sahne: Çocuğu dar bir sokakta bulursun; dizleri kanamış, sesi titrer. Onu götürmek seni görünür yapar.
+	•	A) Çocuğu ailesine götür. → Teşekkür bir “kapı” açar; maske içinde güven kilidi çözülür (Güven Maskesi yolu).
+	•	B) Saklanıp geri çekil. → Kendini korursun ama güven yolu kapanır.
+
+3.4-B — Anahtar ve Eşik
+Sahne: Bir apartmanın anahtarı kaybolmuştur; kapıda ağlayan biri “evimde kaldım” der. Sen anahtarı bulursun.
+	•	A) Bulup geri ver. → Küçük iyilik, büyük güven doğurur (Güven Maskesi yolu).
+	•	B) Umursama. → Gizli kalırsın, güven kapısı kapanır.
+
+3.4-C — Yalanı Kesmek
+Sahne: Komşu, gözlerini kaçırmadan sorar: “Geceleri nereye gidiyorsun?” Bu soru, maskenin en zayıf yerine değmiştir.
+	•	A) Duygusal bir gerçek söyle (tam açıklama değil). → Güven doğar; maske “güven” modunu kazanır (Güven Maskesi yolu).
+	•	B) Büyük bir yalan söyle. → Anlık kurtulursun, güven kapısı kapanır.
+
+3.4-D — Yaralıya Dokunmak
+Sahne: Biri düşmüş, kanıyor; insanlar bakıyor ama kimse yaklaşmıyor. Sen yaklaşırsan görünür olursun.
+	•	A) Yardım et. → Korkunun içinden güven çıkar (Güven Maskesi yolu).
+	•	B) Uzaklaş. → Gizli kalırsın, güven yolu kapanır.
+
+3.4-E — Panikte Sakinlik
+Sahne: Bir panik anı; biri bağırır, biri ağlar, kalabalık titreşir. Senin davranışın ortamı belirleyebilir.
+	•	A) Sakinleştirici bir şey yap. → Güven doğar; maske bunu öğrenir (Güven Maskesi yolu).
+	•	B) Kaç. → Hayatta kalırsın ama güven kapanır.
+
+⸻
+
+3.5 — Güven Sonrası Dalga
+
+3.5-A
+Sahne: İnsanlar seni artık daha çok hatırlıyor; bazen iyi, bazen kötü bir hikâyeyle.
+	•	A) Normal davran. → Bağ büyür, risk de büyür.
+	•	B) Yer değiştir. → Risk azalır, bağ kopar.
+
+3.5-B
+Sahne: Müttefik olabilecek biri sana kapısını aralar: “Burada kal.”
+	•	A) Kal. → Güven artar, özgürlük azalır.
+	•	B) Git. → Özgürlük artar, güven azalır.
+
+3.5-C
+Sahne: Çocuk seni görünce gülümser; yetişkinler seni daha az korkutucu görür.
+	•	A) Karşılık ver. → Dünya yolu güçlenir.
+	•	B) Görmezden gel. → Kurtuluş yolu sertleşir.
+
+3.5-D
+Sahne: Birisi bir başkasına “o kötü biri değil” derken seni işaret eder gibi yapar.
+	•	A) Sessiz kal. → Kırılgan bir bağ kalır.
+	•	B) Teşekkür et. → Bağ güçlenir.
+
+3.5-E
+Sahne: İç ses tekrar sorar: “Maskeyi bir gün çıkarabilir misin?” Bu soru artık daha gerçek.
+	•	A) “Evet.” → Dünya sonuna hazırlık artar.
+	•	B) “Hayır.” → Kurtarma sonuna hazırlık artar.
+
+⸻
+
+3.6 — Sinyal mi Bağ mı (terazi)
+
+3.6-A
+Sahne: Çatıya çıkıp sinyal atmak için kısa bir pencere var; rüzgâr sert, sokaklar izliyor.
+	•	A) Dene. → Kurtuluş yaklaşır, iz büyür.
+	•	B) Vazgeç. → İz azalır, kurtuluş gecikir.
+
+3.6-B
+Sahne: Müttefikle daha derin bir konuşma fırsatı; bir odada iki sandalye, iki sessizlik.
+	•	A) Konuş. → Dünya yolu güçlenir.
+	•	B) Sus. → Gizlilik güçlenir.
+
+3.6-C
+Sahne: Parazit tekrar yükselir; cihaz sanki iki farklı kanala aynı anda bağlanıyordur.
+	•	A) Çözmeye uğraş. → Köprü yolu güçlenir (varsa).
+	•	B) Kes. → Risk azalır.
+
+3.6-D
+Sahne: Haberlerde “garip ışıklar” yeniden geçer; insanlar artık korkuyu isimlendirmeye başlamıştır.
+	•	A) Söylentiyi yumuşat. → Şüphe hafifler.
+	•	B) Uzaklaş. → Kendini korursun.
+
+3.6-E
+Sahne: Kara pazar “hızlı çözüm” sunar; hızlı çözümün gölgesi de hızlıdır.
+	•	A) Kabul. → Hız gelir, bedel gelir.
+	•	B) Reddet. → Zor ama temiz.
+
+⸻
+
+3.7 — Act 3 Kapanış
+
+3.7-A
+Sahne: Gökyüzünde titreme artık daha sık; sanki bir şey seni arıyor, ya da seni işaretliyor.
+	•	A) “Bu kurtarma olabilir.” → Kurtarma yolu öne çıkar.
+	•	B) “Bu felaket de olabilir.” → Kontrol ve saklanma öne çıkar.
+
+3.7-B
+Sahne: İnsanların sana bakışı değişiyor; bazı bakışlarda merhamet var, bazılarında korku.
+	•	A) Yakınlık kur. → Dünya yolu büyür.
+	•	B) Mesafe koy. → Gizlilik büyür.
+
+3.7-C
+Sahne: İçinden “köprü olabilirsin” fikri geçer; bu fikir ağır ama sıcak.
+	•	A) “Deneyeceğim.” → İletişim yolu güçlenir.
+	•	B) “İşim değil.” → Tek hedef kurtuluş olur.
+
+3.7-D
+Sahne: Maskenin çatlağı ışıkta daha görünür; sanki maskenin kendisi bile “sonlara” yaklaşıyor.
+	•	A) Onar. → Daha sağlam görünürsün.
+	•	B) Ertele. → Zaman kazanırsın, risk büyür.
+
+3.7-E
+Sahne: Müttefik “senin yerin neresi?” der; bu soru bir coğrafya değil, bir kimlik sorusudur.
+	•	A) “Bilmiyorum.” → Duygusal kapı açılır.
+	•	B) “Evime döneceğim.” → Kurtuluş kapısı açılır.
+
+⸻
+
+ACT 4 — Son Düzlük (7 slot)
+
+4.1 — Gökyüzü İşaretleri
+
+4.1-A
+Sahne: İnce ışık çizgileri bulutların altında belirir; rüzgâr, şehrin sesini bir anda keser.
+	•	A) Takip et. → Final hızlanır, görünürlük artar.
+	•	B) Saklan. → Risk azalır, zaman daralır.
+
+4.1-B
+Sahne: Elektronikler kısa süre bozulur; birinin telefonu kapanır, biri “ne oluyor?” diye bağırır.
+	•	A) Devam et. → İlerlersin, dikkat çekersin.
+	•	B) Kes. → Şehir sakinleşir, belirsizlik uzar.
+
+4.1-C
+Sahne: Rüzgâr aniden yön değiştirir; havada “yaklaşan” bir şeyin basıncı var gibi.
+	•	A) Açık alana çık. → Kurtuluş için uygun zemin doğar.
+	•	B) Kapalı alana kaç. → Gözden kaçarsın.
+
+4.1-D
+Sahne: Uzakta bir uğultu; ne siren ne rüzgâr, daha derinden bir titreşim.
+	•	A) Uğultuya git. → Sona yaklaşırsın.
+	•	B) Ters yöne git. → Sona gecikmeli girersin.
+
+4.1-E
+Sahne: Gökyüzü sanki cevap veriyor; ışıklar ritim tutar gibi yanıp sönüyor.
+	•	A) Cevabı büyüt. → Kurtarma/iletişim artar.
+	•	B) Cevabı bastır. → Şüphe azalır.
+
+⸻
+
+4.2 — Polis Çemberi / Son Av
+
+4.2-A
+Sahne: Son günlerde devriyeler sıklaşır; aynı yüzleri daha çok görürsün, aynı araçlar daha yavaş geçer.
+	•	A) Şehir dışına kaç. → Şüphe azalabilir, fırsatlar azalır.
+	•	B) Kalabalığa karış. → İz erir, maske yorulur.
+
+4.2-B
+Sahne: Bir kontrol noktası kurulur; bariyerler, ışıklar ve “sıradaki” bakışlar.
+	•	A) Normal gibi geç. → Başarırsan kimse anlamaz.
+	•	B) Yan yola sap. → Sessiz kalırsın ama zaman kaybedersin.
+
+4.2-C
+Sahne: Bir telefon ışığı sana döner; ekran parıltısı kısa bir an yüzünü yakalar gibi.
+	•	A) Normal yürü. → Doğal görünürsen sorun olmaz.
+	•	B) Saklan. → Kurtulursun ama garip görünürsün.
+
+4.2-D
+Sahne: Siren sesi yaklaşır; sokak bir an boşalır ve boşlukta sen çok görünür olursun.
+	•	A) Bir binaya gir. → Anlık koruma bulursun.
+	•	B) Sokakta devam et. → Hız kazanırsın, risk artar.
+
+4.2-E
+Sahne: Bir polis “dur” diye bağırır; sesindeki emir, maskenin içine kadar girer.
+	•	A) Durup konuş. → Doğru ton seni kurtarabilir.
+	•	B) Kaç. → Hızlı kurtulursun, av başlar.
+
+⸻
+
+4.3 — Maskenin Son Sınavı
+
+4.3-A
+Sahne: Maske çatırdar gibi bir ses çıkarır; sanki içten bir yer kırılmıştır ama dışarıdan belli değildir.
+	•	A) Onarmayı dene. → Maske toparlar, sen zorlanırsın.
+	•	B) Görmezden gel. → Zaman kazanırsın, risk büyür.
+
+4.3-B
+Sahne: Maskenin içi buz gibi olur; yüzün donuklaşır, tepkin geç gelir.
+	•	A) Kısa gevşet. → Kendini toparlarsın, görünürlük riski doğar.
+	•	B) Sıkılaştır. → Güvende kalırsın, çatlak büyüyebilir.
+
+4.3-C
+Sahne: Mimiklerin gecikmeli gelir; birine baktığında “gözlerin” doğru yerde ama anlam yanlış yerde kalır.
+	•	A) Daha az konuş. → Daha az test olursun, garip görünebilirsin.
+	•	B) Normal konuş. → İnanırsan geçer, inanmazlarsa yanarsın.
+
+4.3-D
+Sahne: Maskenin kokusu değişir; bu koku, insanlara değil ama hayvanlara ve sezgilere konuşur.
+	•	A) Bastırmaya çalış. → Şimdilik çözersin, sonra geri dönebilir.
+	•	B) Umursama. → Hızlı gidersin, risk büyür.
+
+4.3-E
+Sahne: Yansımanda yüzün sana ait değil; o yüzle kaç kez yalan söyledin, kaç kez iyilik yaptın, hatırlarsın.
+	•	A) Bir an bak. → Kararın netleşir.
+	•	B) Bakma. → Kendini korursun, yabancılaşma artar.
+
+⸻
+
+4.4 — Son Hazırlık (açık alan / işaret)
+
+4.4-A
+Sahne: Stadyum gibi geniş bir alan görürsün; ışıklar, kameralar, kalabalık ihtimali… ama iniş için mükemmel.
+	•	A) Git. → Sona yaklaşır, kalabalığı çağırırsın.
+	•	B) Gitme. → Daha sessiz kalırsın.
+
+4.4-B
+Sahne: Şehir dışındaki boş arazi sessiz; burada gökyüzü daha geniş, ama yol daha yorucu.
+	•	A) Oraya yönel. → Risk azalır, yorgunluk artar.
+	•	B) Şehirde kal. → Fırsat artar, göz artar.
+
+4.4-C
+Sahne: Müttefik “burada kal” derken sesi titrer; bu titreme korku değil, bağlılıktır.
+	•	A) Kal. → Güven artar.
+	•	B) Git. → Kurtuluş odaklanır.
+
+4.4-D
+Sahne: Radyo kulübü “son mesaj” ister; “bir kez daha, ama doğru söyle” der gibi.
+	•	A) Mesajı hazırla. → Köprü yolu güçlenir.
+	•	B) Mesajı reddet. → Risk azalır.
+
+4.4-E
+Sahne: Kalabalık bir etkinlik var; burada işaret vermek kolay, burada kaybolmak da kolay… ama bedel büyük.
+	•	A) Oraya yakın dur. → İşaret vermek kolaylaşır.
+	•	B) Uzak dur. → Görünmezlik artar.
+
+⸻
+
+4.5 — KRİTİK: Son 1 Kapısı (Sinyali 100’e tamamlama — 5 varyant)
+
+4.5-A — Son Sinyal
+Sahne: Cihaz ekranda “bir adım kaldı” der gibi titrer; bu adım atılırsa artık geri dönüş yoktur.
+	•	A) Son adımı at. → Kurtuluş artık geri dönüşsüz biçimde yaklaşır.
+	•	B) Son adımı atma. → Kurtuluşu bilerek erteler, diğer sonlara kapı aralarsın.
+
+4.5-B — “Konum Kesin” Uyarısı
+Sahne: Sinyal çizgisi dolmuştur; cihaz “konum kesinleşiyor” hissi verir, sanki gökyüzü sana kilitlenir.
+	•	A) Devam et. → Gökyüzü seni işaretler.
+	•	B) Dur. → Dünya seçeneklerini korursun.
+
+4.5-C — Cihazın Son İsteği
+Sahne: Cihaz tek bir komut ister: “güç.” Bunu verirsen ev gelir; vermezsen belirsizlik kalır.
+	•	A) İsteği yerine getir. → Artık kurtarma kaçınılmaz olur.
+	•	B) İsteği reddet. → Köprü/kalma ihtimali canlı kalır.
+
+4.5-D — Bir Adım Kaldı
+Sahne: Parmakların titrer; bu titreme korkudan değil, kararın ağırlığındandır.
+	•	A) Adımı at. → Işıklar netleşir.
+	•	B) Adımı atma. → Karanlık uzar ama seçenekler artar.
+
+4.5-E — “Eve Dönüş” Butonu
+Sahne: Ekranda bir “ev” simgesi belirir; tek dokunuşla her şey bitebilir.
+	•	A) Bas. → Ev çağrısı güçlenir.
+	•	B) Basma. → Burada kalma ihtimali büyür.
+
+⸻
+
+4.6 — KRİTİK: Son 3 Kapısı (Köprü — İletişim Maskesi gerekir)
+
+4.6-A — İki Tarafa Mesaj
+Sahne: Radyo kulübü ve bir insan müttefik seni bir araya getirir: “İki tarafa da aynı anda konuşabilir misin?”
+	•	A) Mesajı iki tarafa da ilet. → Korku yerine anlam doğar; köprü olma yolu açılır.
+	•	B) Mesajı kes. → Köprü zayıflar; yalnız kalırsın.
+
+4.6-B — Çeviri Kararı
+Sahne: Ekranda iki dil gibi iki çizgi akar; onları üst üste getirmek mümkündür ama tehlikelidir.
+	•	A) Çeviriyi paylaş. → İnsanların dili yumuşar, uzayın dili yaklaşır.
+	•	B) Sakla. → Kendini korursun ama köprü kapanır.
+
+4.6-C — “Beni Dinleyin”
+Sahne: Bir küçük grup toplanmıştır; hepsi korkuyor ama hepsi de merak ediyor.
+	•	A) Konuş. → Köprü olma ihtimali güçlenir.
+	•	B) Sus. → Şüphe azalabilir ama fırsat kaçar.
+
+4.6-D — Son İstem
+Sahne: Radyo kulübü “son kez” der; “doğru mesaj” ister, yanlış mesaj felaket doğurur.
+	•	A) Kabul et. → İletişim Maskesi anlam kazanır.
+	•	B) Reddet. → İletişim yolu söner.
+
+4.6-E — Korkuyu Yumuşatma
+Sahne: İki tarafta da korku var; sen korkuyu “çeviriyle” azaltabilirsin.
+	•	A) Sakin bir mesaj kur. → Köprü yolu güçlenir.
+	•	B) Mesajı iptal et. → Köprü yolu zayıflar.
+
+⸻
+
+4.7 — KRİTİK: Son 4 Kapısı (Dünya’da kalma — Güven Maskesi gerekir)
+
+4.7-A — Eşik
+Sahne: Müttefik kapının eşiğinde durur; “Gerçeğini bana göster, burada kal” derken sesinde korku değil cesaret vardır.
+	•	A) Gerçeğini müttefiğe göster. → Kabul edilme ihtimali doğar; dünyada kalma yolu açılır.
+	•	B) Kaç. → Hayatta kalırsın ama “ev” kapısı kapanır.
+
+4.7-B — Güven Yemini
+Sahne: Bir odada iki kişi; biri sen, biri insan. Aranızdaki tek şey söz ve nefes gibi görünmeyen bir bağ.
+	•	A) Güveni seç. → Dünya bir an yumuşar.
+	•	B) Maskeye sığın. → Güven kırılır.
+
+4.7-C — “Burada Kal”
+Sahne: Müttefik seni saklamak değil, yanında tutmak ister; “kaçma” der.
+	•	A) Kal. → Dünya sonu güçlenir.
+	•	B) Git. → Kurtuluş odaklanır.
+
+4.7-D — Ev Kapısı
+Sahne: Kapı ardına kadar açılır; içeriden sıcak ışık sızar, dışarıdan siren sesi gelir.
+	•	A) İçeri gir. → Bir insanın kabulü, yeni hayat ihtimali olur.
+	•	B) Dönüp git. → Yalnızlık seçilir.
+
+4.7-E — Maskeyi Çıkarmak
+Sahne: Maskenin kenarına dokunursun; çıkarırsan her şey değişir, çıkarmazsan hiçbir şey değişmez.
+	•	A) Çıkar. → Dünya ile gerçek temas başlar.
+	•	B) Çıkarma. → Dünya ile temas gecikir/bozulur.
+
+⸻
+
+İstersen bir sonraki adımda bu 28 slotun her birine tema/mekân etiketi de ekleyeyim (ör. “GOZETIM_POLIS → Kamera Sokakları” gibi). Bu, arka plan değişimini program tarafında daha kolay ve hatasız yapar.

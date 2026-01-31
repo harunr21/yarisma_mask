@@ -13,11 +13,11 @@ const CARDS = [
         choices: {
             left: {
                 text: "Çok riskli",
-                effects: { signal: 0, mask: -3, suspicion: 0, energy: -3 }
+                effects: { signal: 0, mask: -3, suspicion: 0, energy: -2 }
             },
             right: {
                 text: "Anteni kur",
-                effects: { signal: 15, mask: -8, suspicion: 15, energy: -8 }
+                effects: { signal: 15, mask: -8, suspicion: 15, energy: -5 }
             }
         }
     },
@@ -49,7 +49,7 @@ const CARDS = [
             },
             right: {
                 text: "Gece git",
-                effects: { signal: 25, mask: -15, suspicion: 10, energy: -10 }
+                effects: { signal: 25, mask: -15, suspicion: 10, energy: -5 }
             }
         }
     },
@@ -67,7 +67,7 @@ const CARDS = [
             },
             right: {
                 text: "Hemen tamir et",
-                effects: { signal: 0, mask: 15, suspicion: 0, energy: -10 }
+                effects: { signal: 0, mask: 15, suspicion: 0, energy: -5 }
             }
         }
     },
@@ -95,7 +95,7 @@ const CARDS = [
         choices: {
             left: {
                 text: "Güneşte kal",
-                effects: { signal: 0, mask: -12, suspicion: 0, energy: -6 }
+                effects: { signal: 0, mask: -12, suspicion: 0, energy: -4 }
             },
             right: {
                 text: "Kalabalığa karış",
@@ -113,11 +113,11 @@ const CARDS = [
         choices: {
             left: {
                 text: "Kaç",
-                effects: { signal: 0, mask: -5, suspicion: 15, energy: -6 }
+                effects: { signal: 0, mask: -5, suspicion: 15, energy: -4 }
             },
             right: {
                 text: "Sohbet et",
-                effects: { signal: 0, mask: -5, suspicion: -10, energy: -6 }
+                effects: { signal: 0, mask: -5, suspicion: -10, energy: -4 }
             }
         }
     },
@@ -129,11 +129,11 @@ const CARDS = [
         choices: {
             left: {
                 text: "Kaçmaya çalış",
-                effects: { signal: 0, mask: -10, suspicion: 30, energy: -15 }
+                effects: { signal: 0, mask: -10, suspicion: 30, energy: -5 }
             },
             right: {
                 text: "Sahte kimlik göster",
-                effects: { signal: 0, mask: -5, suspicion: 5, energy: -8 }
+                effects: { signal: 0, mask: -5, suspicion: 5, energy: -5 }
             }
         }
     },
@@ -199,7 +199,7 @@ const CARDS = [
             },
             right: {
                 text: "Hemen al",
-                effects: { signal: 5, mask: 0, suspicion: 15, energy: 15 }
+                effects: { signal: 5, mask: 0, suspicion: 15, energy: 5 }
             }
         }
     },
@@ -215,7 +215,7 @@ const CARDS = [
             },
             right: {
                 text: "Dinlen",
-                effects: { signal: 0, mask: 5, suspicion: 0, energy: 10 }
+                effects: { signal: 0, mask: 5, suspicion: 0, energy: 5 }
             }
         }
     },
@@ -231,7 +231,7 @@ const CARDS = [
             },
             right: {
                 text: "Enerji çek",
-                effects: { signal: 0, mask: -10, suspicion: 10, energy: 20 }
+                effects: { signal: 0, mask: -10, suspicion: 10, energy: 5 }
             }
         }
     },
@@ -249,7 +249,7 @@ const CARDS = [
             },
             right: {
                 text: "Gece gir",
-                effects: { signal: 0, mask: 20, suspicion: 20, energy: -8 }
+                effects: { signal: 0, mask: 20, suspicion: 20, energy: -5 }
             }
         }
     },
@@ -265,7 +265,7 @@ const CARDS = [
             },
             right: {
                 text: "Yardım et",
-                effects: { signal: 0, mask: -5, suspicion: -15, energy: -8 }
+                effects: { signal: 0, mask: -5, suspicion: -15, energy: -5 }
             }
         }
     },
@@ -311,7 +311,7 @@ const CARDS = [
         choices: {
             left: {
                 text: "Kaç",
-                effects: { signal: 0, mask: -10, suspicion: 10, energy: -10 }
+                effects: { signal: 0, mask: -10, suspicion: 10, energy: -5 }
             },
             right: {
                 text: "İletişim kur",
@@ -331,7 +331,7 @@ const CARDS = [
             },
             right: {
                 text: "Sinyal gönder",
-                effects: { signal: 15, mask: -5, suspicion: 5, energy: -8 }
+                effects: { signal: 15, mask: -5, suspicion: 5, energy: -5 }
             }
         }
     },
@@ -343,7 +343,7 @@ const CARDS = [
         choices: {
             left: {
                 text: "Koş",
-                effects: { signal: 0, mask: -5, suspicion: 15, energy: -8 }
+                effects: { signal: 0, mask: -5, suspicion: 15, energy: -5 }
             },
             right: {
                 text: "Yiyecek ver",
@@ -379,7 +379,7 @@ const CARDS = [
             },
             right: {
                 text: "Sinyal gönder",
-                effects: { signal: 30, mask: -10, suspicion: 20, energy: -12 }
+                effects: { signal: 30, mask: -10, suspicion: 20, energy: -5 }
             }
         }
     }

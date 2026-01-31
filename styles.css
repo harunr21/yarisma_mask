@@ -88,7 +88,7 @@ body {
 body {
     font-family: var(--font-primary);
     background-color: var(--bg-primary);
-    background-image: url('background.png');
+    background-image: url('backgrounds/background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -437,6 +437,11 @@ body::before {
     position: absolute;
     bottom: var(--spacing-lg);
     left: var(--spacing-lg);
+    /* Remove background style */
+    background: none;
+    padding: 0;
+    border: none;
+    transform: none;
 }
 
 .day-counter span:first-child {
@@ -716,4 +721,29 @@ body::before {
     .day-overlay-number {
         font-size: 5rem;
     }
+}
+
+/* Day Overlay Result Text */
+.day-overlay-result {
+    margin-top: var(--spacing-xl);
+    font-size: 1.8rem;
+    color: #fff;
+    /* Okunabilirlik için beyaz */
+    text-align: center;
+    max-width: 80%;
+    line-height: 1.4;
+    text-shadow: 2px 2px 0 #000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+    background: rgba(0, 0, 0, 0.5);
+    /* Hafif arka plan */
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--accent-secondary);
+}
+
+.day-overlay.active .day-overlay-result {
+    opacity: 1;
+    transform: translateY(0);
 }

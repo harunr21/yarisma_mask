@@ -26,7 +26,7 @@ const elements = {
     card: document.getElementById('current-card'),
     cardImage: document.getElementById('card-image'),
     cardEmoji: document.querySelector('.card-emoji'),
-    cardTitle: document.getElementById('card-title'),
+    // cardTitle kaldırıldı
     cardDescription: document.getElementById('card-description'),
     leftChoiceText: document.getElementById('left-choice-text'),
     rightChoiceText: document.getElementById('right-choice-text'),
@@ -43,7 +43,8 @@ const elements = {
     // Gün animasyon overlay
     dayOverlay: document.getElementById('day-overlay'),
     dayOverlayLabel: document.querySelector('.day-overlay-label'),
-    dayOverlayNumber: document.getElementById('day-overlay-number')
+    dayOverlayNumber: document.getElementById('day-overlay-number'),
+    dayOverlayResult: document.getElementById('day-overlay-result')
 };
 
 // Ekran geçişleri
@@ -106,7 +107,7 @@ function renderCard(card) {
     if (!card) return;
 
     elements.cardEmoji.textContent = card.emoji;
-    elements.cardTitle.textContent = card.title;
+    // elements.cardTitle.textContent = card.title; // Kaldırıldı
     elements.cardDescription.textContent = card.description;
     elements.leftChoiceText.textContent = card.choices.left.text;
     elements.rightChoiceText.textContent = card.choices.right.text;
@@ -123,14 +124,24 @@ function updateDayCounter() {
     elements.dayNumber.textContent = gameState.day;
 }
 
+// ACT ve ilerleme göstergesini güncelle (Devre dışı bırakıldı)
+function updateActProgress() {
+    // Kullanıcı isteği üzerine kaldırıldı
+}
+
 // Gün geçiş animasyonu
-function animateDayPass(startDay, endDay, callback) {
+function animateDayPass(startDay, endDay, resultText, callback) {
     if (startDay >= endDay) {
         if (callback) callback();
         return;
     }
 
     elements.dayOverlay.classList.add('active');
+
+    // Sonuç metnini ayarla
+    if (elements.dayOverlayResult) {
+        elements.dayOverlayResult.textContent = resultText || '';
+    }
 
     // Animasyon başlangıç değeri
     let current = startDay;
@@ -146,10 +157,11 @@ function animateDayPass(startDay, endDay, callback) {
 
         if (current >= endDay) {
             clearInterval(interval);
+            // Gün sayacı durduğunda biraz daha uzun bekle ki sonuç metni okunsun (600ms -> 2500ms)
             setTimeout(() => {
                 elements.dayOverlay.classList.remove('active');
                 if (callback) callback();
-            }, 600); // Overlay kapanmadan önce biraz bekle
+            }, 2500);
         }
     }, durationPerStep);
 }
@@ -168,6 +180,9 @@ function handleSwipe(direction) {
 
     // Stat barlarını güncelle
     updateStatBars();
+
+    // ACT göstergesini güncelle
+    updateActProgress();
 
     // İşlem sonrası yapılacaklar (Yeni kart veya oyun sonu)
     const onComplete = () => {
@@ -188,7 +203,9 @@ function handleSwipe(direction) {
     if (result.day > oldDay) {
         // Kartın çıkış animasyonunu bekle (400ms)
         setTimeout(() => {
-            animateDayPass(oldDay, result.day, onComplete);
+            // Sonuç metnini al
+            const resultText = result.choice.result;
+            animateDayPass(oldDay, result.day, resultText, onComplete);
         }, 400);
     } else {
         // Gün değişmediyse (bazen olabilir)
@@ -232,6 +249,7 @@ function startGame() {
     gameState.reset();
     updateStatBars(false);
     updateDayCounter();
+    updateActProgress();
 
     const firstCard = gameState.getNextCard();
     renderCard(firstCard);
