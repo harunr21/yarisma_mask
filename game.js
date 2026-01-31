@@ -7,9 +7,9 @@
 class GameState {
     constructor() {
         this.stats = {
-            signal: 50,      // Kazanma koşulu: %100'e ulaş
+            signal: 0,      // Kazanma koşulu: %100'e ulaş
             mask: 100,      // 0'a düşerse GAME OVER
-            suspicion: 0,   // %100 olursa LİNÇ - GAME OVER  
+            suspicion: 50,   // %100 olursa LİNÇ - GAME OVER  
             energy: 71      // Kaynak, 0'a düşerse hareket edemezsin
         };
 
@@ -385,9 +385,9 @@ class GameState {
 
     reset() {
         this.stats = {
-            signal: 50,
+            signal: 0,
             mask: 100,
-            suspicion: 0,
+            suspicion: 50,
             energy: 71
         };
         this.day = 1;
