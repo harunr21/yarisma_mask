@@ -14,6 +14,13 @@ const elements = {
     // Butonlar
     startBtn: document.getElementById('start-btn'),
     restartBtn: document.getElementById('restart-btn'),
+    settingsBtn: document.getElementById('settings-btn'),
+    tutorialBtn: document.getElementById('tutorial-btn'),
+    settingsModal: document.getElementById('settings-modal'),
+    closeSettingsBtn: document.getElementById('close-settings-btn'),
+    tutorialModal: document.getElementById('tutorial-modal'),
+    closeTutorialBtn: document.getElementById('close-tutorial-btn'),
+    soundToggle: document.getElementById('sound-toggle'),
 
     // Stat barlar
     signalBar: document.getElementById('signal-bar'),
@@ -423,9 +430,47 @@ function startGame() {
     }
 }
 
+elements.soundToggle.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('soundEnabled', soundEnabled);
+    updateSoundUI();
+});
+
 // Event Listeners
 elements.startBtn.addEventListener('click', startGame);
 elements.restartBtn.addEventListener('click', startGame);
+
+// Ses durumu yönetimi
+let soundEnabled = localStorage.getItem('soundEnabled') !== 'false'; // Varsayılan açık
+
+function updateSoundUI() {
+    if (soundEnabled) {
+        elements.soundToggle.textContent = 'AÇIK';
+        elements.soundToggle.classList.add('on');
+    } else {
+        elements.soundToggle.textContent = 'KAPALI';
+        elements.soundToggle.classList.remove('on');
+    }
+}
+
+// İlk yüklemede UI'ı güncelle
+updateSoundUI();
+
+elements.settingsBtn.addEventListener('click', () => {
+    elements.settingsModal.classList.add('active');
+});
+
+elements.closeSettingsBtn.addEventListener('click', () => {
+    elements.settingsModal.classList.remove('active');
+});
+
+elements.tutorialBtn.addEventListener('click', () => {
+    elements.tutorialModal.classList.add('active');
+});
+
+elements.closeTutorialBtn.addEventListener('click', () => {
+    elements.tutorialModal.classList.remove('active');
+});
 
 // Sayfanın herhangi bir yerine tıklayınca maske isimlerini kapat
 document.addEventListener('click', () => {
@@ -434,18 +479,7 @@ document.addEventListener('click', () => {
     });
 });
 
-// Klavye kontrolleri (opsiyonel)
-document.addEventListener('keydown', (e) => {
-    if (screens.game.classList.contains('active') && !gameState.isGameOver) {
-        if (e.key === 'ArrowLeft') {
-            elements.card.classList.add('swipe-left');
-            setTimeout(() => handleSwipe('left'), 300);
-        } else if (e.key === 'ArrowRight') {
-            elements.card.classList.add('swipe-right');
-            setTimeout(() => handleSwipe('right'), 300);
-        }
-    }
-});
+// Klavye kontrolleri kaldırıldı (Sadece mouse/kaydırma ile kontrol edilecek)
 
 // Başlangıç ekranını göster
 showScreen('start');

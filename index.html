@@ -14,12 +14,53 @@
 <body>
     <!-- Başlangıç Ekranı -->
     <div id="start-screen" class="screen active">
+        <div class="crt-overlay"></div>
         <div class="start-content">
             <div class="logo">
                 <img src="assets/images/logo.png" alt="Mask of Destiny" class="game-logo">
                 <p class="tagline">Kimliğini gizle. Sinyali güçlendir. Eve dön.</p>
             </div>
-            <button id="start-btn" class="btn-primary">OYUNU BAŞLAT</button>
+
+            <div class="start-actions">
+                <button id="start-btn" class="btn-primary">OYUNU BAŞLAT</button>
+                <div class="secondary-actions">
+                    <button id="settings-btn" class="btn-secondary" title="Ayarlar">⚙️</button>
+                    <button id="tutorial-btn" class="btn-secondary" title="Nasıl Oynanır?">❓</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eğitim (Tutorial) Modalı -->
+    <div id="tutorial-modal" class="modal">
+        <div class="modal-content tutorial-content">
+            <h2 class="modal-title">NASIL OYNANIR?</h2>
+
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <div class="step-icon">↔️</div>
+                    <p>Kartları <strong>SAĞA</strong> veya <strong>SOLA</strong> kaydırarak kararlarını ver.</p>
+                </div>
+
+                <div class="tutorial-step">
+                    <div class="step-icons">
+                        <img src="assets/icons/signal.png" alt="Sinyal">
+                        <img src="assets/icons/mask.png" alt="Maske">
+                        <img src="assets/icons/suspicion.png" alt="Şüphe">
+                        <img src="assets/icons/energy.png" alt="Enerji">
+                    </div>
+                    <p>4 ana kaynağını dengede tut. Herhangi biri <strong>0</strong> olur veya Şüphe
+                        <strong>100</strong> olursa elenirsin!</p>
+                </div>
+
+                <div class="tutorial-step">
+                    <div class="step-icon">🎭</div>
+                    <p>Gizemli maskeleri topla ve gerçek kimliğini saklayarak eve dönmeye çalış.</p>
+                </div>
+            </div>
+
+            <button id="close-tutorial-btn" class="btn-primary"
+                style="margin-top: 1.5rem; padding: 0.8rem 2rem; font-size: 1.4rem;">ANLADIM</button>
         </div>
     </div>
 
@@ -107,6 +148,19 @@
                 <div id="achievement-mask-image-container" class="achievement-mask-image-container"></div>
                 <p class="achievement-desc">Tıklayarak devam et</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Ayarlar Modalı -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">AYARLAR</h2>
+            <div class="setting-item">
+                <span>SES</span>
+                <button id="sound-toggle" class="btn-toggle">AÇIK</button>
+            </div>
+            <button id="close-settings-btn" class="btn-primary"
+                style="margin-top: 2rem; padding: 1rem 2rem; font-size: 1.5rem;">KAPAT</button>
         </div>
     </div>
 

@@ -16,8 +16,8 @@ const QUESTION_POOL = {
                         id: "1.1-A",
                         scene: "Enkazın yarı açık kabininin içinden ritmik bir titreşim geliyor; metal aralıklardan mavi bir ışık sızıyor ve maske bunu hissedince içten ince bir cızırtı çıkarıyor.",
                         choices: {
-                            left: { text: "Geri çekil", result: "Sessiz kalırsın ama içindeki merak, peşine yapışır.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } },
-                            right: { text: "Kaynağa yaklaş", result: "Bir fırsat yakalarsın ama metal sürtünmesi ve ışık, etrafı daha 'sesli' yapar.", effects: { signal: 3, mask: -2, suspicion: 3, energy: -2 } }
+                            left: { text: "Kaynağa yaklaş", result: "Bir fırsat yakalarsın ama metal sürtünmesi ve ışık, etrafı daha 'sesli' yapar.", effects: { signal: 3, mask: -2, suspicion: 3, energy: -2 } },
+                            right: { text: "Geri çekil", result: "Sessiz kalırsın ama içindeki merak, peşine yapışır.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } }
                         }
                     },
                     {
@@ -62,8 +62,8 @@ const QUESTION_POOL = {
                         id: "1.2-A",
                         scene: "Maskeyi taktığında yüz çizgilerin fazla pürüzsüz; sanki gerçek bir yüz değil de iyi yapılmış bir poster gibi duruyor.",
                         choices: {
-                            left: { text: "Provasız çık", result: "Hız kazanırsın ama küçük bir hata 'geri dönebilir.'", effects: { signal: 0, mask: -2, suspicion: 3, energy: 0 } },
-                            right: { text: "Aynada prova yap", result: "Daha doğal görünürsün ama zaman, sessizce erir.", effects: { signal: 0, mask: 3, suspicion: -2, energy: -1 } }
+                            left: { text: "Aynada prova yap", result: "Daha doğal görünürsün ama zaman, sessizce erir.", effects: { signal: 0, mask: 3, suspicion: -2, energy: -1 } },
+                            right: { text: "Provasız çık", result: "Hız kazanırsın ama küçük bir hata 'geri dönebilir.'", effects: { signal: 0, mask: -2, suspicion: 3, energy: 0 } }
                         }
                     },
                     {
@@ -108,8 +108,8 @@ const QUESTION_POOL = {
                         id: "1.3-A",
                         scene: "Arka sokakta kırık bir priz; kapağı yok, kablo ucu çıplak. Elektrik, sanki seni çağırıyor.",
                         choices: {
-                            left: { text: "Kısa dokun", result: "Az alırsın ama sessiz kalırsın.", effects: { signal: 0, mask: 0, suspicion: 0, energy: 2 } },
-                            right: { text: "Uzun süre bağlan", result: "Güçlenirsin ama kıvılcım sesi merak uyandırır.", effects: { signal: 0, mask: -1, suspicion: 4, energy: 5 } }
+                            left: { text: "Uzun süre bağlan", result: "Güçlenirsin ama kıvılcım sesi merak uyandırır.", effects: { signal: 0, mask: -1, suspicion: 4, energy: 5 } },
+                            right: { text: "Kısa dokun", result: "Az alırsın ama sessiz kalırsın.", effects: { signal: 0, mask: 0, suspicion: 0, energy: 2 } }
                         }
                     },
                     {
@@ -246,8 +246,8 @@ const QUESTION_POOL = {
                         id: "1.6-A",
                         scene: "Eski bir yangın merdiveni çatıya çıkıyor; yukarıda antenler, aşağıda gözler var.",
                         choices: {
-                            left: { text: "Çıkma", result: "Gizli kalırsın, ilerleme yavaşlar.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 } },
-                            right: { text: "Çıkıp dene", result: "Bir ilerleme hissi gelir, görünürlük artar.", effects: { signal: 5, mask: -2, suspicion: 4, energy: -2 } }
+                            left: { text: "Çıkıp dene", result: "Bir ilerleme hissi gelir, görünürlük artar.", effects: { signal: 5, mask: -2, suspicion: 4, energy: -2 } },
+                            right: { text: "Çıkma", result: "Gizli kalırsın, ilerleme yavaşlar.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 } }
                         }
                     },
                     {
@@ -482,8 +482,8 @@ const QUESTION_POOL = {
                         id: "2.1-A",
                         scene: "Neon tabelalar, hızla akan kalabalık ve çarpışan omuzlar; burada kaybolmak kolay ama 'insan' olmak zor.",
                         choices: {
-                            left: { text: "Ara yola sap", result: "Sessiz kalırsın, yalnızlık artar.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } },
-                            right: { text: "Akışa karış", result: "Saklanırsın ama masken çok çalışır.", effects: { signal: 0, mask: -3, suspicion: -3, energy: -2 } }
+                            left: { text: "Akışa karış", result: "Saklanırsın ama masken çok çalışır.", effects: { signal: 0, mask: -3, suspicion: -3, energy: -2 } },
+                            right: { text: "Ara yola sap", result: "Sessiz kalırsın, yalnızlık artar.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } }
                         }
                     },
                     {
@@ -528,8 +528,8 @@ const QUESTION_POOL = {
                         id: "2.2-A",
                         scene: "Kamera direğinin altından geçmek zorundasın; kırmızı ışık yanıp sönüyor, sanki seni sayıyor.",
                         choices: {
-                            left: { text: "Hızla geç", result: "Hız kazanırsın, kayıt riski artar.", effects: { signal: 0, mask: 0, suspicion: 4, energy: -1 } },
-                            right: { text: "Kör nokta bekle", result: "Doğru anı yakalarsan izsiz geçersin.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -2 } }
+                            left: { text: "Kör nokta bekle", result: "Doğru anı yakalarsan izsiz geçersin.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -2 } },
+                            right: { text: "Hızla geç", result: "Hız kazanırsın, kayıt riski artar.", effects: { signal: 0, mask: 0, suspicion: 4, energy: -1 } }
                         }
                     },
                     {
@@ -574,8 +574,8 @@ const QUESTION_POOL = {
                         id: "2.3-A",
                         scene: "Cihaz 'parazit' uyarısı verir; ekran çizgileri titrer, sanki başka bir şey araya giriyor.",
                         choices: {
-                            left: { text: "Görmezden gel", result: "Kolay olur, sonra bedel doğabilir.", effects: { signal: 1, mask: 0, suspicion: 0, energy: 0 } },
-                            right: { text: "Çözmeyi dene", result: "Zor ama temiz bir yol açılır.", effects: { signal: 4, mask: -1, suspicion: -1, energy: -2 } }
+                            left: { text: "Çözmeyi dene", result: "Zor ama temiz bir yol açılır.", effects: { signal: 4, mask: -1, suspicion: -1, energy: -2 } },
+                            right: { text: "Görmezden gel", result: "Kolay olur, sonra bedel doğabilir.", effects: { signal: 1, mask: 0, suspicion: 0, energy: 0 } }
                         }
                     },
                     {
@@ -1875,7 +1875,18 @@ const QUESTION_POOL = {
     }
 };
 
+// Görülen alternatifleri takip eden obje
+const seenAlternatives = {};
+
+// Görülen alternatifleri sıfırla (yeni oyun başladığında çağrılmalı)
+function resetSeenAlternatives() {
+    for (const key in seenAlternatives) {
+        delete seenAlternatives[key];
+    }
+}
+
 // Soru havuzundan rastgele soru seçme fonksiyonu
+// Daha önce görülmemiş alternatifleri tercih eder ve seçeneklerin yerlerini rastgele değiştirir
 function getRandomQuestion(act, questionNumber) {
     const actData = QUESTION_POOL[act];
     if (!actData) return null;
@@ -1884,11 +1895,51 @@ function getRandomQuestion(act, questionNumber) {
     if (!questionData) return null;
 
     const alternatives = questionData.alternatives;
-    const randomIndex = Math.floor(Math.random() * alternatives.length);
-    return alternatives[randomIndex];
+    const key = `${act}-${questionNumber}`;
+
+    // Bu soru için görülen alternatifleri al veya oluştur
+    if (!seenAlternatives[key]) {
+        seenAlternatives[key] = [];
+    }
+
+    // Henüz görülmemiş alternatifleri bul
+    const unseenIndices = [];
+    for (let i = 0; i < alternatives.length; i++) {
+        if (!seenAlternatives[key].includes(i)) {
+            unseenIndices.push(i);
+        }
+    }
+
+    // Eğer tüm alternatifler görüldüyse, listeyi sıfırla ve tekrar başla
+    if (unseenIndices.length === 0) {
+        seenAlternatives[key] = [];
+        for (let i = 0; i < alternatives.length; i++) {
+            unseenIndices.push(i);
+        }
+    }
+
+    // Görülmemiş alternatiflerden rastgele birini seç
+    const randomUnseenIndex = Math.floor(Math.random() * unseenIndices.length);
+    const selectedIndex = unseenIndices[randomUnseenIndex];
+
+    // Seçilen alternatifi görülenler listesine ekle
+    seenAlternatives[key].push(selectedIndex);
+
+    // Seçilen alternatifin bir kopyasını oluştur
+    const selectedAlt = JSON.parse(JSON.stringify(alternatives[selectedIndex]));
+
+    // %50 ihtimalle seçeneklerin yerlerini değiştir (sağ-sol swap)
+    const shouldSwapChoices = Math.random() < 0.5;
+    if (shouldSwapChoices && selectedAlt.choices) {
+        const temp = selectedAlt.choices.left;
+        selectedAlt.choices.left = selectedAlt.choices.right;
+        selectedAlt.choices.right = temp;
+    }
+
+    return selectedAlt;
 }
 
 // Dışa aktarma
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { QUESTION_POOL, getRandomQuestion };
+    module.exports = { QUESTION_POOL, getRandomQuestion, resetSeenAlternatives };
 }

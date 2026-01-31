@@ -7,7 +7,7 @@
 class GameState {
     constructor() {
         this.stats = {
-            signal: 0,      // Kazanma koşulu: %100'e ulaş
+            signal: 50,      // Kazanma koşulu: %100'e ulaş
             mask: 100,      // 0'a düşerse GAME OVER
             suspicion: 0,   // %100 olursa LİNÇ - GAME OVER  
             energy: 71      // Kaynak, 0'a düşerse hareket edemezsin
@@ -385,7 +385,7 @@ class GameState {
 
     reset() {
         this.stats = {
-            signal: 0,
+            signal: 50,
             mask: 100,
             suspicion: 0,
             energy: 71
@@ -400,6 +400,11 @@ class GameState {
         this.currentQuestionInAct = 1;
         this.totalQuestionsAnswered = 0;
         this.currentQuestion = null;
+
+        // Görülen alternatifleri sıfırla
+        if (typeof resetSeenAlternatives === 'function') {
+            resetSeenAlternatives();
+        }
     }
 }
 
