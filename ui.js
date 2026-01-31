@@ -479,7 +479,19 @@ document.addEventListener('click', () => {
     });
 });
 
-// Klavye kontrolleri kaldırıldı (Sadece mouse/kaydırma ile kontrol edilecek)
+// Klavye kontrolleri (Ok tuşlarıyla seçim yapma)
+document.addEventListener('keydown', (e) => {
+    // Sadece oyun ekranı aktifse ve oyun bitmediyse çalışsın
+    if (screens.game.classList.contains('active') && !gameState.isGameOver) {
+        if (e.key === 'ArrowLeft') {
+            elements.card.classList.add('swipe-left');
+            setTimeout(() => handleSwipe('left'), 300);
+        } else if (e.key === 'ArrowRight') {
+            elements.card.classList.add('swipe-right');
+            setTimeout(() => handleSwipe('right'), 300);
+        }
+    }
+});
 
 // Başlangıç ekranını göster
 showScreen('start');
