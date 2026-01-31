@@ -9,7 +9,7 @@ class GameState {
         this.stats = {
             signal: 0,      // Kazanma koşulu: %100'e ulaş
             mask: 100,      // 0'a düşerse GAME OVER
-            suspicion: 50,   // %100 olursa LİNÇ - GAME OVER  
+            suspicion: 35,   // %100 olursa LİNÇ - GAME OVER (35'ten başlar - sonlara ulaşmayı kolaylaştırır)
             energy: 71      // Kaynak, 0'a düşerse hareket edemezsin
         };
 
@@ -101,13 +101,13 @@ class GameState {
         // PASİF GÜNLÜK ETKİLER
         // Yaşam enerjisi -= 0.2
         // Maske -= 0.5
-        // Şüphe += 1 (şu an kapalı)
-        // Sinyal += 0.25
+        // Şüphe += 0.3 (yavaş artış)
+        // Sinyal += 0.4 (daha hızlı artış - WIN sonuna ulaşmayı kolaylaştırır)
 
         this.stats.energy = Math.max(0, this.stats.energy - 0.2);
         this.stats.mask = Math.max(0, this.stats.mask - 0.5);
-        this.stats.signal = Math.min(100, this.stats.signal + 0.25);
-        //this.stats.suspicion = Math.min(100, this.stats.suspicion + 1);
+        this.stats.signal = Math.min(100, this.stats.signal + 0.4);
+        this.stats.suspicion = Math.min(100, this.stats.suspicion + 0.3);
     }
 
     applyChoice(direction) {
@@ -205,8 +205,8 @@ class GameState {
      * Tüm sorular bittiğinde final sonunu belirle
      * SON 1: sinyal = 100 → Kesin kurtuluş (anagemi gelir)
      * SON 2: maske = 0 → Kesin ölüm (checkGameEnd'de kontrol edilir)
-     * SON 3: sinyal >= 85, şüphe <= 45, İletişim Maskesi → Köprü (iki dünyada yaşam)
-     * SON 4: sinyal <= 85, şüphe <= 30, Güven Maskesi → Dünya'da kalıcı yaşam
+     * SON 3: sinyal >= 75, şüphe <= 55, İletişim Maskesi → Köprü (iki dünyada yaşam)
+     * SON 4: sinyal <= 75, şüphe <= 45, Güven Maskesi → Dünya'da kalıcı yaşam
      * SON 5: şüphe = 100 veya enerji = 0 → Game Over (checkGameEnd'de kontrol edilir)
      */
     checkFinalEnding() {
@@ -218,31 +218,38 @@ class GameState {
         }
 
         // SON 3: Köprü Sonu - İnsanlar ve uzaylılar arasında köprü
-        // Koşullar: sinyal >= 85, şüphe <= 45, İletişim Maskesi kazanılmış
+        // Koşullar: sinyal >= 75, şüphe <= 55, İletişim Maskesi kazanılmış
         const hasCommsunationMask = this.collectedMasks.includes('İletişim Maskesi');
-        if (this.stats.signal >= 85 && this.stats.suspicion <= 45 && hasCommsunationMask) {
+        if (this.stats.signal >= 75 && this.stats.suspicion <= 55 && hasCommsunationMask) {
             this.isGameOver = true;
             this.endReason = 'bridge';
             return;
         }
 
         // SON 4: Dünya'da Kalıcı Yaşam
-        // Koşullar: sinyal <= 85, şüphe <= 30, Güven Maskesi kazanılmış
+        // Koşullar: sinyal <= 75, şüphe <= 45, Güven Maskesi kazanılmış
         const hasTrustMask = this.collectedMasks.includes('Güven Maskesi');
-        if (this.stats.signal <= 85 && this.stats.suspicion <= 30 && hasTrustMask) {
+        if (this.stats.signal <= 75 && this.stats.suspicion <= 45 && hasTrustMask) {
             this.isGameOver = true;
             this.endReason = 'earth_permanent';
             return;
         }
 
         // Tüm sorular tamamlandı ama hiçbir özel sona ulaşılamadı
-        // Mask durumuna göre alternatif son belirlenir
-        if (this.stats.mask >= 50) {
-            // Maske sağlam ama koşullar yetersiz - Dünya'da kaldı (geçici)
+        // Mask ve sinyal durumuna göre alternatif son belirlenir
+        // Sinyal yüksekse ama 100 değilse: belirsiz (yardım gelebilir de gelmeyebilir de)
+        // Sinyal düşük ve maske sağlamsa: dünya'da kaldı
+        // Maske zayıfsa: belirsiz
+        if (this.stats.signal >= 60) {
+            // Sinyal yeterince yüksek ama 100 değil - belirsiz son (yardım gelebilir)
+            this.isGameOver = true;
+            this.endReason = 'uncertain';
+        } else if (this.stats.mask >= 65) {
+            // Maske sağlam, sinyal düşük - Dünya'da kaldı (geçici)
             this.isGameOver = true;
             this.endReason = 'stayed_on_earth';
         } else {
-            // Maske zayıf - belirsiz son
+            // Maske zayıf ve sinyal düşük - belirsiz son
             this.isGameOver = true;
             this.endReason = 'uncertain';
         }
@@ -387,7 +394,7 @@ class GameState {
         this.stats = {
             signal: 0,
             mask: 100,
-            suspicion: 50,
+            suspicion: 35,
             energy: 71
         };
         this.day = 1;

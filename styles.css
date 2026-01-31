@@ -597,24 +597,52 @@ body::before {
 .end-content {
     /* Similar to start screen frame */
     background: rgba(15, 28, 37, 0.95);
-    padding: var(--spacing-xxl);
+    padding: var(--spacing-lg);
     border: 4px solid var(--danger);
     /* Red border for end usually means death */
     box-shadow: 0 0 0 4px #000, 0 10px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
     max-width: 90%;
+    /* Mobilde 95% olabilir ama şimdilik desktop için */
+    width: 600px;
+    /* Sabit genişlik limiti */
+    max-height: 90vh;
+    /* Ekran boyunu aşmasın */
+    overflow-y: auto;
+    /* İçerik taşarsa scroll olsun */
+
+    /* Scrollbar styling for webkit */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-secondary) transparent;
+}
+
+/* Custom Scrollbar */
+.end-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.end-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.end-content::-webkit-scrollbar-thumb {
+    background-color: var(--accent-secondary);
+    border-radius: 4px;
 }
 
 .end-icon {
-    font-size: 6rem;
-    margin-bottom: var(--spacing-lg);
+    font-size: 4rem;
+    /* 6rem'den küçültüldü */
+    margin-bottom: var(--spacing-md);
 }
 
 .end-title {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-md);
+    font-size: 2.5rem;
+    /* 3rem'den küçültüldü */
+    margin-bottom: var(--spacing-sm);
     text-shadow: 3px 3px 0 #000;
     text-transform: uppercase;
+    line-height: 1.1;
 }
 
 .end-title.win {
@@ -628,20 +656,24 @@ body::before {
 }
 
 .end-description {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    /* 1.5rem'den küçültüldü */
     color: var(--text-primary);
-    margin-bottom: var(--spacing-xl);
-    max-width: 500px;
+    margin-bottom: var(--spacing-lg);
+    max-width: 100%;
+    /* Kapsayıcı genişliğine uysun */
+    padding: 0 var(--spacing-sm);
 }
 
 .end-stats {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
     margin-bottom: var(--spacing-xl);
     border-top: 2px solid var(--text-muted);
     border-bottom: 2px solid var(--text-muted);
-    padding: var(--spacing-md) 0;
+    padding: var(--spacing-lg) 0;
 }
 
 .end-stat {
@@ -649,6 +681,7 @@ body::before {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-xs);
+    min-width: 80px;
 }
 
 .end-stat-value {
@@ -661,6 +694,45 @@ body::before {
     font-size: 1rem;
     color: var(--text-secondary);
     text-transform: uppercase;
+}
+
+.end-masks-report {
+    width: 100%;
+    margin-top: var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: var(--spacing-md);
+}
+
+.end-masks-report h3 {
+    font-size: 1.5rem;
+    color: var(--accent-secondary);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+}
+
+.end-masks-list {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.end-mask-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.end-mask-item img {
+    height: 64px;
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+.end-mask-item span {
+    font-size: 1.2rem;
+    color: var(--text-primary);
 }
 
 /* ===================================

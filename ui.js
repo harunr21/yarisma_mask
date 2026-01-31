@@ -402,13 +402,23 @@ function showEndScreen() {
     elements.endStats.innerHTML = `
         <div class="end-stat">
             <span class="end-stat-icon"><img src="assets/icons/signal.png" alt="Sinyal" style="height: 32px;"></span>
-            <span class="end-stat-value">${gameState.stats.signal}%</span>
+            <span class="end-stat-value">${Math.floor(gameState.stats.signal)}%</span>
             <span class="end-stat-label">Sinyal</span>
         </div>
         <div class="end-stat">
             <span class="end-stat-icon"><img src="assets/icons/mask.png" alt="Maske" style="height: 32px;"></span>
-            <span class="end-stat-value">${gameState.stats.mask}%</span>
+            <span class="end-stat-value">${Math.floor(gameState.stats.mask)}%</span>
             <span class="end-stat-label">Maske</span>
+        </div>
+        <div class="end-stat">
+            <span class="end-stat-icon"><img src="assets/icons/suspicion.png" alt="Şüphe" style="height: 32px;"></span>
+            <span class="end-stat-value">${Math.floor(gameState.stats.suspicion)}%</span>
+            <span class="end-stat-label">Şüphe</span>
+        </div>
+        <div class="end-stat">
+            <span class="end-stat-icon"><img src="assets/icons/energy.png" alt="Enerji" style="height: 32px;"></span>
+            <span class="end-stat-value">${Math.floor(gameState.stats.energy)}%</span>
+            <span class="end-stat-label">Enerji</span>
         </div>
         <div class="end-stat">
             <span class="end-stat-icon">📅</span>
@@ -416,6 +426,39 @@ function showEndScreen() {
             <span class="end-stat-label">Gün</span>
         </div>
     `;
+
+    // Kazanılan maskeler raporu
+    if (gameState.collectedMasks.length > 0) {
+        const maskImages = {
+            "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
+            "Güven Maskesi": "assets/masks/guven_maskesi.png"
+        };
+
+        const masksHtml = gameState.collectedMasks.map(maskName => {
+            const imagePath = maskImages[maskName];
+            return `
+                <div class="end-mask-item">
+                    <img src="${imagePath}" alt="${maskName}">
+                    <span>${maskName}</span>
+                </div>
+            `;
+        }).join('');
+
+        elements.endStats.innerHTML += `
+            <div class="end-masks-report">
+                <h3>KAZANILAN MASKELER</h3>
+                <div class="end-masks-list">
+                    ${masksHtml}
+                </div>
+            </div>
+        `;
+    } else {
+        elements.endStats.innerHTML += `
+            <div class="end-masks-report">
+                <h3>HİÇ MASKE KAZANAMADIN</h3>
+            </div>
+        `;
+    }
 
     showScreen('end');
 }
