@@ -73,7 +73,13 @@ const elements = {
     // Hikaye Geçmişi
     storyLog: document.getElementById('story-log'),
     storyLogToggle: document.getElementById('story-log-toggle'),
-    storyLogEntries: document.getElementById('story-log-entries')
+    storyLogEntries: document.getElementById('story-log-entries'),
+
+    // Pause Menüsü
+    pauseBtn: document.getElementById('pause-btn'),
+    pauseMenu: document.getElementById('pause-menu'),
+    resumeBtn: document.getElementById('resume-btn'),
+    pauseSoundToggle: document.getElementById('pause-sound-toggle')
 };
 
 // Ekran geçişleri
@@ -420,6 +426,9 @@ function handleSwipe(direction) {
 
 // Oyun sonu ekranını göster
 function showEndScreen() {
+    // Arkaplan müziğini durdur
+    stopBackgroundMusic();
+
     const endMessage = gameState.getEndMessage();
 
     elements.endIcon.textContent = endMessage.icon;
@@ -534,6 +543,9 @@ function playVideo(videoKey, callback) {
         videoHeaderTitle.textContent = videoTitles[videoKey] || '';
     }
 
+    // Arkaplan müziğini fade-out ile duraklat
+    pauseBackgroundMusic();
+
     // Fade-out class'ını kaldır (önceki animasyonlardan kalmış olabilir)
     elements.videoOverlay.classList.remove('fade-out');
 
@@ -581,6 +593,10 @@ function playVideo(videoKey, callback) {
             elements.videoOverlay.classList.remove('active');
             elements.videoOverlay.classList.remove('fade-out');
             watchedVideos.add(videoKey);
+
+            // Arkaplan müziğini fade-in ile devam ettir
+            resumeBackgroundMusic();
+
             if (cb) cb();
         }, 600); // CSS transition süresiyle eşleş
     }
@@ -631,6 +647,9 @@ function startGame() {
 
                 showScreen('game');
 
+                // Arkaplan müziğini başlat (tüm intro videoları bittikten sonra)
+                startBackgroundMusic();
+
                 // Swipe handler'ı başlat
                 if (!swipeHandler) {
                     swipeHandler = new SwipeHandler(elements.card, handleSwipe);
@@ -646,11 +665,33 @@ elements.soundToggle.addEventListener('click', () => {
     soundEnabled = !soundEnabled;
     localStorage.setItem('soundEnabled', soundEnabled);
     updateSoundUI();
+
+    // Arkaplan müziğini kontrol et
+    if (soundEnabled) {
+        // Eğer oyun ekranındaysak müziği başlat
+        if (screens.game.classList.contains('active') && !gameState.isGameOver) {
+            const isVideoPlaying = elements.videoOverlay.classList.contains('active');
+            if (!isVideoPlaying) {
+                resumeBackgroundMusic();
+            }
+        }
+    } else {
+        // Ses kapatıldıysa müziği durdur
+        stopBackgroundMusic();
+    }
 });
 
 // Event Listeners
 elements.startBtn.addEventListener('click', startGame);
 elements.restartBtn.addEventListener('click', () => {
+    // Arkaplan müziğini durdur
+    stopBackgroundMusic();
+
+    // Pause menüsünü kapat (eğer açıksa)
+    if (isPaused) {
+        closePauseMenu();
+    }
+
     // Oyun durumunu sıfırla
     gameState.reset();
     watchedVideos.clear();
@@ -664,6 +705,89 @@ elements.restartBtn.addEventListener('click', () => {
 // Ses durumu yönetimi
 let soundEnabled = localStorage.getItem('soundEnabled') !== 'false'; // Varsayılan açık
 const choiceSound = new Audio('ses_dosyalari/secim_sesi.mp3');
+
+// Arkaplan müziği
+const backgroundMusic = new Audio('ses_dosyalari/arkaplan_sesi.MP3');
+backgroundMusic.loop = true; // Sürekli çalsın
+backgroundMusic.volume = 0.5; // Başlangıç ses seviyesi (0-1 arası)
+
+let musicFadeInterval = null; // Fade animasyonu için interval
+
+// Arkaplan müziğini başlat
+function startBackgroundMusic() {
+    if (!soundEnabled) return;
+
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.volume = 0; // Sessizden başla
+
+    backgroundMusic.play().catch(e => console.log('Müzik çalma hatası:', e));
+
+    // Fade-in: 0'dan 0.5'e
+    fadeMusic(0, 0.5, 1000);
+}
+
+// Arkaplan müziğini durdur (fade-out ile)
+function stopBackgroundMusic() {
+    // Fade-out: Mevcut seviyeden 0'a
+    fadeMusic(backgroundMusic.volume, 0, 1000, () => {
+        backgroundMusic.pause();
+    });
+}
+
+// Arkaplan müziğini fade-out yap (video başladığında)
+function pauseBackgroundMusic() {
+    if (musicFadeInterval) {
+        clearInterval(musicFadeInterval);
+        musicFadeInterval = null;
+    }
+
+    // Fade-out: Mevcut seviyeden 0'a
+    fadeMusic(backgroundMusic.volume, 0, 800, () => {
+        backgroundMusic.pause();
+    });
+}
+
+// Arkaplan müziğini fade-in yap (video bittiğinde)
+function resumeBackgroundMusic() {
+    if (!soundEnabled) return;
+
+    if (musicFadeInterval) {
+        clearInterval(musicFadeInterval);
+        musicFadeInterval = null;
+    }
+
+    backgroundMusic.play().catch(e => console.log('Müzik çalma hatası:', e));
+
+    // Fade-in: 0'dan 0.5'e
+    fadeMusic(0, 0.5, 800);
+}
+
+// Müzik seviyesini fade ile değiştir
+function fadeMusic(fromVolume, toVolume, duration, callback) {
+    if (musicFadeInterval) {
+        clearInterval(musicFadeInterval);
+    }
+
+    const steps = 30; // 30 adımda geçiş yap
+    const stepDuration = duration / steps;
+    const volumeStep = (toVolume - fromVolume) / steps;
+
+    let currentStep = 0;
+    backgroundMusic.volume = Math.max(0, Math.min(1, fromVolume));
+
+    musicFadeInterval = setInterval(() => {
+        currentStep++;
+        const newVolume = fromVolume + (volumeStep * currentStep);
+        backgroundMusic.volume = Math.max(0, Math.min(1, newVolume));
+
+        if (currentStep >= steps) {
+            clearInterval(musicFadeInterval);
+            musicFadeInterval = null;
+            backgroundMusic.volume = Math.max(0, Math.min(1, toVolume));
+            if (callback) callback();
+        }
+    }, stepDuration);
+}
 
 function playChoiceSound() {
     if (soundEnabled) {
@@ -712,7 +836,8 @@ document.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     // Statik ekranlar veya overlay'ler açıkken kart kaydırmayı engelle
     const isOverlayActive = elements.dayOverlay.classList.contains('active') ||
-        elements.achievementOverlay.classList.contains('active');
+        elements.achievementOverlay.classList.contains('active') ||
+        isPaused; // Pause menüsü kontrolü eklendi
 
     // Sadece oyun ekranı aktifse, oyun bitmediyse ve bir overlay açık değilse çalışsın
     if (screens.game.classList.contains('active') && !gameState.isGameOver && !isOverlayActive) {
@@ -851,6 +976,103 @@ function clearStoryLog() {
         `;
     }
 }
+
+// ===================================
+// PAUSE MENU FUNCTIONALITY
+// ===================================
+
+let isPaused = false;
+
+// Pause menüsünü aç
+function openPauseMenu() {
+    if (isPaused) return;
+
+    isPaused = true;
+    elements.pauseMenu.classList.add('active');
+
+    // Arkaplan müziğinin sesini azalt (0.5'ten 0.15'e)
+    if (soundEnabled && !backgroundMusic.paused) {
+        fadeMusic(backgroundMusic.volume, 0.15, 300);
+    }
+
+    // Ses toggle durumunu senkronize et
+    updatePauseSoundUI();
+}
+
+// Pause menüsünü kapat
+function closePauseMenu() {
+    if (!isPaused) return;
+
+    isPaused = false;
+    elements.pauseMenu.classList.remove('active');
+
+    // Arkaplan müziğinin sesini normale döndür (0.5'e)
+    if (soundEnabled && !backgroundMusic.paused) {
+        fadeMusic(backgroundMusic.volume, 0.5, 300);
+    }
+}
+
+// Pause menü ses toggle UI'ı güncelle
+function updatePauseSoundUI() {
+    if (soundEnabled) {
+        elements.pauseSoundToggle.textContent = 'AÇIK';
+        elements.pauseSoundToggle.classList.add('on');
+    } else {
+        elements.pauseSoundToggle.textContent = 'KAPALI';
+        elements.pauseSoundToggle.classList.remove('on');
+    }
+}
+
+// Pause butonu event listener
+elements.pauseBtn.addEventListener('click', () => {
+    openPauseMenu();
+});
+
+// Resume butonu event listener
+elements.resumeBtn.addEventListener('click', () => {
+    closePauseMenu();
+});
+
+// Pause menüsü ses toggle
+elements.pauseSoundToggle.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('soundEnabled', soundEnabled);
+    updateSoundUI();
+    updatePauseSoundUI();
+
+    // Arkaplan müziğini kontrol et
+    if (soundEnabled) {
+        // Eğer oyun ekranındaysak müziği başlat
+        if (screens.game.classList.contains('active') && !gameState.isGameOver) {
+            const isVideoPlaying = elements.videoOverlay.classList.contains('active');
+            if (!isVideoPlaying) {
+                resumeBackgroundMusic();
+            }
+        }
+    } else {
+        // Ses kapatıldıysa müziği durdur
+        stopBackgroundMusic();
+    }
+});
+
+// ESC tuşu ile pause menüsü toggle
+document.addEventListener('keydown', (e) => {
+    // Sadece oyun ekranında ESC ile pause menüsü açılsın
+    if (e.key === 'Escape' && screens.game.classList.contains('active') && !gameState.isGameOver) {
+        // Video veya başka overlay açıksa ESC tuşunu işleme
+        const isOverlayActive = elements.dayOverlay.classList.contains('active') ||
+            elements.achievementOverlay.classList.contains('active') ||
+            elements.videoOverlay.classList.contains('active');
+
+        if (!isOverlayActive) {
+            if (isPaused) {
+                closePauseMenu();
+            } else {
+                openPauseMenu();
+            }
+        }
+    }
+});
 
 // Başlangıç ekranını göster
 showScreen('start');

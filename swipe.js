@@ -35,8 +35,8 @@ class SwipeHandler {
     }
 
     handleStart(e) {
-        // PiP modundaysa swipe yapılamaz
-        if (gameState.isGameOver || document.querySelector('.card-area').classList.contains('pip-mode')) return;
+        // Pause menüsü açıksa veya oyun bittiyse swipe yapılamaz
+        if (gameState.isGameOver || (typeof isPaused !== 'undefined' && isPaused)) return;
 
         this.isDragging = true;
         this.card.classList.add('swiping');

@@ -131,6 +131,9 @@
             <span class="day-number" id="day-number">1</span>
         </div>
 
+        <!-- Pause Butonu (Sağ Üst) -->
+        <button id="pause-btn" class="pause-btn" title="Duraklat (ESC)">⏸</button>
+
         <!-- Day Animation Overlay -->
         <div id="day-overlay" class="day-overlay">
             <div class="day-overlay-content">
@@ -167,6 +170,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Pause Menüsü -->
+    <div id="pause-menu" class="pause-menu">
+        <div class="pause-menu-content">
+            <h2 class="pause-title">DURAKLADI</h2>
+            <div class="pause-options">
+                <div class="setting-item">
+                    <span>SES</span>
+                    <button id="pause-sound-toggle" class="btn-toggle">AÇIK</button>
+                </div>
+            </div>
+            <button id="resume-btn" class="btn-primary"
+                style="margin-top: 2rem; padding: 1rem 2.5rem; font-size: 1.5rem;">DEVAM ET</button>
         </div>
     </div>
 
