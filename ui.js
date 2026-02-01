@@ -482,16 +482,18 @@ function showEndScreen() {
 
 // Video oynatma fonksiyonu
 const videoSources = {
-    intro: 'editli_videolar/1.mp4',  // Oyun başlangıcı
-    act1: 'editli_videolar/2.mp4',   // ACT 1 başlangıcı
-    act2: 'editli_videolar/3.mp4',   // ACT 2 başlangıcı
-    act3: 'editli_videolar/4.mp4',   // ACT 3 başlangıcı
-    act4: 'editli_videolar/5.mp4'    // ACT 4 başlangıcı
+    intro: 'editli_videolar/1.mp4',              // Oyun başlangıcı
+    giris_hikayesi: 'editli_videolar/giris_hikayesi.mp4',  // Giriş hikayesi
+    act1: 'editli_videolar/2.mp4',               // ACT 1 başlangıcı
+    act2: 'editli_videolar/3.mp4',               // ACT 2 başlangıcı
+    act3: 'editli_videolar/4.mp4',               // ACT 3 başlangıcı
+    act4: 'editli_videolar/5.mp4'                // ACT 4 başlangıcı
 };
 
 // Video başlıkları
 const videoTitles = {
     intro: 'BAŞLANGIÇ',
+    giris_hikayesi: 'HİKAYE',
     act1: 'BÖLÜM 1 - ENKAZ VE İLK TAKLİT',
     act2: 'BÖLÜM 2 - ŞEHİR SENİ ÖĞRENİYOR',
     act3: 'BÖLÜM 3 - YAKINLIK VE GÜVEN',
@@ -601,25 +603,28 @@ function startGame() {
 
     // Önce intro videosunu oynat
     playVideo('intro', () => {
-        updateStatBars(false);
-        updateDayCounter();
-        updateDayCounter();
-        updateActProgress();
-        updateCollectedMasks([]); // Maskeleri sıfırla
+        // Sonra giriş hikayesi videosunu oynat
+        playVideo('giris_hikayesi', () => {
+            updateStatBars(false);
+            updateDayCounter();
+            updateDayCounter();
+            updateActProgress();
+            updateCollectedMasks([]); // Maskeleri sıfırla
 
-        // ACT 1 videosunu oynat
-        checkAndPlayActVideo(() => {
-            const firstCard = gameState.getNextCard();
-            renderCard(firstCard);
+            // ACT 1 videosunu oynat
+            checkAndPlayActVideo(() => {
+                const firstCard = gameState.getNextCard();
+                renderCard(firstCard);
 
-            showScreen('game');
+                showScreen('game');
 
-            // Swipe handler'ı başlat
-            if (!swipeHandler) {
-                swipeHandler = new SwipeHandler(elements.card, handleSwipe);
-            } else {
-                swipeHandler.reset();
-            }
+                // Swipe handler'ı başlat
+                if (!swipeHandler) {
+                    swipeHandler = new SwipeHandler(elements.card, handleSwipe);
+                } else {
+                    swipeHandler.reset();
+                }
+            });
         });
     });
 }
