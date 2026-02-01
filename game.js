@@ -160,7 +160,8 @@ class GameState {
 
             // Maske ödülü kontrolü
             if (choice.award) {
-                if (!this.collectedMasks.includes(choice.award)) {
+                // Sadece daha önce kazanılmadıysa VE toplam maske sayısı 3'ten az ise kazanılabilir
+                if (!this.collectedMasks.includes(choice.award) && this.collectedMasks.length < 3) {
                     this.collectedMasks.push(choice.award);
                     earnedMask = choice.award;
 
@@ -231,73 +232,68 @@ class GameState {
 
     /**
      * Tüm sorular bittiğinde final sonunu belirle
-     * SON 1: sinyal = 100 → Kesin kurtuluş (anagemi gelir)
-     * SON 2: maske = 0 → Kesin ölüm (checkGameEnd'de kontrol edilir)
-     * SON 3: sinyal >= 75, şüphe <= 55, İletişim Maskesi → Köprü (iki dünyada yaşam)
-     * SON 4: sinyal <= 75, şüphe <= 45, Güven Maskesi → Dünya'da kalıcı yaşam
-     * SON 5: şüphe = 100 veya enerji = 0 → Game Over (checkGameEnd'de kontrol edilir)
-     * 
-     * YENİ GİZLİ SONLAR:
-     * SON 5: Kimlik Maskesi + şüphe >= 70 + sinyal < 100 → Kayıtlı Hayalet (sisteme karıştın)
-     * SON 6: Bakım Maskesi + maske >= 80 + sinyal < 100 → Maskesiz Maske (maskeyi kontrol ettin)
-     * SON 7: Sessizlik Maskesi + şüphe <= 30 + sinyal < 85 → Sessiz Kaçış (iz bırakmadan çözdün)
+     * ÇAKIŞMASIZ (DISJOINT) SON KOŞULLARI:
+     * 1. S >= 100 -> Rescue (🛸)
+     * 2. 85 <= S <= 99 && 31 <= Ş <= 55 && İletişim Maskesi -> Bridge (🌌)
+     * 3. S <= 59 && Ş <= 45 && Güven Maskesi -> Earth Stay (🏡)
+     * 4. 60 <= S <= 84 && Ş <= 20 && Sessizlik Maskesi -> Silent Escape (🤫)
+     * 5. S <= 84 && Ş >= 70 && Kimlik Maskesi -> Registered Ghost (🪪)
+     * 6. S <= 84 && M >= 90 && 46 <= Ş <= 69 && Bakım Maskesi -> Mask Mastery (🎭)
      */
     checkFinalEnding() {
-        // SON 1: Sinyal %100'e ulaştıysa: Kesin Kurtuluş - Anagemi gelir
+        // 1. ANAGEMİ GELDİ (Kesin Kurtuluş)
         if (this.stats.signal >= 100) {
             this.isGameOver = true;
             this.endReason = 'win';
             return;
         }
 
-        // SON 3: Köprü Sonu - İnsanlar ve uzaylılar arasında köprü
-        // Koşullar: sinyal >= 75, şüphe <= 55, İletişim Maskesi kazanılmış
+        // 2. İKİ DÜNYANIN KÖPRÜSÜ (Bridge)
         const hasCommunicationMask = this.collectedMasks.includes('İletişim Maskesi');
-        if (this.stats.signal >= 75 && this.stats.suspicion <= 55 && hasCommunicationMask) {
+        if (this.stats.signal >= 85 && this.stats.signal <= 99 &&
+            this.stats.suspicion >= 31 && this.stats.suspicion <= 55 &&
+            hasCommunicationMask) {
             this.isGameOver = true;
             this.endReason = 'bridge';
             return;
         }
 
-        // SON 4: Dünya'da Kalıcı Yaşam
-        // Koşullar: sinyal <= 75, şüphe <= 45, Güven Maskesi kazanılmış
+        // 3. DÜNYA'DA YENİ BİR HAYAT (Earth Stay)
         const hasTrustMask = this.collectedMasks.includes('Güven Maskesi');
-        if (this.stats.signal <= 75 && this.stats.suspicion <= 45 && hasTrustMask) {
+        if (this.stats.signal <= 59 && this.stats.suspicion <= 45 && hasTrustMask) {
             this.isGameOver = true;
             this.endReason = 'earth_permanent';
             return;
         }
 
-        // ========== YENİ GİZLİ SONLAR ==========
-
-        // SON 5: Kayıtlı Hayalet - Kimlik Maskesi ile sisteme karıştın
-        // Koşullar: Kimlik Maskesi + şüphe >= 70 (yüksek şüpheyi yönetti) + sinyal < 100
-        const hasIdentityMask = this.collectedMasks.includes('Kimlik Maskesi');
-        if (hasIdentityMask && this.stats.suspicion >= 70 && this.stats.signal < 100) {
-            this.isGameOver = true;
-            this.endReason = 'registered_ghost';
-            return;
-        }
-
-        // SON 6: Maskesiz Maske - Bakım Maskesi ile maskeyi kontrol ettin
-        // Koşullar: Bakım Maskesi + maske >= 80 (hiç kritik düşmedi) + sinyal < 100
-        const hasMaintenanceMask = this.collectedMasks.includes('Bakım Maskesi');
-        if (hasMaintenanceMask && this.stats.mask >= 80 && this.stats.signal < 100) {
-            this.isGameOver = true;
-            this.endReason = 'maskless_mask';
-            return;
-        }
-
-        // SON 7: Sessiz Kaçış - Sessizlik Maskesi ile iz bırakmadan çözdün
-        // Koşullar: Sessizlik Maskesi + şüphe <= 30 (çok düşük) + sinyal < 85
+        // 4. SESSİZ KAÇIŞ (Silent Escape)
         const hasSilenceMask = this.collectedMasks.includes('Sessizlik Maskesi');
-        if (hasSilenceMask && this.stats.suspicion <= 30 && this.stats.signal < 85) {
+        if (this.stats.signal >= 60 && this.stats.signal <= 84 &&
+            this.stats.suspicion <= 20 && hasSilenceMask) {
             this.isGameOver = true;
             this.endReason = 'silent_escape';
             return;
         }
 
-        // ========== VARSAYILAN SONLAR ==========
+        // 5. KAYITLI HAYALET (Registered Ghost)
+        const hasIdentityMask = this.collectedMasks.includes('Kimlik Maskesi');
+        if (this.stats.signal <= 84 && this.stats.suspicion >= 70 && hasIdentityMask) {
+            this.isGameOver = true;
+            this.endReason = 'registered_ghost';
+            return;
+        }
+
+        // 6. MASKESİZ MASKE (Mask Mastery)
+        const hasMaintenanceMask = this.collectedMasks.includes('Bakım Maskesi');
+        if (this.stats.signal <= 84 && this.stats.mask >= 90 &&
+            this.stats.suspicion >= 46 && this.stats.suspicion <= 69 &&
+            hasMaintenanceMask) {
+            this.isGameOver = true;
+            this.endReason = 'maskless_mask';
+            return;
+        }
+
+        // ========== VARSAYILAN SONLAR (Eğer yukarıdakiler tutmazsa) ==========
 
         // Tüm sorular tamamlandı ama hiçbir özel sona ulaşılamadı
         if (this.stats.signal >= 60) {
