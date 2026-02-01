@@ -201,7 +201,7 @@ const QUESTION_POOL = {
                         scene: "Bir çocuk elindeki balonu sallayıp seni 'kostüm' sanıyor; gözleri saf bir merakla parlıyor.",
                         choices: {
                             left: { text: "Uzaklaş", result: "Kendini korursun, soğuk görünürsün.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 0 } },
-                            right: { text: "El salla", result: "Kısa bir 'normal' an yaşarsın.", effects: { signal: 0, mask: -1, suspicion: -3, energy: 0 } }
+                            right: { text: "El salla", result: "Kısa bir 'normal' an yaşarsın.", effects: { signal: 0, mask: -1, suspicion: -3, energy: 0 }, award: "Güven Maskesi" }
                         }
                     },
                     {
@@ -209,7 +209,7 @@ const QUESTION_POOL = {
                         scene: "Yaşlı biri, elindeki poşetlerle durup 'iyi misin?' diye soruyor; sesinde tehdit yok, sadece alışkanlık var.",
                         choices: {
                             left: { text: "Görmezden gel", result: "Sessiz kalırsın ama şüphe doğabilir.", effects: { signal: 0, mask: 0, suspicion: 2, energy: 0 } },
-                            right: { text: "Kısa cevap ver", result: "Sıradan görünürsen geçer.", effects: { signal: 0, mask: -1, suspicion: -3, energy: 0 } }
+                            right: { text: "Kısa cevap ver", result: "Sıradan görünürsen geçer.", effects: { signal: 0, mask: -1, suspicion: -3, energy: 0 }, award: "Güven Maskesi" }
                         }
                     },
                     {
@@ -217,7 +217,7 @@ const QUESTION_POOL = {
                         scene: "Kasiyer küçük bir sohbetle seni 'sınıflandırmak' ister: 'Nerelisin?'",
                         choices: {
                             left: { text: "Konuyu değiştir", result: "Kısa kesersin, soğuk görünebilirsin.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 0 } },
-                            right: { text: "Küçük bir hikâye uydur", result: "Anlık geçiştirirsin, yalanın gölgesi uzar.", effects: { signal: 0, mask: -2, suspicion: -2, energy: -1 } }
+                            right: { text: "Küçük bir hikâye uydur", result: "Anlık geçiştirirsin, yalanın gölgesi uzar.", effects: { signal: 0, mask: -2, suspicion: -2, energy: -1 }, award: "Güven Maskesi" }
                         }
                     },
                     {
@@ -225,7 +225,7 @@ const QUESTION_POOL = {
                         scene: "Yardım noktasında sıcak çorba; buharı bile 'ev' gibi kokuyor ama kuyrukta yüzler var.",
                         choices: {
                             left: { text: "Uzak dur", result: "Sessiz kalırsın ama güçsüzleşirsin.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -2 } },
-                            right: { text: "Kuyruğa gir", result: "Biraz nefes alırsın ama gözler artar.", effects: { signal: 0, mask: -1, suspicion: 3, energy: 3 } }
+                            right: { text: "Kuyruğa gir", result: "Biraz nefes alırsın ama gözler artar.", effects: { signal: 0, mask: -1, suspicion: 3, energy: 3 }, award: "Güven Maskesi" }
                         }
                     },
                     {
@@ -233,7 +233,7 @@ const QUESTION_POOL = {
                         scene: "Birisi battaniye uzatır; elinle alırsan, mesafe kapanır.",
                         choices: {
                             left: { text: "Reddet", result: "Mesafe korursun, yalnızlık artar.", effects: { signal: 0, mask: 0, suspicion: 1, energy: -1 } },
-                            right: { text: "Kabul et", result: "Sıcaklık gelir, yakınlık da gelir.", effects: { signal: 0, mask: 1, suspicion: -2, energy: 2 } }
+                            right: { text: "Kabul et", result: "Sıcaklık gelir, yakınlık da gelir.", effects: { signal: 0, mask: 1, suspicion: -2, energy: 2 }, award: "Güven Maskesi" }
                         }
                     }
                 ]
@@ -247,7 +247,7 @@ const QUESTION_POOL = {
                         scene: "Eski bir yangın merdiveni çatıya çıkıyor; yukarıda antenler, aşağıda gözler var.",
                         choices: {
                             left: { text: "Çıkıp dene", result: "Bir ilerleme hissi gelir, görünürlük artar.", effects: { signal: 5, mask: -2, suspicion: 4, energy: -2 } },
-                            right: { text: "Çıkma", result: "Gizli kalırsın, ilerleme yavaşlar.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 } }
+                            right: { text: "Çıkma", result: "Gizli kalırsın, ilerleme yavaşlar.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 }, award: "İletişim Maskesi" }
                         }
                     },
                     {
@@ -255,7 +255,7 @@ const QUESTION_POOL = {
                         scene: "Cihaz kısa süre cızırdar; ekranında anlamsız çizgiler koşar, sanki bir şey 'duymuş' gibi.",
                         choices: {
                             left: { text: "Ayarı kıs", result: "İz azalır, ilerleme yavaşlar.", effects: { signal: 1, mask: 0, suspicion: -1, energy: -1 } },
-                            right: { text: "Aynı ayarı sürdür", result: "İlerlersin ama iz büyüyebilir.", effects: { signal: 4, mask: -1, suspicion: 3, energy: -2 } }
+                            right: { text: "Aynı ayarı sürdür", result: "İlerlersin ama iz büyüyebilir.", effects: { signal: 4, mask: -1, suspicion: 3, energy: -2 }, award: "İletişim Maskesi" }
                         }
                     },
                     {
@@ -263,7 +263,7 @@ const QUESTION_POOL = {
                         scene: "Yakındaki sokak lambaları bir an titrer; insanlar başlarını kaldırır ama sonra devam eder.",
                         choices: {
                             left: { text: "Kes", result: "Şehir sakinleşir.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 } },
-                            right: { text: "Devam et", result: "Daha güçlü bir işaret doğar.", effects: { signal: 5, mask: -1, suspicion: 4, energy: -2 } }
+                            right: { text: "Devam et", result: "Daha güçlü bir işaret doğar.", effects: { signal: 5, mask: -1, suspicion: 4, energy: -2 }, award: "İletişim Maskesi" }
                         }
                     },
                     {
@@ -271,7 +271,7 @@ const QUESTION_POOL = {
                         scene: "Çatıda anten silüeti görürsün; rüzgâr anteni sallarken, içindeki umut da sallanır.",
                         choices: {
                             left: { text: "Uzak dur", result: "Kapı kapanır.", effects: { signal: 0, mask: 0, suspicion: -1, energy: 0 } },
-                            right: { text: "Yaklaş", result: "Kapı aralanır.", effects: { signal: 4, mask: -1, suspicion: 3, energy: -2 } }
+                            right: { text: "Yaklaş", result: "Kapı aralanır.", effects: { signal: 4, mask: -1, suspicion: 3, energy: -2 }, award: "İletişim Maskesi" }
                         }
                     },
                     {
@@ -279,7 +279,7 @@ const QUESTION_POOL = {
                         scene: "Bir radyo cızırtısı duyarsın; sanki başka bir dünyadan gelen nefes.",
                         choices: {
                             left: { text: "Uzaklaş", result: "Risk düşer.", effects: { signal: 0, mask: 0, suspicion: -1, energy: 0 } },
-                            right: { text: "Kaynağa yönel", result: "İleride kritik bir fırsat doğabilir.", effects: { signal: 5, mask: -1, suspicion: 2, energy: -2 } }
+                            right: { text: "Kaynağa yönel", result: "İleride kritik bir fırsat doğabilir.", effects: { signal: 5, mask: -1, suspicion: 2, energy: -2 }, award: "İletişim Maskesi" }
                         }
                     }
                 ]
@@ -293,7 +293,7 @@ const QUESTION_POOL = {
                         scene: "Karanlık bir camda yansımanı görürsün; maskeyi çıkarıp bakma arzusu boğazında düğümlenir.",
                         choices: {
                             left: { text: "Bakmazsın", result: "Güvende kalırsın, yabancılaşma artar.", effects: { signal: 0, mask: 1, suspicion: -1, energy: 0 } },
-                            right: { text: "Kısacık bak", result: "Kendini hatırlarsın ama risk büyür.", effects: { signal: 0, mask: -2, suspicion: 3, energy: 1 } }
+                            right: { text: "Kısacık bak", result: "Kendini hatırlarsın ama risk büyür.", effects: { signal: 0, mask: -2, suspicion: 3, energy: 1 }, award: "Bakım Maskesi" }
                         }
                     },
                     {
@@ -301,7 +301,7 @@ const QUESTION_POOL = {
                         scene: "Enkaz geride kalır; ayaklarının altındaki toprak bile 'başka' hissedilir.",
                         choices: {
                             left: { text: "'Yaşamak istiyorum.'", result: "Kararlar yumuşar.", effects: { signal: 0, mask: 2, suspicion: 0, energy: 1 } },
-                            right: { text: "'Sadece kurtulmalıyım.'", result: "Kararlar sertleşir.", effects: { signal: 2, mask: -1, suspicion: 0, energy: 0 } }
+                            right: { text: "'Sadece kurtulmalıyım.'", result: "Kararlar sertleşir.", effects: { signal: 2, mask: -1, suspicion: 0, energy: 0 }, award: "Bakım Maskesi" }
                         }
                     },
                     {
@@ -309,7 +309,7 @@ const QUESTION_POOL = {
                         scene: "Gecenin sessizliğinde 'nefessiz' olduğunu hatırlarsın; yine de boğazında bir sıkışma var.",
                         choices: {
                             left: { text: "Şansa bırak", result: "Hızlı gidersin, hatalar artabilir.", effects: { signal: 1, mask: -2, suspicion: 3, energy: 1 } },
-                            right: { text: "Rutin kurmaya çalış", result: "Kontrol hissi artar.", effects: { signal: 0, mask: 2, suspicion: -2, energy: -1 } }
+                            right: { text: "Rutin kurmaya çalış", result: "Kontrol hissi artar.", effects: { signal: 0, mask: 2, suspicion: -2, energy: -1 }, award: "Bakım Maskesi" }
                         }
                     },
                     {
@@ -317,7 +317,7 @@ const QUESTION_POOL = {
                         scene: "Şehir ışıkları uzakta parlıyor; hem davet hem tehdit gibi.",
                         choices: {
                             left: { text: "Kıyıda kal", result: "Risk azalır, imkân azalır.", effects: { signal: 0, mask: 1, suspicion: -2, energy: 0 } },
-                            right: { text: "Şehre yaklaş", result: "Fırsatlar artar, gözler de.", effects: { signal: 3, mask: -1, suspicion: 3, energy: -1 } }
+                            right: { text: "Şehre yaklaş", result: "Fırsatlar artar, gözler de.", effects: { signal: 3, mask: -1, suspicion: 3, energy: -1 }, award: "Bakım Maskesi" }
                         }
                     },
                     {
@@ -325,7 +325,7 @@ const QUESTION_POOL = {
                         scene: "Maskenin içinden metalik bir 'tıng' gelir; sanki maske de yorgunluğunu söylüyor.",
                         choices: {
                             left: { text: "Ertele", result: "Zaman kazanırsın, risk büyür.", effects: { signal: 0, mask: -3, suspicion: 0, energy: 1 } },
-                            right: { text: "Onarmayı düşün", result: "Maske toparlanır, sen yorulursun.", effects: { signal: 0, mask: 4, suspicion: 0, energy: -2 } }
+                            right: { text: "Onarmayı düşün", result: "Maske toparlanır, sen yorulursun.", effects: { signal: 0, mask: 4, suspicion: 0, energy: -2 }, award: "Bakım Maskesi" }
                         }
                     }
                 ]
@@ -723,7 +723,7 @@ const QUESTION_POOL = {
                         scene: "Biri sana battaniye uzatır; parmakların battaniyeye değerse, mesafe kapanır.",
                         choices: {
                             left: { text: "Alma", result: "Mesafe güvenlik getirir.", effects: { signal: 0, mask: 0, suspicion: 1, energy: -1 } },
-                            right: { text: "Al", result: "Sıcaklık yakınlık getirir.", effects: { signal: 0, mask: 1, suspicion: -2, energy: 2 } }
+                            right: { text: "Al", result: "Sıcaklık yakınlık getirir.", effects: { signal: 0, mask: 1, suspicion: -2, energy: 2 }, award: "Kimlik Maskesi" }
                         }
                     },
                     {
@@ -731,7 +731,7 @@ const QUESTION_POOL = {
                         scene: "Birisi kalabalığın içinde 'O kötü biri değil' diye seni savunur; sesi titrer ama kararlıdır.",
                         choices: {
                             left: { text: "Sessiz kal", result: "Bağ zayıf ama sürer.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 0 } },
-                            right: { text: "Teşekkür et", result: "Bağ güçlenir.", effects: { signal: 0, mask: -1, suspicion: -3, energy: -1 } }
+                            right: { text: "Teşekkür et", result: "Bağ güçlenir.", effects: { signal: 0, mask: -1, suspicion: -3, energy: -1 }, award: "Kimlik Maskesi" }
                         }
                     },
                     {
@@ -739,7 +739,7 @@ const QUESTION_POOL = {
                         scene: "Bir çocuk seni oyununa çağırır; gözler kısa süreliğine seni 'tehdit' olarak değil 'insan' olarak görür.",
                         choices: {
                             left: { text: "Reddet", result: "Gizli kalırsın, soğuk görünürsün.", effects: { signal: 0, mask: 0, suspicion: 2, energy: 0 } },
-                            right: { text: "Katıl", result: "Şehir seni daha az korkutucu görür.", effects: { signal: 0, mask: -1, suspicion: -4, energy: -1 } }
+                            right: { text: "Katıl", result: "Şehir seni daha az korkutucu görür.", effects: { signal: 0, mask: -1, suspicion: -4, energy: -1 }, award: "Kimlik Maskesi" }
                         }
                     },
                     {
@@ -747,7 +747,7 @@ const QUESTION_POOL = {
                         scene: "Komşu 'çay' der; bu kelime, seni bir odaya değil, bir hayata davet eder.",
                         choices: {
                             left: { text: "Gitme", result: "Gizlilik artar.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 0 } },
-                            right: { text: "Git", result: "Güven ihtimali artar.", effects: { signal: 0, mask: 1, suspicion: -2, energy: 1 } }
+                            right: { text: "Git", result: "Güven ihtimali artar.", effects: { signal: 0, mask: 1, suspicion: -2, energy: 1 }, award: "Kimlik Maskesi" }
                         }
                     },
                     {
@@ -755,7 +755,7 @@ const QUESTION_POOL = {
                         scene: "Birisi sırrını fısıldar; 'kimseye söyleme' derken aslında 'yanımda kal' demek ister.",
                         choices: {
                             left: { text: "Umursama", result: "Bağ kopar.", effects: { signal: 0, mask: 0, suspicion: 1, energy: 0 } },
-                            right: { text: "Dinle", result: "Bağ doğar.", effects: { signal: 0, mask: 1, suspicion: -1, energy: -1 } }
+                            right: { text: "Dinle", result: "Bağ doğar.", effects: { signal: 0, mask: 1, suspicion: -1, energy: -1 }, award: "Kimlik Maskesi" }
                         }
                     }
                 ]
@@ -1049,10 +1049,10 @@ const QUESTION_POOL = {
                 alternatives: [
                     {
                         id: "4.2-A",
-                        scene: "Son günlerde devriyeler sıklaşır; aynı yüzleri daha çok görürsün, aynı araçlar daha yavaş geçer.",
+                        scene: "Son günlerde devriyeler sıklaşır; ayn yüzleri daha çok görürsün, aynı araçlar daha yavaş geçer.",
                         choices: {
                             left: { text: "Kalabalığa karış", result: "İz erir, maske yorulur.", effects: { signal: 0, mask: -2, suspicion: -2, energy: -1 } },
-                            right: { text: "Şehir dışına kaç", result: "Şüphe azalabilir, fırsatlar azalır.", effects: { signal: 0, mask: 0, suspicion: -3, energy: -2 } }
+                            right: { text: "Şehir dışına kaç", result: "Şüphe azalabilir, fırsatlar azalır.", effects: { signal: 0, mask: 0, suspicion: -3, energy: -2 }, award: "Sessizlik Maskesi" }
                         }
                     },
                     {
@@ -1060,7 +1060,7 @@ const QUESTION_POOL = {
                         scene: "Bir kontrol noktası kurulur; bariyerler, ışıklar ve 'sıradaki' bakışlar.",
                         choices: {
                             left: { text: "Yan yola sap", result: "Sessiz kalırsın ama zaman kaybedersin.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -2 } },
-                            right: { text: "Normal gibi geç", result: "Başarırsan kimse anlamaz.", effects: { signal: 0, mask: -2, suspicion: 3, energy: -1 } }
+                            right: { text: "Normal gibi geç", result: "Başarırsan kimse anlamaz.", effects: { signal: 0, mask: -2, suspicion: 3, energy: -1 }, award: "Sessizlik Maskesi" }
                         }
                     },
                     {
@@ -1068,7 +1068,7 @@ const QUESTION_POOL = {
                         scene: "Bir telefon ışığı sana döner; ekran parıltısı kısa bir an yüzünü yakalar gibi.",
                         choices: {
                             left: { text: "Saklan", result: "Kurtulursun ama garip görünürsün.", effects: { signal: 0, mask: 0, suspicion: 3, energy: 0 } },
-                            right: { text: "Normal yürü", result: "Doğal görünürsen sorun olmaz.", effects: { signal: 0, mask: -1, suspicion: -2, energy: 0 } }
+                            right: { text: "Normal yürü", result: "Doğal görünürsen sorun olmaz.", effects: { signal: 0, mask: -1, suspicion: -2, energy: 0 }, award: "Sessizlik Maskesi" }
                         }
                     },
                     {
@@ -1076,7 +1076,7 @@ const QUESTION_POOL = {
                         scene: "Siren sesi yaklaşır; sokak bir an boşalır ve boşlukta sen çok görünür olursun.",
                         choices: {
                             left: { text: "Sokakta devam et", result: "Hız kazanırsın, risk artar.", effects: { signal: 0, mask: 0, suspicion: 4, energy: 0 } },
-                            right: { text: "Bir binaya gir", result: "Anlık koruma bulursun.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 } }
+                            right: { text: "Bir binaya gir", result: "Anlık koruma bulursun.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -1 }, award: "Sessizlik Maskesi" }
                         }
                     },
                     {
@@ -1084,7 +1084,7 @@ const QUESTION_POOL = {
                         scene: "Bir polis 'dur' diye bağırır; sesindeki emir, maskenin içine kadar girer.",
                         choices: {
                             left: { text: "Kaç", result: "Hızlı kurtulursun, av başlar.", effects: { signal: 0, mask: 0, suspicion: 5, energy: -3 } },
-                            right: { text: "Durup konuş", result: "Doğru ton seni kurtarabilir.", effects: { signal: 0, mask: -2, suspicion: -2, energy: -1 } }
+                            right: { text: "Durup konuş", result: "Doğru ton seni kurtarabilir.", effects: { signal: 0, mask: -2, suspicion: -2, energy: -1 }, award: "Sessizlik Maskesi" }
                         }
                     }
                 ]
