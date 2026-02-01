@@ -7,10 +7,10 @@
 class GameState {
     constructor() {
         this.stats = {
-            signal: 0,      // Kazanma koşulu: %100'e ulaş
-            mask: 100,      // 0'a düşerse GAME OVER
-            suspicion: 35,   // %100 olursa LİNÇ - GAME OVER (35'ten başlar - sonlara ulaşmayı kolaylaştırır)
-            energy: 71      // Kaynak, 0'a düşerse hareket edemezsin
+            signal: 25,     // Kazanma koşulu: %100'e ulaş (25'ten başlar - WIN dışı sonlara ulaşabilmek için)
+            mask: 80,       // 0'a düşerse GAME OVER (80'den başlar - daha fazla risk)
+            suspicion: 45,  // %100 olursa LİNÇ - GAME OVER (45'ten başlar - tüm sonlara ulaşılabilir)
+            energy: 65      // Kaynak, 0'a düşerse hareket edemezsin
         };
 
         this.day = 1;
@@ -98,16 +98,16 @@ class GameState {
 
     // Günlük pasif etkileri uygula
     applyDailyPassives() {
-        // PASİF GÜNLÜK ETKİLER
-        // Yaşam enerjisi -= 0.2
-        // Maske -= 0.5
-        // Şüphe += 0.3 (yavaş artış)
-        // Sinyal += 0.4 (daha hızlı artış - WIN sonuna ulaşmayı kolaylaştırır)
+        // PASİF GÜNLÜK ETKİLER - DENGELİ
+        // Yaşam enerjisi -= 0.15 (yavaşlatıldı)
+        // Maske -= 0.35 (yavaşlatıldı - Mask Mastery mümkün olsun)
+        // Şüphe += 0.25 (yavaşlatıldı - Silent Escape mümkün olsun)
+        // Sinyal += 0.20 (yarıya indirildi - WIN dışı sonlar mümkün olsun)
 
-        this.stats.energy = Math.max(0, this.stats.energy - 0.2);
-        this.stats.mask = Math.max(0, this.stats.mask - 0.5);
-        this.stats.signal = Math.min(100, this.stats.signal + 0.4);
-        this.stats.suspicion = Math.min(100, this.stats.suspicion + 0.3);
+        this.stats.energy = Math.max(0, this.stats.energy - 0.15);
+        this.stats.mask = Math.max(0, this.stats.mask - 0.35);
+        this.stats.signal = Math.min(100, this.stats.signal + 0.20);
+        this.stats.suspicion = Math.min(100, this.stats.suspicion + 0.25);
     }
 
     applyChoice(direction) {
@@ -165,16 +165,24 @@ class GameState {
                     this.collectedMasks.push(choice.award);
                     earnedMask = choice.award;
 
-                    // YENİ: Maske kazanıldığında anlık stat etkileri
+                    // YENİ: Maske kazanıldığında anlık stat etkileri - DENGELİ
                     if (earnedMask === 'İletişim Maskesi') {
-                        this.stats.signal = Math.min(100, this.stats.signal + 25);
+                        // Sinyal artışı azaltıldı, WIN'e otomatik yönlendirmesin
+                        this.stats.signal = Math.min(100, this.stats.signal + 12);
                     } else if (earnedMask === 'Güven Maskesi') {
-                        this.stats.suspicion = Math.max(0, this.stats.suspicion - 50);
+                        // Şüphe azalması azaltıldı
+                        this.stats.suspicion = Math.max(0, this.stats.suspicion - 40);
                     } else if (earnedMask === 'Bakım Maskesi') {
-                        this.stats.mask = Math.min(100, this.stats.mask + 30);
+                        // Maske artışı dengeli
+                        this.stats.mask = Math.min(100, this.stats.mask + 20);
                     } else if (earnedMask === 'Sessizlik Maskesi') {
-                        this.stats.suspicion = Math.max(0, this.stats.suspicion - 25);
-                        this.stats.signal = Math.max(0, this.stats.signal - 25);
+                        // Şüphe azalması artırıldı, sinyal kaybı azaltıldı
+                        this.stats.suspicion = Math.max(0, this.stats.suspicion - 30);
+                        this.stats.signal = Math.max(0, this.stats.signal - 10);
+                    } else if (earnedMask === 'Kimlik Maskesi') {
+                        // YENİ: Kimlik Maskesi artık bonus veriyor
+                        this.stats.suspicion = Math.min(100, this.stats.suspicion + 15);
+                        this.stats.energy = Math.min(100, this.stats.energy + 10);
                     }
 
                     // UI'ın bu büyük değişimi görmesi için changes objesini güncelle
@@ -232,64 +240,68 @@ class GameState {
 
     /**
      * Tüm sorular bittiğinde final sonunu belirle
-     * ÇAKIŞMASIZ (DISJOINT) SON KOŞULLARI:
-     * 1. S >= 100 -> Rescue (🛸)
-     * 2. 85 <= S <= 99 && 31 <= Ş <= 55 && İletişim Maskesi -> Bridge (🌌)
-     * 3. S <= 59 && Ş <= 45 && Güven Maskesi -> Earth Stay (🏡)
-     * 4. 60 <= S <= 84 && Ş <= 20 && Sessizlik Maskesi -> Silent Escape (🤫)
-     * 5. S <= 84 && Ş >= 70 && Kimlik Maskesi -> Registered Ghost (🪪)
-     * 6. S <= 84 && M >= 90 && 46 <= Ş <= 69 && Bakım Maskesi -> Mask Mastery (🎭)
+     * YENİDEN DENGELENMİŞ ÇAKIŞMASIZ SON KOŞULLARI:
+     * 1. S >= 100 -> Rescue (🛸)                                          [Yüksek Sinyal]
+     * 2. 70 <= S <= 99 && 30 <= Ş <= 60 && İletişim Maskesi -> Bridge (🌌) [Orta-Yüksek S, Orta Ş]
+     * 3. S <= 55 && Ş <= 50 && Güven Maskesi -> Earth Stay (🏡)           [Düşük S, Düşük Ş]
+     * 4. 45 <= S <= 75 && Ş <= 35 && Sessizlik Maskesi -> Silent Escape (🤫) [Orta S, Çok Düşük Ş]
+     * 5. S <= 80 && Ş >= 60 && Kimlik Maskesi -> Registered Ghost (🪪)    [Düşük-Orta S, Yüksek Ş]
+     * 6. S <= 70 && M >= 75 && 35 <= Ş <= 65 && Bakım Maskesi -> Mask Mastery (🎭) [Düşük-Orta S, Yüksek M, Orta Ş]
      */
     checkFinalEnding() {
-        // 1. ANAGEMİ GELDİ (Kesin Kurtuluş)
+        // 1. ANAGEMİ GELDİ (Kesin Kurtuluş) - Sinyal 100'e ulaştı
         if (this.stats.signal >= 100) {
             this.isGameOver = true;
             this.endReason = 'win';
             return;
         }
 
-        // 2. İKİ DÜNYANIN KÖPRÜSÜ (Bridge)
+        // MASKE KONTROLÜ - Önce maskeleri tanımla
         const hasCommunicationMask = this.collectedMasks.includes('İletişim Maskesi');
-        if (this.stats.signal >= 85 && this.stats.signal <= 99 &&
-            this.stats.suspicion >= 31 && this.stats.suspicion <= 55 &&
+        const hasTrustMask = this.collectedMasks.includes('Güven Maskesi');
+        const hasSilenceMask = this.collectedMasks.includes('Sessizlik Maskesi');
+        const hasIdentityMask = this.collectedMasks.includes('Kimlik Maskesi');
+        const hasMaintenanceMask = this.collectedMasks.includes('Bakım Maskesi');
+
+        // ÖNCELİK SIRASI: En spesifik koşullardan en genel koşullara
+
+        // 6. MASKESİZ MASKE (Mask Mastery) - En spesifik: Maske değeri çok önemli
+        if (this.stats.signal <= 70 && this.stats.mask >= 75 &&
+            this.stats.suspicion >= 35 && this.stats.suspicion <= 65 &&
+            hasMaintenanceMask) {
+            this.isGameOver = true;
+            this.endReason = 'maskless_mask';
+            return;
+        }
+
+        // 4. SESSİZ KAÇIŞ (Silent Escape) - Çok düşük şüphe gerekli
+        if (this.stats.signal >= 45 && this.stats.signal <= 75 &&
+            this.stats.suspicion <= 35 && hasSilenceMask) {
+            this.isGameOver = true;
+            this.endReason = 'silent_escape';
+            return;
+        }
+
+        // 2. İKİ DÜNYANIN KÖPRÜSÜ (Bridge) - Yüksek sinyal, orta şüphe
+        if (this.stats.signal >= 70 && this.stats.signal <= 99 &&
+            this.stats.suspicion >= 30 && this.stats.suspicion <= 60 &&
             hasCommunicationMask) {
             this.isGameOver = true;
             this.endReason = 'bridge';
             return;
         }
 
-        // 3. DÜNYA'DA YENİ BİR HAYAT (Earth Stay)
-        const hasTrustMask = this.collectedMasks.includes('Güven Maskesi');
-        if (this.stats.signal <= 59 && this.stats.suspicion <= 45 && hasTrustMask) {
-            this.isGameOver = true;
-            this.endReason = 'earth_permanent';
-            return;
-        }
-
-        // 4. SESSİZ KAÇIŞ (Silent Escape)
-        const hasSilenceMask = this.collectedMasks.includes('Sessizlik Maskesi');
-        if (this.stats.signal >= 60 && this.stats.signal <= 84 &&
-            this.stats.suspicion <= 20 && hasSilenceMask) {
-            this.isGameOver = true;
-            this.endReason = 'silent_escape';
-            return;
-        }
-
-        // 5. KAYITLI HAYALET (Registered Ghost)
-        const hasIdentityMask = this.collectedMasks.includes('Kimlik Maskesi');
-        if (this.stats.signal <= 84 && this.stats.suspicion >= 70 && hasIdentityMask) {
+        // 5. KAYITLI HAYALET (Registered Ghost) - Yüksek şüphe
+        if (this.stats.signal <= 80 && this.stats.suspicion >= 60 && hasIdentityMask) {
             this.isGameOver = true;
             this.endReason = 'registered_ghost';
             return;
         }
 
-        // 6. MASKESİZ MASKE (Mask Mastery)
-        const hasMaintenanceMask = this.collectedMasks.includes('Bakım Maskesi');
-        if (this.stats.signal <= 84 && this.stats.mask >= 90 &&
-            this.stats.suspicion >= 46 && this.stats.suspicion <= 69 &&
-            hasMaintenanceMask) {
+        // 3. DÜNYA'DA YENİ BİR HAYAT (Earth Stay) - Düşük sinyal ve şüphe
+        if (this.stats.signal <= 55 && this.stats.suspicion <= 50 && hasTrustMask) {
             this.isGameOver = true;
-            this.endReason = 'maskless_mask';
+            this.endReason = 'earth_permanent';
             return;
         }
 
@@ -481,10 +493,10 @@ class GameState {
 
     reset() {
         this.stats = {
-            signal: 0,
-            mask: 100,
-            suspicion: 35,
-            energy: 71
+            signal: 25,     // DENGELİ: 25'ten başlar
+            mask: 80,       // DENGELİ: 80'den başlar
+            suspicion: 45,  // DENGELİ: 45'ten başlar
+            energy: 65      // DENGELİ: 65'ten başlar
         };
         this.day = 1;
         this.isGameOver = false;
