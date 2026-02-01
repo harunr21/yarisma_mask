@@ -1361,7 +1361,7 @@ body::before {
     max-height: 90vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 
+    box-shadow:
         0 0 0 2px #000,
         0 0 60px rgba(244, 197, 66, 0.15),
         0 20px 60px rgba(0, 0, 0, 0.8),
@@ -1487,6 +1487,7 @@ body::before {
         opacity: 0;
         transform: translateX(20px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -1509,8 +1510,15 @@ body::before {
 }
 
 @keyframes gentleBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 .page-title {
@@ -1618,10 +1626,21 @@ body::before {
     transform: translateY(-3px);
 }
 
-.stat-info-card.signal-card:hover { border-color: var(--signal-color); }
-.stat-info-card.mask-card:hover { border-color: var(--mask-color); }
-.stat-info-card.suspicion-card:hover { border-color: var(--suspicion-color); }
-.stat-info-card.energy-card:hover { border-color: var(--energy-color); }
+.stat-info-card.signal-card:hover {
+    border-color: var(--signal-color);
+}
+
+.stat-info-card.mask-card:hover {
+    border-color: var(--mask-color);
+}
+
+.stat-info-card.suspicion-card:hover {
+    border-color: var(--suspicion-color);
+}
+
+.stat-info-card.energy-card:hover {
+    border-color: var(--energy-color);
+}
 
 .stat-info-header {
     display: flex;
@@ -1807,7 +1826,71 @@ body::before {
     font-style: italic;
 }
 
-/* Endings Section (Page 4) */
+/* Endings Section (Page 4 - Centered) */
+.centered-page .tutorial-page-header {
+    justify-content: center;
+}
+
+.centered-page .tutorial-page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.centered-page .endings-section,
+.centered-page .tips-section {
+    width: 100%;
+    margin-bottom: var(--spacing-xl);
+}
+
+.centered-page .section-title {
+    text-align: center;
+    display: block;
+}
+
+.centered-page .ending-example {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: linear-gradient(to bottom, rgba(86, 184, 184, 0.1), rgba(0, 0, 0, 0.2));
+    border-left: none;
+    border-top: 2px solid var(--success);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.centered-page .ending-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.centered-page .endings-mystery {
+    justify-content: center;
+    background: rgba(155, 93, 229, 0.05);
+    border: 1px solid rgba(155, 93, 229, 0.3);
+}
+
+.centered-page .tips-list {
+    align-items: center;
+}
+
+.centered-page .tip-item {
+    width: 100%;
+    max-width: 500px;
+    justify-content: center;
+    transform: none !important;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.centered-page .tip-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-2px) !important;
+}
+
+/* Original Styles (remains for other potential uses or non-centered pages) */
 .endings-section {
     margin-bottom: var(--spacing-xl);
 }
@@ -1948,8 +2031,17 @@ body::before {
 }
 
 @keyframes sparkle {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.1); }
+
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
 }
 
 .bonus-info p {

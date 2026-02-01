@@ -50,7 +50,6 @@ const elements = {
     endTitle: document.getElementById('end-title'),
     endDescription: document.getElementById('end-description'),
     endStats: document.getElementById('end-stats'),
-    continueBtn: document.getElementById('continue-btn'),
 
     // Gün animasyon overlay
     dayOverlay: document.getElementById('day-overlay'),
@@ -95,8 +94,7 @@ const actBackgrounds = {
     1: 'arkaplan_fotolari/1 - Düzenlendi.png',
     2: 'arkaplan_fotolari/2 - Düzenlendi.png',
     3: 'arkaplan_fotolari/4 - Düzenlendi.png',
-    4: 'arkaplan_fotolari/7 - Düzenlendi.png',
-    5: 'arkaplan_fotolari/7 - Düzenlendi.png' // Bonus ACT - ACT 4 ile aynı
+    4: 'arkaplan_fotolari/7 - Düzenlendi.png'
 };
 
 // Aktif arkaplan katmanı takibi
@@ -215,8 +213,7 @@ const actImages = {
     1: 'kart_fotolari/1.png',
     2: 'kart_fotolari/2.png',
     3: 'kart_fotolari/3.png',
-    4: 'kart_fotolari/4.png',
-    5: 'kart_fotolari/4.png' // Bonus ACT - ACT 4 ile aynı
+    4: 'kart_fotolari/4.png'
 };
 
 // Kartı render et
@@ -550,9 +547,9 @@ function showEndScreen() {
         const maskImages = {
             "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
             "Güven Maskesi": "assets/masks/guven_maskesi.png",
-            "Kimlik Maskesi": "assets/masks/iletisim_maskesi.png",
-            "Bakım Maskesi": "assets/masks/guven_maskesi.png",
-            "Sessizlik Maskesi": "assets/masks/iletisim_maskesi.png"
+            "Kimlik Maskesi": "assets/masks/kimlik_maskesi.png",
+            "Bakım Maskesi": "assets/masks/bakim_maskesi.png",
+            "Sessizlik Maskesi": "assets/masks/sessizlik_maskesi.png"
         };
 
         const masksHtml = gameState.collectedMasks.map(maskName => {
@@ -564,6 +561,7 @@ function showEndScreen() {
                 </div>
             `;
         }).join('');
+
         elements.endStats.innerHTML += `
             <div class="end-masks-report">
                 <h3>KAZANILAN MASKELER</h3>
@@ -578,13 +576,6 @@ function showEndScreen() {
                 <h3>HİÇ MASKE KAZANAMADIN</h3>
             </div>
         `;
-    }
-
-    // Bonus ACT devam butonu kontrolü
-    if (endMessage.canContinue && gameState.bonusActAvailable) {
-        elements.continueBtn.style.display = 'block';
-    } else {
-        elements.continueBtn.style.display = 'none';
     }
 
     showScreen('end');
@@ -805,34 +796,6 @@ function restartGame() {
 }
 
 elements.startBtn.addEventListener('click', startGame);
-
-// Bonus ACT devam butonu
-elements.continueBtn.addEventListener('click', () => {
-    // Bonus ACT'i başlat
-    if (gameState.startBonusAct()) {
-        // Arkaplan müziğini başlat
-        startBackgroundMusic();
-
-        // Devam butonunu gizle
-        elements.continueBtn.style.display = 'none';
-
-        // İlk soruyu al ve göster
-        const nextCard = gameState.getNextCard();
-        renderCard(nextCard);
-        updateStatBars(false);
-        updateDayCounter();
-        updateCollectedMasks(gameState.collectedMasks);
-
-        // Oyun ekranına geç
-        showScreen('game');
-
-        // Swipe handler'ı sıfırla
-        if (swipeHandler) {
-            swipeHandler.reset();
-        }
-    }
-});
-
 elements.restartBtn.addEventListener('click', () => {
     // Arkaplan müziğini durdur
     stopBackgroundMusic();
@@ -1003,116 +966,131 @@ elements.closeSettingsBtn.addEventListener('click', () => {
     elements.settingsModal.classList.remove('active');
 });
 
-elements.tutorialBtn.addEventListener('click', () => {
-    elements.tutorialModal.classList.add('active');
-    tutorialCurrentPage = 1;
-    updateTutorialPage(1);
-});
-
-elements.closeTutorialBtn.addEventListener('click', () => {
-    elements.tutorialModal.classList.remove('active');
-});
-
 // ===================================
-// TUTORIAL NAVIGATION SYSTEM
+// TUTORIAL SİSTEMİ
 // ===================================
-let tutorialCurrentPage = 1;
-const tutorialTotalPages = 4;
 
-// Tutorial element referansları
+let currentTutorialPage = 1;
+const totalTutorialPages = 4;
+
+// Tutorial elementlerini dinamik olarak seçelim (sayfa yüklendiğinde)
 const tutorialElements = {
     prevBtn: document.getElementById('tutorial-prev-btn'),
     nextBtn: document.getElementById('tutorial-next-btn'),
+    pagesContainer: document.getElementById('tutorial-pages-container'),
     progressFill: document.getElementById('tutorial-progress-fill'),
     progressText: document.getElementById('tutorial-progress-text'),
-    pagesContainer: document.getElementById('tutorial-pages-container'),
-    pageDots: document.querySelectorAll('.page-dot')
+    // querySelectorAll dinamik olmadığı için güncelleme fonksiyonunda tekrar çağırılabilir ama burada sabit
+    getDots: () => document.querySelectorAll('.page-dot'),
+    getPages: () => document.querySelectorAll('.tutorial-page')
 };
 
-// Tutorial sayfasını güncelle
-function updateTutorialPage(pageNum) {
-    tutorialCurrentPage = pageNum;
-
-    // Tüm sayfaları gizle
+function updateTutorialUI() {
+    // Sayfaları güncelle
     const pages = document.querySelectorAll('.tutorial-page');
-    pages.forEach(page => page.classList.remove('active'));
+    pages.forEach(page => {
+        page.classList.remove('active');
+        if (parseInt(page.dataset.page) === currentTutorialPage) {
+            page.classList.add('active');
+        }
+    });
 
-    // Aktif sayfayı göster
-    const activePage = document.querySelector(`.tutorial-page[data-page="${pageNum}"]`);
-    if (activePage) {
-        activePage.classList.add('active');
-    }
-
-    // Progress bar güncelle
-    const progressPercent = (pageNum / tutorialTotalPages) * 100;
-    tutorialElements.progressFill.style.width = `${progressPercent}%`;
-    tutorialElements.progressText.textContent = `${pageNum} / ${tutorialTotalPages}`;
-
-    // Sayfa noktalarını güncelle
-    tutorialElements.pageDots.forEach(dot => {
+    // Noktaları güncelle
+    const dots = document.querySelectorAll('.page-dot');
+    dots.forEach(dot => {
         dot.classList.remove('active');
-        if (parseInt(dot.dataset.page) === pageNum) {
+        if (parseInt(dot.dataset.page) === currentTutorialPage) {
             dot.classList.add('active');
         }
     });
 
-    // Butonları güncelle
-    tutorialElements.prevBtn.disabled = pageNum === 1;
+    // İlerleme çubuğunu güncelle
+    if (tutorialElements.progressFill && tutorialElements.progressText) {
+        const progressPercentage = (currentTutorialPage / totalTutorialPages) * 100;
+        tutorialElements.progressFill.style.width = `${progressPercentage}%`;
+        tutorialElements.progressText.textContent = `${currentTutorialPage} / ${totalTutorialPages}`;
+    }
 
-    // Son sayfada "SONRAKİ" yerine "KAPAT" göster
-    if (pageNum === tutorialTotalPages) {
-        tutorialElements.nextBtn.innerHTML = '<span class="nav-text">KAPAT</span><span class="nav-arrow">✓</span>';
+    // Buton durumlarını güncelle
+    if (tutorialElements.prevBtn) {
+        tutorialElements.prevBtn.disabled = currentTutorialPage === 1;
+        tutorialElements.prevBtn.style.opacity = currentTutorialPage === 1 ? '0.5' : '1';
+        tutorialElements.prevBtn.style.cursor = currentTutorialPage === 1 ? 'default' : 'pointer';
+    }
+
+    if (tutorialElements.nextBtn) {
+        const navText = tutorialElements.nextBtn.querySelector('.nav-text');
+        const navArrow = tutorialElements.nextBtn.querySelector('.nav-arrow');
+
+        if (currentTutorialPage === totalTutorialPages) {
+            if (navText) navText.textContent = 'OYUNA BAŞLA';
+            if (navArrow) navArrow.textContent = '🚀';
+            tutorialElements.nextBtn.classList.add('finish-btn');
+        } else {
+            if (navText) navText.textContent = 'SONRAKİ';
+            if (navArrow) navArrow.textContent = '►';
+            tutorialElements.nextBtn.classList.remove('finish-btn');
+        }
+    }
+}
+
+function nextTutorialPage() {
+    if (currentTutorialPage < totalTutorialPages) {
+        currentTutorialPage++;
+        updateTutorialUI();
     } else {
-        tutorialElements.nextBtn.innerHTML = '<span class="nav-text">SONRAKİ</span><span class="nav-arrow">►</span>';
-    }
+        // Tutorial bitti, modalı kapat
+        closeTutorial();
 
-    // Scroll'u en üste al
-    tutorialElements.pagesContainer.scrollTop = 0;
-}
-
-// Sayfa navigasyonu
-function tutorialNextPage() {
-    if (tutorialCurrentPage < tutorialTotalPages) {
-        updateTutorialPage(tutorialCurrentPage + 1);
-    } else {
-        // Son sayfadaysa kapat
-        elements.tutorialModal.classList.remove('active');
+        // Eğer başlangıç ekranındaysak (oyun henüz başlamadıysa) oyunu başlat
+        if (screens.start.classList.contains('active')) {
+            startGame();
+        }
     }
 }
 
-function tutorialPrevPage() {
-    if (tutorialCurrentPage > 1) {
-        updateTutorialPage(tutorialCurrentPage - 1);
+function prevTutorialPage() {
+    if (currentTutorialPage > 1) {
+        currentTutorialPage--;
+        updateTutorialUI();
     }
 }
 
-// Event Listeners
-tutorialElements.nextBtn.addEventListener('click', tutorialNextPage);
-tutorialElements.prevBtn.addEventListener('click', tutorialPrevPage);
+function openTutorial() {
+    currentTutorialPage = 1;
+    updateTutorialUI();
+    elements.tutorialModal.classList.add('active');
+}
 
-// Sayfa noktalarına tıklama
-tutorialElements.pageDots.forEach(dot => {
+function closeTutorial() {
+    elements.tutorialModal.classList.remove('active');
+}
+
+// Event Listeners - Eğer elementler varsa ekle
+if (tutorialElements.nextBtn) {
+    tutorialElements.nextBtn.addEventListener('click', nextTutorialPage);
+}
+
+if (tutorialElements.prevBtn) {
+    tutorialElements.prevBtn.addEventListener('click', prevTutorialPage);
+}
+
+// Noktalara tıklama
+const dots = document.querySelectorAll('.page-dot');
+dots.forEach(dot => {
     dot.addEventListener('click', () => {
-        const pageNum = parseInt(dot.dataset.page);
-        updateTutorialPage(pageNum);
+        currentTutorialPage = parseInt(dot.dataset.page);
+        updateTutorialUI();
     });
 });
 
-// Tutorial içinde klavye navigasyonu
-document.addEventListener('keydown', (e) => {
-    // Sadece tutorial açıkken çalışsın
-    if (!elements.tutorialModal.classList.contains('active')) return;
+// Ana butonlar
+elements.tutorialBtn.addEventListener('click', openTutorial);
+elements.closeTutorialBtn.addEventListener('click', closeTutorial);
 
-    if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        tutorialNextPage();
-    } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        tutorialPrevPage();
-    } else if (e.key === 'Escape') {
-        elements.tutorialModal.classList.remove('active');
-    }
-});
+// Başlangıçta tutorial UI'ını bir kez güncelle
+// (Script yüklendiğinde DOM hazır olmayabilir, bu yüzden window load veya element kontrolü yapılabilir ama script en sonda olduğu için sorun olmaz)
+updateTutorialUI();
 
 // Sayfanın herhangi bir yerine tıklayınca maske isimlerini kapat
 document.addEventListener('click', () => {

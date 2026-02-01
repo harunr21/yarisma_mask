@@ -35,16 +35,9 @@ class GameState {
         // Oyun bitti mi kontrol et
         if (this.isGameOver) return null;
 
-        // ACT 4'ün 7. sorusundan sonra oyun biter (Bonus ACT değilse)
-        // ACT 5 (Bonus) için 5 soru var
-        if (this.currentAct > 4 && !this.isBonusAct) {
-            this.checkFinalEnding();
-            return null;
-        }
-
-        // Bonus ACT (ACT 5) sonu
-        if (this.currentAct === 5 && this.currentQuestionInAct > 5) {
-            this.checkFinalEnding();
+        // ACT 4'ün 7. sorusundan sonra oyun biter
+        if (this.currentAct > 4) {
+            this.checkGameEnd();
             return null;
         }
 
@@ -75,10 +68,9 @@ class GameState {
     getActEmoji(act) {
         const emojis = {
             1: '🛸', // Enkaz ve İlk Taklit
-            2: '�️', // Şehir Seni Öğreniyor
+            2: '🌆', // Şehir Seni Öğreniyor
             3: '🤝', // Yakınlık ve Güven
-            4: '🚀', // Son Düzlük
-            5: '✨'  // Bonus: Son Şans
+            4: '🚀'  // Son Düzlük
         };
         return emojis[act] || '❓';
     }
@@ -220,11 +212,7 @@ class GameState {
 
         // Sonraki soruya geç
         this.currentQuestionInAct++;
-
-        // ACT'e göre soru limiti: Bonus ACT (5) için 5 soru, diğerleri için 7 soru
-        const questionsInCurrentAct = this.currentAct === 5 ? 5 : 7;
-
-        if (this.currentQuestionInAct > questionsInCurrentAct) {
+        if (this.currentQuestionInAct > 7) {
             // ACT tamamlandı, sonraki ACT'e geç
             this.currentAct++;
             this.currentQuestionInAct = 1;
@@ -261,11 +249,6 @@ class GameState {
      * 6. S <= 70 && M >= 75 && 35 <= Ş <= 65 && Bakım Maskesi -> Mask Mastery (🎭) [Düşük-Orta S, Yüksek M, Orta Ş]
      */
     checkFinalEnding() {
-        // DEBUG: Stat değerlerini ve maskeleri konsola yaz
-        console.log('=== checkFinalEnding DEBUG ===');
-        console.log('Statlar:', JSON.stringify(this.stats));
-        console.log('Toplanan Maskeler:', this.collectedMasks);
-        console.log('isBonusAct:', this.isBonusAct);
         // 1. ANAGEMİ GELDİ (Kesin Kurtuluş) - Sinyal 100'e ulaştı
         if (this.stats.signal >= 100) {
             this.isGameOver = true;
@@ -324,51 +307,20 @@ class GameState {
 
         // ========== VARSAYILAN SONLAR (Eğer yukarıdakiler tutmazsa) ==========
 
-        // Bonus ACT zaten oynandıysa, kesin sonları uygula
-        if (this.isBonusAct) {
-            // Bonus ACT sonrası - kesin son
-            if (this.stats.signal >= 60) {
-                this.isGameOver = true;
-                this.endReason = 'uncertain';
-            } else if (this.stats.mask >= 65) {
-                this.isGameOver = true;
-                this.endReason = 'stayed_on_earth';
-            } else {
-                this.isGameOver = true;
-                this.endReason = 'uncertain';
-            }
-            return;
-        }
-
-        // İlk 4 ACT sonrası - Bonus ACT seçeneği sun
         // Tüm sorular tamamlandı ama hiçbir özel sona ulaşılamadı
-        if (this.stats.signal >= 60 || this.stats.mask >= 65) {
-            // Belirsiz durumda - Bonus ACT devam seçeneği sun
-            this.isGameOver = true; // Bitiş ekranı açılsın
-            this.bonusActAvailable = true;
-            this.endReason = 'uncertain'; // UI için göster
+        if (this.stats.signal >= 60) {
+            // Sinyal yeterince yüksek ama 100 değil - belirsiz son
+            this.isGameOver = true;
+            this.endReason = 'uncertain';
+        } else if (this.stats.mask >= 65) {
+            // Maske sağlam, sinyal düşük - Dünya'da kaldı (geçici)
+            this.isGameOver = true;
+            this.endReason = 'stayed_on_earth';
         } else {
-            // Maske zayıf ve sinyal düşük - Bonus ACT devam seçeneği sun
-            this.isGameOver = true; // Bitiş ekranı açılsın
-            this.bonusActAvailable = true;
+            // Maske zayıf ve sinyal düşük - belirsiz son
+            this.isGameOver = true;
             this.endReason = 'uncertain';
         }
-    }
-
-    /**
-     * Bonus ACT'i başlat (Belirsiz son sonrası devam seçeneği)
-     */
-    startBonusAct() {
-        if (!this.bonusActAvailable) return false;
-
-        this.isBonusAct = true;
-        this.bonusActAvailable = false;
-        this.currentAct = 5;
-        this.currentQuestionInAct = 1;
-        this.isGameOver = false;
-        this.endReason = null;
-
-        return true;
     }
 
     checkGameEnd() {
@@ -478,27 +430,13 @@ class GameState {
 
             // Belirsiz son
             case 'uncertain':
-                // Bonus ACT sonrası kesin belirsiz son
-                if (this.isBonusAct) {
-                    return {
-                        title: 'BELİRSİZ SON',
-                        icon: '❓',
-                        description: `${this.day} gün geçti. Bonus şansını da kullandın ama kaderin belirsiz kaldı. Ne eve dönebildin ne de burada kalıcı bir hayat kurabildin. Masken artık sadece bir anı...`,
-                        isWin: false,
-                        endingType: 'uncertain',
-                        canContinue: false
-                    };
-                }
-                // İlk 4 ACT sonrası - Bonus ACT seçeneği
                 return {
-                    title: 'KADER KAVŞAĞI',
-                    icon: '✨',
-                    description: `${this.day} gün geçti. Ne eve dönebildin ne de burada kalmayı başardın. Ama hikaye bitmedi! Son bir şansın var...`,
+                    title: 'BELİRSİZ SON',
+                    icon: '❓',
+                    description: `${this.day} gün geçti. Ne eve dönebildin ne de burada kalmayı başardın. Masken zayıfladı, geleceğin belirsiz...`,
                     isWin: false,
-                    endingType: 'uncertain',
-                    canContinue: this.bonusActAvailable // Bonus ACT için devam seçeneği
+                    endingType: 'uncertain'
                 };
-
 
             // SON 2: Kesin Ölüm - Maske 0
             case 'mask_destroyed':
@@ -543,26 +481,13 @@ class GameState {
      * Mevcut ilerleme bilgisini döndür
      */
     getProgress() {
-        // Toplam soru sayısı: 4 ACT x 7 soru = 28 + Bonus ACT 5 soru = 33
-        const totalQuestions = this.isBonusAct ? 33 : 28;
-
-        // ACT ismi
-        let actName = 'Tamamlandı';
-        if (this.currentAct <= 4) {
-            actName = QUESTION_POOL[this.currentAct].name;
-        } else if (this.currentAct === 5 && this.isBonusAct) {
-            actName = QUESTION_POOL[5].name; // "BONUS: Son Şans"
-        }
-
         return {
             currentAct: this.currentAct,
             currentQuestionInAct: this.currentQuestionInAct,
             totalQuestionsAnswered: this.totalQuestionsAnswered,
-            totalQuestions: totalQuestions,
-            actName: actName,
-            collectedMasks: this.collectedMasks,
-            isBonusAct: this.isBonusAct,
-            bonusActAvailable: this.bonusActAvailable
+            totalQuestions: 28, // 4 ACT x 7 soru
+            actName: this.currentAct <= 4 ? QUESTION_POOL[this.currentAct].name : 'Tamamlandı',
+            collectedMasks: this.collectedMasks
         };
     }
 
@@ -584,13 +509,14 @@ class GameState {
         this.totalQuestionsAnswered = 0;
         this.currentQuestion = null;
 
-        // Bonus ACT kontrolü
-        this.isBonusAct = false;
-        this.bonusActAvailable = false;
-
         // Görülen alternatifleri sıfırla
         if (typeof resetSeenAlternatives === 'function') {
             resetSeenAlternatives();
+        }
+
+        // YENİ: Maske dağılımını rastgele oluştur
+        if (typeof initializeMaskDistribution === 'function') {
+            initializeMaskDistribution();
         }
     }
 }

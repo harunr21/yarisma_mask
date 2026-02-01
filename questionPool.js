@@ -1323,170 +1323,6 @@ const QUESTION_POOL = {
                 ]
             }
         }
-    },
-    // ==================== BONUS 5. ACT ====================
-    // Belirsiz sonla karşılaşan oyuncular için ek şans
-    // Her soru kesin bir sona yönlendirmek için tasarlandı
-    5: {
-        name: "BONUS: Son Şans",
-        description: "Kaderin belirsiz kaldı. Son bir seçim fırsatın var.",
-        questions: {
-            1: { // 5.1 — Kader Kavşağı (Sinyal vs Dünya)
-                theme: "KADER_KAVSAGI",
-                critical: true,
-                criticalType: "BONUS_SIGNAL_VS_EARTH",
-                alternatives: [
-                    {
-                        id: "5.1-A",
-                        scene: "Gökyüzünde bir ışık belirir. Anagemi mi, yoksa bir yıldız mı? Aynı anda müttefiğin kapısı açılır, seni içeri çağırır.",
-                        choices: {
-                            left: { text: "Kapıya git", result: "Dünya'da kalma yolunu seç.", effects: { signal: -15, mask: 5, suspicion: -10, energy: 5 } },
-                            right: { text: "Işığa koş", result: "Kurtuluşa doğru son adım.", effects: { signal: 20, mask: -3, suspicion: 5, energy: -5 } }
-                        }
-                    },
-                    {
-                        id: "5.1-B",
-                        scene: "Radyo kulübünden son bir mesaj: 'Gemi geliyor.' Ama aynı anda bir insan elin tutup 'Burada kal' diyor.",
-                        choices: {
-                            left: { text: "Eli tut", result: "İnsanlığı seç.", effects: { signal: -15, mask: 5, suspicion: -10, energy: 5 } },
-                            right: { text: "Mesaja cevap ver", result: "Kurtarma sinyalini güçlendir.", effects: { signal: 20, mask: -3, suspicion: 5, energy: -5 } }
-                        }
-                    },
-                    {
-                        id: "5.1-C",
-                        scene: "İki yol var: Biri şehir dışına, açık alana; diğeri bir evin sıcak ışığına.",
-                        choices: {
-                            left: { text: "Eve git", result: "Bir hayat kur.", effects: { signal: -15, mask: 5, suspicion: -10, energy: 5 } },
-                            right: { text: "Açık alana git", result: "Geminin iniş noktasına yaklaş.", effects: { signal: 20, mask: -3, suspicion: 5, energy: -5 } }
-                        }
-                    }
-                ]
-            },
-            2: { // 5.2 — Maske Kazanma Fırsatı (Eksik maske varsa)
-                theme: "SON_MASKE_SANSI",
-                critical: true,
-                criticalType: "BONUS_MASK_CHANCE",
-                alternatives: [
-                    {
-                        id: "5.2-A",
-                        scene: "Terk edilmiş bir laboratuvar bulursun. İçerde garip cihazlar ve... maskeye uyumlu bir modül!",
-                        choices: {
-                            left: { text: "İletişim modülünü al", result: "Masken iletişim yeteneği kazanır.", effects: { signal: 10, mask: -2, suspicion: 3, energy: -2 }, award: "İletişim Maskesi" },
-                            right: { text: "Güç modülünü al", result: "Masken daha dayanıklı olur.", effects: { signal: 0, mask: 15, suspicion: 0, energy: -2 }, award: "Bakım Maskesi" }
-                        }
-                    },
-                    {
-                        id: "5.2-B",
-                        scene: "Eski bir sığınakta iki kutu bulursun: Birinde kimlik belgeleri, diğerinde sessizlik cihazı.",
-                        choices: {
-                            left: { text: "Kimlik belgelerini al", result: "Artık resmi bir kimliğin var.", effects: { signal: 0, mask: 0, suspicion: 10, energy: 5 }, award: "Kimlik Maskesi" },
-                            right: { text: "Sessizlik cihazını al", result: "Artık görünmez olabilirsin.", effects: { signal: -5, mask: 0, suspicion: -15, energy: -2 }, award: "Sessizlik Maskesi" }
-                        }
-                    },
-                    {
-                        id: "5.2-C",
-                        scene: "Bir müttefik sana iki seçenek sunar: 'Seni saklayabilirim ya da seni gökyüzüne gönderebilirim.'",
-                        choices: {
-                            left: { text: "Sakla beni", result: "Güven bağı kurulur.", effects: { signal: -10, mask: 3, suspicion: -10, energy: 3 }, award: "Güven Maskesi" },
-                            right: { text: "Gönder beni", result: "İletişim yolu açılır.", effects: { signal: 15, mask: -2, suspicion: 5, energy: -3 }, award: "İletişim Maskesi" }
-                        }
-                    }
-                ]
-            },
-            3: { // 5.3 — Kritik Karar (Şüphe vs Sinyal)
-                theme: "KRITIK_KARAR",
-                critical: true,
-                criticalType: "BONUS_SUSPICION_VS_SIGNAL",
-                alternatives: [
-                    {
-                        id: "5.3-A",
-                        scene: "Polis çemberi daralıyor. Ya hemen sinyal gönderirsin, ya da tamamen gizlenirsin.",
-                        choices: {
-                            left: { text: "Tamamen gizlen", result: "Şüphe sıfıra yaklaşır.", effects: { signal: -10, mask: 0, suspicion: -25, energy: -3 } },
-                            right: { text: "Acil sinyal gönder", result: "Gemi seni bulur ama herkes de bulur.", effects: { signal: 25, mask: -5, suspicion: 20, energy: -5 } }
-                        }
-                    },
-                    {
-                        id: "5.3-B",
-                        scene: "Çatıda antenler var. Sinyali maksimuma çıkarabilirsin ama tüm şehir seni görecek.",
-                        choices: {
-                            left: { text: "Geri çekil", result: "Sessizlik maskeni korur.", effects: { signal: -10, mask: 2, suspicion: -25, energy: 0 } },
-                            right: { text: "Antenleri kullan", result: "Sinyal zirveye ulaşır.", effects: { signal: 30, mask: -5, suspicion: 25, energy: -5 } }
-                        }
-                    },
-                    {
-                        id: "5.3-C",
-                        scene: "Radyo kulübü son şansını veriyor: 'Tüm gücü sinyale ver, ya da sesi kes.'",
-                        choices: {
-                            left: { text: "Sesi kes", result: "Görünmezliğe bürün.", effects: { signal: -10, mask: 0, suspicion: -25, energy: 0 } },
-                            right: { text: "Tüm gücü ver", result: "Kurtuluş ya da yakalanma.", effects: { signal: 30, mask: -5, suspicion: 25, energy: -5 } }
-                        }
-                    }
-                ]
-            },
-            4: { // 5.4 — Son Bağ (Sosyal vs Yalnız)
-                theme: "SON_BAG",
-                critical: true,
-                criticalType: "BONUS_SOCIAL_VS_SOLO",
-                alternatives: [
-                    {
-                        id: "5.4-A",
-                        scene: "Müttefiğin sana ailesini tanıtmak istiyor. Kabul edersen artık geri dönüş yok.",
-                        choices: {
-                            left: { text: "Kabul et", result: "Dünya'da bir ailen olur.", effects: { signal: -20, mask: 10, suspicion: -15, energy: 10 } },
-                            right: { text: "Reddet", result: "Yalnız ama özgür kalırsın.", effects: { signal: 5, mask: -2, suspicion: 5, energy: -2 } }
-                        }
-                    },
-                    {
-                        id: "5.4-B",
-                        scene: "Bir insan sana evinin anahtarını uzatıyor. 'Bu senin de evin artık.'",
-                        choices: {
-                            left: { text: "Anahtarı al", result: "Dünya'da kalma kararı.", effects: { signal: -20, mask: 10, suspicion: -15, energy: 10 } },
-                            right: { text: "Anahtarı geri ver", result: "Kurtuluş yolunu seç.", effects: { signal: 5, mask: -2, suspicion: 5, energy: -2 } }
-                        }
-                    },
-                    {
-                        id: "5.4-C",
-                        scene: "Maskenin altında gözyaşları var. Bir insan bunu görüyor ve sarılıyor.",
-                        choices: {
-                            left: { text: "Sarılmaya izin ver", result: "İlk gerçek bağ kurulur.", effects: { signal: -20, mask: 10, suspicion: -15, energy: 10 } },
-                            right: { text: "Geri çekil", result: "Kurtuluş öncelik.", effects: { signal: 5, mask: -2, suspicion: 5, energy: -2 } }
-                        }
-                    }
-                ]
-            },
-            5: { // 5.5 — Final Kararı (Kesin Son)
-                theme: "FINAL_KARARI",
-                critical: true,
-                criticalType: "BONUS_FINAL_DECISION",
-                alternatives: [
-                    {
-                        id: "5.5-A",
-                        scene: "Gece yarısı. Gökyüzünde bir gemi belirir. Aynı anda arkandan bir ses: 'Gitme.'",
-                        choices: {
-                            left: { text: "Gemiye yürü", result: "Eve dönüş zamanı.", effects: { signal: 35, mask: -5, suspicion: 10, energy: -5 } },
-                            right: { text: "Sese dön", result: "Yeni evin burada.", effects: { signal: -25, mask: 10, suspicion: -20, energy: 10 } }
-                        }
-                    },
-                    {
-                        id: "5.5-B",
-                        scene: "İki ışık: Biri gökyüzünden, biri bir evin penceresinden. İkisi de seni çağırıyor.",
-                        choices: {
-                            left: { text: "Gökyüzüne bak", result: "Anagemi seni bekliyor.", effects: { signal: 35, mask: -5, suspicion: 10, energy: -5 } },
-                            right: { text: "Pencereye bak", result: "Dünya seni bekliyor.", effects: { signal: -25, mask: 10, suspicion: -20, energy: 10 } }
-                        }
-                    },
-                    {
-                        id: "5.5-C",
-                        scene: "Son nefes. Ya yukarı bakarsın, ya etrafına. Karar senin.",
-                        choices: {
-                            left: { text: "Yukarı bak", result: "Yıldızlara dön.", effects: { signal: 35, mask: -5, suspicion: 10, energy: -5 } },
-                            right: { text: "Etrafına bak", result: "Dünya'da kal.", effects: { signal: -25, mask: 10, suspicion: -20, energy: 10 } }
-                        }
-                    }
-                ]
-            }
-        }
     }
 };
 
@@ -1542,6 +1378,20 @@ function getRandomQuestion(act, questionNumber) {
 
     // Seçilen alternatifin bir kopyasını oluştur
     const selectedAlt = JSON.parse(JSON.stringify(alternatives[selectedIndex]));
+
+    // *** YENİ: Dinamik Maske Atama ***
+    // Bu soruda bir maske verilecek mi kontrol et
+    if (typeof getMaskForQuestion === 'function') {
+        const assignedMask = getMaskForQuestion(act, questionNumber);
+
+        if (assignedMask) {
+            // Bu soru bir maske sorusu!
+            // Right choice'a (sağ seçim) award olarak bu maskeyi ekle
+            if (selectedAlt.choices && selectedAlt.choices.right) {
+                selectedAlt.choices.right.award = assignedMask;
+            }
+        }
+    }
 
     // %50 ihtimalle seçeneklerin yerlerini değiştir (sağ-sol swap)
     const shouldSwapChoices = Math.random() < 0.5;

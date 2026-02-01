@@ -30,7 +30,6 @@
             </div>
         </div>
     </div>
-
     <!-- Kapsamlı Tutorial Sistemi -->
     <div id="tutorial-modal" class="tutorial-overlay">
         <div class="tutorial-container">
@@ -222,7 +221,7 @@
                 </div>
 
                 <!-- SAYFA 4: Sonlar ve İpuçları -->
-                <div class="tutorial-page" data-page="4">
+                <div class="tutorial-page centered-page" data-page="4">
                     <div class="tutorial-page-header">
                         <span class="page-icon">🏁</span>
                         <h3 class="page-title">SONLAR VE İPUÇLARI</h3>
@@ -284,11 +283,7 @@
                             </div>
                         </div>
 
-                        <div class="bonus-info">
-                            <span class="bonus-icon">✨</span>
-                            <p>Belirsiz sonlara ulaşırsan <strong>BONUS BÖLÜM</strong> açılabilir - son bir şansın
-                                olacak!</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -314,6 +309,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Oyun Ekranı -->
     <div id="game-screen" class="screen">
@@ -467,9 +463,6 @@
             <h2 class="end-title" id="end-title">OYUN BİTTİ</h2>
             <p class="end-description" id="end-description">Sonuç açıklaması...</p>
             <div class="end-stats" id="end-stats"></div>
-            <button id="continue-btn" class="btn-primary"
-                style="display: none; background-color: var(--accent-primary); margin-bottom: 1rem;">✨ DEVAM ET - BONUS
-                BÖLÜM</button>
             <button id="restart-btn" class="btn-primary">TEKRAR OYNA</button>
             <button id="main-menu-btn" class="btn-primary"
                 style="background-color: #555; border-color: #222; font-size: 2rem; margin-top: 1rem;">ANA MENÜYE
@@ -492,6 +485,7 @@
     </div>
 
     <!-- JavaScript Dosyaları -->
+    <script src="maskDistribution.js"></script>
     <script src="questionPool.js"></script>
     <script src="cards.js"></script>
     <script src="game.js"></script>
