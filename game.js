@@ -163,6 +163,34 @@ class GameState {
                 if (!this.collectedMasks.includes(choice.award)) {
                     this.collectedMasks.push(choice.award);
                     earnedMask = choice.award;
+
+                    // YENİ: Maske kazanıldığında anlık stat etkileri
+                    if (earnedMask === 'İletişim Maskesi') {
+                        this.stats.signal = Math.min(100, this.stats.signal + 25);
+                    } else if (earnedMask === 'Güven Maskesi') {
+                        this.stats.suspicion = Math.max(0, this.stats.suspicion - 50);
+                    } else if (earnedMask === 'Bakım Maskesi') {
+                        this.stats.mask = Math.min(100, this.stats.mask + 30);
+                    } else if (earnedMask === 'Sessizlik Maskesi') {
+                        this.stats.suspicion = Math.max(0, this.stats.suspicion - 25);
+                        this.stats.signal = Math.max(0, this.stats.signal - 25);
+                    }
+
+                    // UI'ın bu büyük değişimi görmesi için changes objesini güncelle
+                    for (const stat of ['signal', 'mask', 'suspicion', 'energy']) {
+                        const totalChange = this.stats[stat] - beforeStats[stat];
+                        if (totalChange !== 0) {
+                            if (!changes[stat]) {
+                                changes[stat] = {
+                                    oldValue: beforeStats[stat],
+                                    newValue: this.stats[stat],
+                                    change: effects[stat] || 0
+                                };
+                            }
+                            changes[stat].newValue = this.stats[stat];
+                            changes[stat].totalChange = totalChange;
+                        }
+                    }
                 }
             }
 
