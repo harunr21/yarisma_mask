@@ -50,6 +50,7 @@ const elements = {
     endTitle: document.getElementById('end-title'),
     endDescription: document.getElementById('end-description'),
     endStats: document.getElementById('end-stats'),
+    continueBtn: document.getElementById('continue-btn'),
 
     // Gün animasyon overlay
     dayOverlay: document.getElementById('day-overlay'),
@@ -94,7 +95,8 @@ const actBackgrounds = {
     1: 'arkaplan_fotolari/1 - Düzenlendi.png',
     2: 'arkaplan_fotolari/2 - Düzenlendi.png',
     3: 'arkaplan_fotolari/4 - Düzenlendi.png',
-    4: 'arkaplan_fotolari/7 - Düzenlendi.png'
+    4: 'arkaplan_fotolari/7 - Düzenlendi.png',
+    5: 'arkaplan_fotolari/7 - Düzenlendi.png' // Bonus ACT - ACT 4 ile aynı
 };
 
 // Aktif arkaplan katmanı takibi
@@ -213,7 +215,8 @@ const actImages = {
     1: 'kart_fotolari/1.png',
     2: 'kart_fotolari/2.png',
     3: 'kart_fotolari/3.png',
-    4: 'kart_fotolari/4.png'
+    4: 'kart_fotolari/4.png',
+    5: 'kart_fotolari/4.png' // Bonus ACT - ACT 4 ile aynı
 };
 
 // Kartı render et
@@ -327,9 +330,9 @@ function animateMaskAward(maskName, callback) {
     const maskImages = {
         "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
         "Güven Maskesi": "assets/masks/guven_maskesi.png",
-        "Kimlik Maskesi": "assets/masks/iletisim_maskesi.png", // Placeholder - sonra özel görsel eklenecek
-        "Bakım Maskesi": "assets/masks/guven_maskesi.png",     // Placeholder - sonra özel görsel eklenecek
-        "Sessizlik Maskesi": "assets/masks/iletisim_maskesi.png" // Placeholder - sonra özel görsel eklenecek
+        "Kimlik Maskesi": "assets/masks/kimlik_maskesi.png",
+        "Bakım Maskesi": "assets/masks/bakim_maskesi.png",
+        "Sessizlik Maskesi": "assets/masks/sessizlik_maskesi.png"
     };
 
     elements.achievementMaskName.textContent = maskName;
@@ -368,9 +371,9 @@ function updateCollectedMasks(masks) {
     const maskImages = {
         "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
         "Güven Maskesi": "assets/masks/guven_maskesi.png",
-        "Kimlik Maskesi": "assets/masks/iletisim_maskesi.png",
-        "Bakım Maskesi": "assets/masks/guven_maskesi.png",
-        "Sessizlik Maskesi": "assets/masks/iletisim_maskesi.png"
+        "Kimlik Maskesi": "assets/masks/kimlik_maskesi.png",
+        "Bakım Maskesi": "assets/masks/bakim_maskesi.png",
+        "Sessizlik Maskesi": "assets/masks/sessizlik_maskesi.png"
     };
 
     masks.forEach(maskName => {
@@ -561,7 +564,6 @@ function showEndScreen() {
                 </div>
             `;
         }).join('');
-
         elements.endStats.innerHTML += `
             <div class="end-masks-report">
                 <h3>KAZANILAN MASKELER</h3>
@@ -576,6 +578,13 @@ function showEndScreen() {
                 <h3>HİÇ MASKE KAZANAMADIN</h3>
             </div>
         `;
+    }
+
+    // Bonus ACT devam butonu kontrolü
+    if (endMessage.canContinue && gameState.bonusActAvailable) {
+        elements.continueBtn.style.display = 'block';
+    } else {
+        elements.continueBtn.style.display = 'none';
     }
 
     showScreen('end');
@@ -796,6 +805,34 @@ function restartGame() {
 }
 
 elements.startBtn.addEventListener('click', startGame);
+
+// Bonus ACT devam butonu
+elements.continueBtn.addEventListener('click', () => {
+    // Bonus ACT'i başlat
+    if (gameState.startBonusAct()) {
+        // Arkaplan müziğini başlat
+        startBackgroundMusic();
+
+        // Devam butonunu gizle
+        elements.continueBtn.style.display = 'none';
+
+        // İlk soruyu al ve göster
+        const nextCard = gameState.getNextCard();
+        renderCard(nextCard);
+        updateStatBars(false);
+        updateDayCounter();
+        updateCollectedMasks(gameState.collectedMasks);
+
+        // Oyun ekranına geç
+        showScreen('game');
+
+        // Swipe handler'ı sıfırla
+        if (swipeHandler) {
+            swipeHandler.reset();
+        }
+    }
+});
+
 elements.restartBtn.addEventListener('click', () => {
     // Arkaplan müziğini durdur
     stopBackgroundMusic();
@@ -968,10 +1005,113 @@ elements.closeSettingsBtn.addEventListener('click', () => {
 
 elements.tutorialBtn.addEventListener('click', () => {
     elements.tutorialModal.classList.add('active');
+    tutorialCurrentPage = 1;
+    updateTutorialPage(1);
 });
 
 elements.closeTutorialBtn.addEventListener('click', () => {
     elements.tutorialModal.classList.remove('active');
+});
+
+// ===================================
+// TUTORIAL NAVIGATION SYSTEM
+// ===================================
+let tutorialCurrentPage = 1;
+const tutorialTotalPages = 4;
+
+// Tutorial element referansları
+const tutorialElements = {
+    prevBtn: document.getElementById('tutorial-prev-btn'),
+    nextBtn: document.getElementById('tutorial-next-btn'),
+    progressFill: document.getElementById('tutorial-progress-fill'),
+    progressText: document.getElementById('tutorial-progress-text'),
+    pagesContainer: document.getElementById('tutorial-pages-container'),
+    pageDots: document.querySelectorAll('.page-dot')
+};
+
+// Tutorial sayfasını güncelle
+function updateTutorialPage(pageNum) {
+    tutorialCurrentPage = pageNum;
+
+    // Tüm sayfaları gizle
+    const pages = document.querySelectorAll('.tutorial-page');
+    pages.forEach(page => page.classList.remove('active'));
+
+    // Aktif sayfayı göster
+    const activePage = document.querySelector(`.tutorial-page[data-page="${pageNum}"]`);
+    if (activePage) {
+        activePage.classList.add('active');
+    }
+
+    // Progress bar güncelle
+    const progressPercent = (pageNum / tutorialTotalPages) * 100;
+    tutorialElements.progressFill.style.width = `${progressPercent}%`;
+    tutorialElements.progressText.textContent = `${pageNum} / ${tutorialTotalPages}`;
+
+    // Sayfa noktalarını güncelle
+    tutorialElements.pageDots.forEach(dot => {
+        dot.classList.remove('active');
+        if (parseInt(dot.dataset.page) === pageNum) {
+            dot.classList.add('active');
+        }
+    });
+
+    // Butonları güncelle
+    tutorialElements.prevBtn.disabled = pageNum === 1;
+
+    // Son sayfada "SONRAKİ" yerine "KAPAT" göster
+    if (pageNum === tutorialTotalPages) {
+        tutorialElements.nextBtn.innerHTML = '<span class="nav-text">KAPAT</span><span class="nav-arrow">✓</span>';
+    } else {
+        tutorialElements.nextBtn.innerHTML = '<span class="nav-text">SONRAKİ</span><span class="nav-arrow">►</span>';
+    }
+
+    // Scroll'u en üste al
+    tutorialElements.pagesContainer.scrollTop = 0;
+}
+
+// Sayfa navigasyonu
+function tutorialNextPage() {
+    if (tutorialCurrentPage < tutorialTotalPages) {
+        updateTutorialPage(tutorialCurrentPage + 1);
+    } else {
+        // Son sayfadaysa kapat
+        elements.tutorialModal.classList.remove('active');
+    }
+}
+
+function tutorialPrevPage() {
+    if (tutorialCurrentPage > 1) {
+        updateTutorialPage(tutorialCurrentPage - 1);
+    }
+}
+
+// Event Listeners
+tutorialElements.nextBtn.addEventListener('click', tutorialNextPage);
+tutorialElements.prevBtn.addEventListener('click', tutorialPrevPage);
+
+// Sayfa noktalarına tıklama
+tutorialElements.pageDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+        const pageNum = parseInt(dot.dataset.page);
+        updateTutorialPage(pageNum);
+    });
+});
+
+// Tutorial içinde klavye navigasyonu
+document.addEventListener('keydown', (e) => {
+    // Sadece tutorial açıkken çalışsın
+    if (!elements.tutorialModal.classList.contains('active')) return;
+
+    if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tutorialNextPage();
+    } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        tutorialPrevPage();
+    } else if (e.key === 'Escape') {
+        elements.tutorialModal.classList.remove('active');
+    }
 });
 
 // Sayfanın herhangi bir yerine tıklayınca maske isimlerini kapat
@@ -1068,7 +1208,10 @@ function addStoryEntry(day, act, question, direction, result) {
     if (result.earnedMask) {
         const maskImages = {
             "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
-            "Güven Maskesi": "assets/masks/guven_maskesi.png"
+            "Güven Maskesi": "assets/masks/guven_maskesi.png",
+            "Kimlik Maskesi": "assets/masks/kimlik_maskesi.png",
+            "Bakım Maskesi": "assets/masks/bakim_maskesi.png",
+            "Sessizlik Maskesi": "assets/masks/sessizlik_maskesi.png"
         };
         const maskImage = maskImages[result.earnedMask];
         if (maskImage) {

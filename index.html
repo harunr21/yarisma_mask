@@ -31,37 +31,287 @@
         </div>
     </div>
 
-    <!-- Eğitim (Tutorial) Modalı -->
-    <div id="tutorial-modal" class="modal">
-        <div class="modal-content tutorial-content">
-            <h2 class="modal-title">NASIL OYNANIR?</h2>
+    <!-- Kapsamlı Tutorial Sistemi -->
+    <div id="tutorial-modal" class="tutorial-overlay">
+        <div class="tutorial-container">
+            <!-- Tutorial Header -->
+            <div class="tutorial-header">
+                <span class="tutorial-header-icon">📖</span>
+                <h2 class="tutorial-header-title">OYUN KILAVUZU</h2>
+                <button id="close-tutorial-btn" class="tutorial-close-btn">✕</button>
+            </div>
 
-            <div class="tutorial-steps">
-                <div class="tutorial-step">
-                    <div class="step-icon">↔️</div>
-                    <p>Kartları <strong>SAĞA</strong> veya <strong>SOLA</strong> kaydırarak kararlarını ver.</p>
+            <!-- Tutorial Progress -->
+            <div class="tutorial-progress">
+                <div class="tutorial-progress-bar">
+                    <div class="tutorial-progress-fill" id="tutorial-progress-fill"></div>
                 </div>
+                <span class="tutorial-progress-text" id="tutorial-progress-text">1 / 4</span>
+            </div>
 
-                <div class="tutorial-step">
-                    <div class="step-icons">
-                        <img src="assets/icons/signal.png" alt="Sinyal">
-                        <img src="assets/icons/mask.png" alt="Maske">
-                        <img src="assets/icons/suspicion.png" alt="Şüphe">
-                        <img src="assets/icons/energy.png" alt="Enerji">
+            <!-- Tutorial Pages Container -->
+            <div class="tutorial-pages-container" id="tutorial-pages-container">
+
+                <!-- SAYFA 1: Hikaye ve Amaç -->
+                <div class="tutorial-page active" data-page="1">
+                    <div class="tutorial-page-header">
+                        <span class="page-icon">🛸</span>
+                        <h3 class="page-title">HİKAYEN</h3>
                     </div>
-                    <p>4 ana kaynağını dengede tut. Herhangi biri <strong>0</strong> olur veya Şüphe
-                        <strong>100</strong> olursa elenirsin!
-                    </p>
+
+                    <div class="tutorial-page-content">
+                        <div class="story-intro">
+                            <p class="story-text">
+                                Uzak bir galaksiden gelen bir <strong>uzaylı</strong> olarak Dünya'ya zorunlu bir iniş
+                                yaptın.
+                                Gemin hasar gördü ve hayatta kalmak için <strong>insanların arasına karışman</strong>
+                                gerekiyor.
+                            </p>
+                            <div class="story-divider"></div>
+                            <p class="story-text">
+                                Bir <strong>maske</strong> buldun - bu maske seni insan gibi gösteriyor.
+                                Şimdi hem kimliğini gizlemeli hem de <strong>eve dönmek için sinyal gücünü
+                                    artırmalısın</strong>.
+                            </p>
+                        </div>
+
+                        <div class="gameplay-intro">
+                            <div class="gameplay-item">
+                                <span class="gameplay-icon">↔️</span>
+                                <p>Kartları <strong>SAĞA</strong> veya <strong>SOLA</strong> kaydırarak kararlarını ver
+                                </p>
+                            </div>
+                            <div class="gameplay-item">
+                                <span class="gameplay-icon">📅</span>
+                                <p>Her karar <strong>zaman geçirir</strong> - enerji ne kadar düşükse o kadar çok gün
+                                    geçer</p>
+                            </div>
+                            <div class="gameplay-item">
+                                <span class="gameplay-icon">🎯</span>
+                                <p><strong>4 ana kaynak</strong> var - bunları dengede tutman HAYATTA KALMANIN anahtarı!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="tutorial-step">
-                    <div class="step-icon">🎭</div>
-                    <p>Gizemli maskeleri topla ve gerçek kimliğini saklayarak eve dönmeye çalış.</p>
+                <!-- SAYFA 2: Statlar -->
+                <div class="tutorial-page" data-page="2">
+                    <div class="tutorial-page-header">
+                        <span class="page-icon">📊</span>
+                        <h3 class="page-title">KAYNAKLAR</h3>
+                    </div>
+
+                    <div class="tutorial-page-content">
+                        <div class="stats-grid">
+                            <!-- Sinyal -->
+                            <div class="stat-info-card signal-card">
+                                <div class="stat-info-header">
+                                    <img src="assets/icons/signal.png" alt="Sinyal" class="stat-info-icon">
+                                    <h4>SİNYAL</h4>
+                                </div>
+                                <p class="stat-description">Anageminin seni bulması için gereken sinyal gücü.</p>
+                                <div class="stat-rules">
+                                    <span class="rule-increase">↑ Teknoloji ve iletişim eylemleri</span>
+                                    <span class="rule-decrease">↓ Gizlenme ve kaçınma</span>
+                                    <span class="rule-warning">🏆 %100'e ulaşırsan anagemin gelir!</span>
+                                </div>
+                            </div>
+
+                            <!-- Maske -->
+                            <div class="stat-info-card mask-card">
+                                <div class="stat-info-header">
+                                    <img src="assets/icons/mask.png" alt="Maske" class="stat-info-icon">
+                                    <h4>MASKE</h4>
+                                </div>
+                                <p class="stat-description">İnsan kılığının dayanıklılığı. Zamanla yıpranır!</p>
+                                <div class="stat-rules">
+                                    <span class="rule-increase">↑ Bakım ve dinlenme</span>
+                                    <span class="rule-decrease">↓ Her gün pasif olarak azalır</span>
+                                    <span class="rule-danger">💀 0'a düşerse gerçek formun ortaya çıkar!</span>
+                                </div>
+                            </div>
+
+                            <!-- Şüphe -->
+                            <div class="stat-info-card suspicion-card">
+                                <div class="stat-info-header">
+                                    <img src="assets/icons/suspicion.png" alt="Şüphe" class="stat-info-icon">
+                                    <h4>ŞÜPHE</h4>
+                                </div>
+                                <p class="stat-description">İnsanların senden ne kadar şüphelendiği.</p>
+                                <div class="stat-rules">
+                                    <span class="rule-increase">↑ Tuhaf davranışlar ve hatalar</span>
+                                    <span class="rule-decrease">↓ Normal görünme ve güven kazanma</span>
+                                    <span class="rule-danger">🚨 %100'e ulaşırsa yakalanırsın!</span>
+                                </div>
+                            </div>
+
+                            <!-- Enerji -->
+                            <div class="stat-info-card energy-card">
+                                <div class="stat-info-header">
+                                    <img src="assets/icons/energy.png" alt="Enerji" class="stat-info-icon">
+                                    <h4>ENERJİ</h4>
+                                </div>
+                                <p class="stat-description">Yaşam gücün. Düşük enerji = yavaş hareket!</p>
+                                <div class="stat-rules">
+                                    <span class="rule-increase">↑ Dinlenme ve güç kaynakları</span>
+                                    <span class="rule-decrease">↓ Dikkatli kararlar ver çünkü enerjin azalabilir.</span>
+                                    <span class="rule-danger">⚡ 0'a düşerse hareket edemezsin!</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="passive-warning">
+                            <span class="warning-icon">⏳</span>
+                            <p>Her gün <strong>pasif etkiler</strong> işler: Maske ve enerji azalır, şüphe ve sinyal
+                                artar!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SAYFA 3: Maskeler -->
+                <div class="tutorial-page" data-page="3">
+                    <div class="tutorial-page-header">
+                        <span class="page-icon">🎭</span>
+                        <h3 class="page-title">GİZEMLİ MASKELER</h3>
+                    </div>
+
+                    <div class="tutorial-page-content">
+                        <p class="masks-intro">Oyun boyunca <strong>özel maskeler</strong> kazanabilirsin. Her maske
+                            farklı yetenekler ve <strong>farklı sonlar</strong> doğurur!</p>
+
+                        <div class="masks-showcase">
+                            <div class="mask-showcase-item">
+                                <img src="assets/masks/iletisim_maskesi.png" alt="İletişim Maskesi"
+                                    class="mask-showcase-image">
+                                <div class="mask-showcase-info">
+                                    <h5>İLETİŞİM MASKESİ</h5>
+                                    <p>Sinyal gücünü artırır. <strong>Köprü</strong> sonuna ulaşabilirsin.</p>
+                                </div>
+                            </div>
+
+                            <div class="mask-showcase-item">
+                                <img src="assets/masks/guven_maskesi.png" alt="Güven Maskesi"
+                                    class="mask-showcase-image">
+                                <div class="mask-showcase-info">
+                                    <h5>GÜVEN MASKESİ</h5>
+                                    <p>Şüpheyi azaltır. <strong>Dünya'da kalıcı yaşam</strong> sonuna ulaşabilirsin.</p>
+                                </div>
+                            </div>
+
+                            <div class="mask-showcase-item">
+                                <img src="assets/masks/sessizlik_maskesi.png" alt="Sessizlik Maskesi"
+                                    class="mask-showcase-image">
+                                <div class="mask-showcase-info">
+                                    <h5>SESSİZLİK MASKESİ</h5>
+                                    <p>Görünmezlik sağlar. <strong>Sessiz kaçış</strong> sonuna ulaşabilirsin.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="masks-hint">
+                            <span class="hint-icon">💡</span>
+                            <p>Unutma; kararlar <strong>maskelerini</strong>, maskeler de <strong>kaderini</strong>
+                                belirler.</p>
+                        </div>
+
+                        <div class="more-masks-tease">
+                            <p>Daha fazla gizli maske ve özel sonlar keşfetmeyi bekliyor... 🔮</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SAYFA 4: Sonlar ve İpuçları -->
+                <div class="tutorial-page" data-page="4">
+                    <div class="tutorial-page-header">
+                        <span class="page-icon">🏁</span>
+                        <h3 class="page-title">SONLAR VE İPUÇLARI</h3>
+                    </div>
+
+                    <div class="tutorial-page-content">
+                        <div class="endings-section">
+                            <h4 class="section-title">BİRDEN FAZLA SON</h4>
+                            <p class="endings-intro">Kararlarına bağlı olarak <strong>farklı sonlara</strong>
+                                ulaşabilirsin:</p>
+
+                            <div class="ending-example">
+                                <span class="ending-icon">🛸</span>
+                                <div class="ending-info">
+                                    <h5>ANAGEMİ GELDİ</h5>
+                                    <p>Sinyal %100'e ulaştığında anagemin seni kurtarmaya gelir. <strong>En iyi
+                                            son!</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="ending-example">
+                                <span class="ending-icon">🌌</span>
+                                <div class="ending-info">
+                                    <h5>İKİ DÜNYANIN KÖPRÜSÜ</h5>
+                                    <p><strong>İletişim Maskesi</strong> ile yüksek sinyal ve orta şüphe dengesini
+                                        yakalarsan, hem Dünya'da hem de kendi gezegeninde yaşama hakkı kazanırsın!</p>
+                                </div>
+                            </div>
+
+                            <div class="endings-mystery">
+                                <span class="mystery-icon">❓</span>
+                                <p>Başka sonlar da var... Keşfetmek sana kalmış!</p>
+                            </div>
+                        </div>
+
+                        <div class="tips-section">
+                            <h4 class="section-title">STRATEJİ İPUÇLARI</h4>
+                            <div class="tips-list">
+                                <div class="tip-item">
+                                    <span class="tip-number">1</span>
+                                    <p><strong>Dengeyi koru</strong> - Tek bir stata odaklanma, hepsini göz önünde
+                                        bulundur.</p>
+                                </div>
+                                <div class="tip-item">
+                                    <span class="tip-number">2</span>
+                                    <p><strong>Enerjiyi yüksek tut</strong> - Düşük enerji = daha fazla gün geçer = daha
+                                        fazla pasif etki.</p>
+                                </div>
+                                <div class="tip-item">
+                                    <span class="tip-number">3</span>
+                                    <p><strong>Maske bakımı önemli</strong> - Masken çürümeye başlayınca geri dönüş zor!
+                                    </p>
+                                </div>
+                                <div class="tip-item">
+                                    <span class="tip-number">4</span>
+                                    <p><strong>Her seçim önemli</strong> - Oyun birçok karardan oluşuyor, her biri
+                                        seni farklı sonlara taşıyabilir.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bonus-info">
+                            <span class="bonus-icon">✨</span>
+                            <p>Belirsiz sonlara ulaşırsan <strong>BONUS BÖLÜM</strong> açılabilir - son bir şansın
+                                olacak!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <button id="close-tutorial-btn" class="btn-primary"
-                style="margin-top: 1.5rem; padding: 0.8rem 2rem; font-size: 1.4rem;">ANLADIM</button>
+            <!-- Tutorial Navigation -->
+            <div class="tutorial-navigation">
+                <button id="tutorial-prev-btn" class="tutorial-nav-btn prev-btn" disabled>
+                    <span class="nav-arrow">◄</span>
+                    <span class="nav-text">ÖNCEKİ</span>
+                </button>
+
+                <div class="tutorial-page-dots">
+                    <span class="page-dot active" data-page="1"></span>
+                    <span class="page-dot" data-page="2"></span>
+                    <span class="page-dot" data-page="3"></span>
+                    <span class="page-dot" data-page="4"></span>
+                </div>
+
+                <button id="tutorial-next-btn" class="tutorial-nav-btn next-btn">
+                    <span class="nav-text">SONRAKİ</span>
+                    <span class="nav-arrow">►</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -217,6 +467,9 @@
             <h2 class="end-title" id="end-title">OYUN BİTTİ</h2>
             <p class="end-description" id="end-description">Sonuç açıklaması...</p>
             <div class="end-stats" id="end-stats"></div>
+            <button id="continue-btn" class="btn-primary"
+                style="display: none; background-color: var(--accent-primary); margin-bottom: 1rem;">✨ DEVAM ET - BONUS
+                BÖLÜM</button>
             <button id="restart-btn" class="btn-primary">TEKRAR OYNA</button>
             <button id="main-menu-btn" class="btn-primary"
                 style="background-color: #555; border-color: #222; font-size: 2rem; margin-top: 1rem;">ANA MENÜYE
