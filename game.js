@@ -38,7 +38,7 @@ class GameState {
         // ACT 4'ün 7. sorusundan sonra oyun biter (Bonus ACT değilse)
         // ACT 5 (Bonus) için 5 soru var
         if (this.currentAct > 4 && !this.isBonusAct) {
-            this.checkGameEnd();
+            this.checkFinalEnding();
             return null;
         }
 
@@ -261,6 +261,11 @@ class GameState {
      * 6. S <= 70 && M >= 75 && 35 <= Ş <= 65 && Bakım Maskesi -> Mask Mastery (🎭) [Düşük-Orta S, Yüksek M, Orta Ş]
      */
     checkFinalEnding() {
+        // DEBUG: Stat değerlerini ve maskeleri konsola yaz
+        console.log('=== checkFinalEnding DEBUG ===');
+        console.log('Statlar:', JSON.stringify(this.stats));
+        console.log('Toplanan Maskeler:', this.collectedMasks);
+        console.log('isBonusAct:', this.isBonusAct);
         // 1. ANAGEMİ GELDİ (Kesin Kurtuluş) - Sinyal 100'e ulaştı
         if (this.stats.signal >= 100) {
             this.isGameOver = true;
