@@ -326,7 +326,10 @@ function animateDayPass(startDay, endDay, resultText, callback) {
 function animateMaskAward(maskName, callback) {
     const maskImages = {
         "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
-        "Güven Maskesi": "assets/masks/guven_maskesi.png"
+        "Güven Maskesi": "assets/masks/guven_maskesi.png",
+        "Kimlik Maskesi": "assets/masks/iletisim_maskesi.png", // Placeholder - sonra özel görsel eklenecek
+        "Bakım Maskesi": "assets/masks/guven_maskesi.png",     // Placeholder - sonra özel görsel eklenecek
+        "Sessizlik Maskesi": "assets/masks/iletisim_maskesi.png" // Placeholder - sonra özel görsel eklenecek
     };
 
     elements.achievementMaskName.textContent = maskName;
@@ -364,7 +367,10 @@ function updateCollectedMasks(masks) {
 
     const maskImages = {
         "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
-        "Güven Maskesi": "assets/masks/guven_maskesi.png"
+        "Güven Maskesi": "assets/masks/guven_maskesi.png",
+        "Kimlik Maskesi": "assets/masks/iletisim_maskesi.png",
+        "Bakım Maskesi": "assets/masks/guven_maskesi.png",
+        "Sessizlik Maskesi": "assets/masks/iletisim_maskesi.png"
     };
 
     masks.forEach(maskName => {
@@ -540,7 +546,10 @@ function showEndScreen() {
     if (gameState.collectedMasks.length > 0) {
         const maskImages = {
             "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
-            "Güven Maskesi": "assets/masks/guven_maskesi.png"
+            "Güven Maskesi": "assets/masks/guven_maskesi.png",
+            "Kimlik Maskesi": "assets/masks/iletisim_maskesi.png",
+            "Bakım Maskesi": "assets/masks/guven_maskesi.png",
+            "Sessizlik Maskesi": "assets/masks/iletisim_maskesi.png"
         };
 
         const masksHtml = gameState.collectedMasks.map(maskName => {

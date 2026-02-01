@@ -208,6 +208,11 @@ class GameState {
      * SON 3: sinyal >= 75, şüphe <= 55, İletişim Maskesi → Köprü (iki dünyada yaşam)
      * SON 4: sinyal <= 75, şüphe <= 45, Güven Maskesi → Dünya'da kalıcı yaşam
      * SON 5: şüphe = 100 veya enerji = 0 → Game Over (checkGameEnd'de kontrol edilir)
+     * 
+     * YENİ GİZLİ SONLAR:
+     * SON 5: Kimlik Maskesi + şüphe >= 70 + sinyal < 100 → Kayıtlı Hayalet (sisteme karıştın)
+     * SON 6: Bakım Maskesi + maske >= 80 + sinyal < 100 → Maskesiz Maske (maskeyi kontrol ettin)
+     * SON 7: Sessizlik Maskesi + şüphe <= 30 + sinyal < 85 → Sessiz Kaçış (iz bırakmadan çözdün)
      */
     checkFinalEnding() {
         // SON 1: Sinyal %100'e ulaştıysa: Kesin Kurtuluş - Anagemi gelir
@@ -219,8 +224,8 @@ class GameState {
 
         // SON 3: Köprü Sonu - İnsanlar ve uzaylılar arasında köprü
         // Koşullar: sinyal >= 75, şüphe <= 55, İletişim Maskesi kazanılmış
-        const hasCommsunationMask = this.collectedMasks.includes('İletişim Maskesi');
-        if (this.stats.signal >= 75 && this.stats.suspicion <= 55 && hasCommsunationMask) {
+        const hasCommunicationMask = this.collectedMasks.includes('İletişim Maskesi');
+        if (this.stats.signal >= 75 && this.stats.suspicion <= 55 && hasCommunicationMask) {
             this.isGameOver = true;
             this.endReason = 'bridge';
             return;
@@ -235,13 +240,40 @@ class GameState {
             return;
         }
 
+        // ========== YENİ GİZLİ SONLAR ==========
+
+        // SON 5: Kayıtlı Hayalet - Kimlik Maskesi ile sisteme karıştın
+        // Koşullar: Kimlik Maskesi + şüphe >= 70 (yüksek şüpheyi yönetti) + sinyal < 100
+        const hasIdentityMask = this.collectedMasks.includes('Kimlik Maskesi');
+        if (hasIdentityMask && this.stats.suspicion >= 70 && this.stats.signal < 100) {
+            this.isGameOver = true;
+            this.endReason = 'registered_ghost';
+            return;
+        }
+
+        // SON 6: Maskesiz Maske - Bakım Maskesi ile maskeyi kontrol ettin
+        // Koşullar: Bakım Maskesi + maske >= 80 (hiç kritik düşmedi) + sinyal < 100
+        const hasMaintenanceMask = this.collectedMasks.includes('Bakım Maskesi');
+        if (hasMaintenanceMask && this.stats.mask >= 80 && this.stats.signal < 100) {
+            this.isGameOver = true;
+            this.endReason = 'maskless_mask';
+            return;
+        }
+
+        // SON 7: Sessiz Kaçış - Sessizlik Maskesi ile iz bırakmadan çözdün
+        // Koşullar: Sessizlik Maskesi + şüphe <= 30 (çok düşük) + sinyal < 85
+        const hasSilenceMask = this.collectedMasks.includes('Sessizlik Maskesi');
+        if (hasSilenceMask && this.stats.suspicion <= 30 && this.stats.signal < 85) {
+            this.isGameOver = true;
+            this.endReason = 'silent_escape';
+            return;
+        }
+
+        // ========== VARSAYILAN SONLAR ==========
+
         // Tüm sorular tamamlandı ama hiçbir özel sona ulaşılamadı
-        // Mask ve sinyal durumuna göre alternatif son belirlenir
-        // Sinyal yüksekse ama 100 değilse: belirsiz (yardım gelebilir de gelmeyebilir de)
-        // Sinyal düşük ve maske sağlamsa: dünya'da kaldı
-        // Maske zayıfsa: belirsiz
         if (this.stats.signal >= 60) {
-            // Sinyal yeterince yüksek ama 100 değil - belirsiz son (yardım gelebilir)
+            // Sinyal yeterince yüksek ama 100 değil - belirsiz son
             this.isGameOver = true;
             this.endReason = 'uncertain';
         } else if (this.stats.mask >= 65) {
@@ -325,6 +357,39 @@ class GameState {
                     description: `${this.day} gün ve ${this.totalQuestionsAnswered} kararın sonunda, sinyal yeterli güce ulaşamadı. Masken sağlam kaldı ama güven maskesini kazanamadın. Dünya'da kalıyorsun... ama ne zamana kadar?`,
                     isWin: false,
                     endingType: 'stayed'
+                };
+
+            // Belirsiz son
+            // ========== YENİ GİZLİ SONLAR ==========
+
+            // SON 5: Kayıtlı Hayalet - Kimlik Maskesi
+            case 'registered_ghost':
+                return {
+                    title: 'KAYITLI HAYALET',
+                    icon: '🪪',
+                    description: `${this.day}. günde sisteme karıştın. Kontrol noktalarında görevli kimliğine bakıyor, sonra seni geçiriyor. Kameralar seni görüyor ama alarm vermiyor—çünkü sistem seni "tanıyor." Uzaylı olduğun gerçeği kaybolmadı; sadece veri katmanının altında yaşıyorsun. Artık saklanmıyorsun... kayıtlısın.`,
+                    isWin: true,
+                    endingType: 'registered_ghost'
+                };
+
+            // SON 6: Maskesiz Maske - Bakım Maskesi
+            case 'maskless_mask':
+                return {
+                    title: 'MASKESİZ MASKE',
+                    icon: '🎭',
+                    description: `${this.day} gün boyunca maskeye hakim oldun. Artık maskeyi "takmak zorunda" olduğun için değil, "seçtiğin" için kullanıyorsun. Bir gün maskeyi çıkarırsın ve ölüm gelmez—çünkü maske artık gizlemek için değil, dengelemek içindir. Maskeyi kontrol ettiğinde, maske seni kontrol edemez.`,
+                    isWin: true,
+                    endingType: 'maskless_mask'
+                };
+
+            // SON 7: Sessiz Kaçış - Sessizlik Maskesi
+            case 'silent_escape':
+                return {
+                    title: 'SESSİZ KAÇIŞ',
+                    icon: '🤫',
+                    description: `${this.day} gece geçti. Seni kimse "yakalamadı" çünkü kimse seni gerçekten "görmedi." Sokak lambaları titremedi, sirenler çalmadı. Müttefiğin bile seni görmedi; sadece varlığını hissetti. Kendi gezegenin seni bulmadı—ama Dünya da seni yok edemedi. Bazı kurtuluşlar, sessiz olur.`,
+                    isWin: true,
+                    endingType: 'silent_escape'
                 };
 
             // Belirsiz son
