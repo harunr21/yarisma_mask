@@ -68,7 +68,12 @@ const elements = {
     // Video Overlay
     videoOverlay: document.getElementById('video-overlay'),
     storyVideo: document.getElementById('story-video'),
-    skipVideoBtn: document.getElementById('skip-video-btn')
+    skipVideoBtn: document.getElementById('skip-video-btn'),
+
+    // Hikaye Geçmişi
+    storyLog: document.getElementById('story-log'),
+    storyLogToggle: document.getElementById('story-log-toggle'),
+    storyLogEntries: document.getElementById('story-log-entries')
 };
 
 // Ekran geçişleri
@@ -320,9 +325,16 @@ function updateCollectedMasks(masks) {
 function handleSwipe(direction) {
     const oldDay = gameState.day; // Animasyon için eski günü kaydet
     const oldAct = gameState.currentAct; // ACT değişikliği kontrolü için
+    const currentQuestion = gameState.currentQuestion; // Hikaye geçmişi için kaydet
     const result = gameState.applyChoice(direction);
 
     if (!result) return;
+
+    // Seçim sesini çal
+    playChoiceSound();
+
+    // Hikaye geçmişine ekle
+    addStoryEntry(oldDay, oldAct, currentQuestion, direction, result);
 
     // Değişen statları animasyonla göster
     for (const [statName, changeInfo] of Object.entries(result.changes)) {
@@ -418,22 +430,22 @@ function showEndScreen() {
     // Son istatistikler
     elements.endStats.innerHTML = `
         <div class="end-stat">
-            <span class="end-stat-icon"><img src="assets/icons/signal.png" alt="Sinyal" style="height: 32px;"></span>
+            <span class="end-stat-icon"><img src="assets/icons/signal.png" alt="Sinyal"></span>
             <span class="end-stat-value">${Math.floor(gameState.stats.signal)}%</span>
             <span class="end-stat-label">Sinyal</span>
         </div>
         <div class="end-stat">
-            <span class="end-stat-icon"><img src="assets/icons/mask.png" alt="Maske" style="height: 32px;"></span>
+            <span class="end-stat-icon"><img src="assets/icons/mask.png" alt="Maske"></span>
             <span class="end-stat-value">${Math.floor(gameState.stats.mask)}%</span>
             <span class="end-stat-label">Maske</span>
         </div>
         <div class="end-stat">
-            <span class="end-stat-icon"><img src="assets/icons/suspicion.png" alt="Şüphe" style="height: 32px;"></span>
+            <span class="end-stat-icon"><img src="assets/icons/suspicion.png" alt="Şüphe"></span>
             <span class="end-stat-value">${Math.floor(gameState.stats.suspicion)}%</span>
             <span class="end-stat-label">Şüphe</span>
         </div>
         <div class="end-stat">
-            <span class="end-stat-icon"><img src="assets/icons/energy.png" alt="Enerji" style="height: 32px;"></span>
+            <span class="end-stat-icon"><img src="assets/icons/energy.png" alt="Enerji"></span>
             <span class="end-stat-value">${Math.floor(gameState.stats.energy)}%</span>
             <span class="end-stat-label">Enerji</span>
         </div>
@@ -600,6 +612,7 @@ function startGame() {
     gameState.reset();
     watchedVideos.clear(); // İzlenen videoları sıfırla
     lastAct = 0;
+    clearStoryLog(); // Hikaye geçmişini temizle
 
     // Önce intro videosunu oynat
     playVideo('intro', () => {
@@ -637,10 +650,27 @@ elements.soundToggle.addEventListener('click', () => {
 
 // Event Listeners
 elements.startBtn.addEventListener('click', startGame);
-elements.restartBtn.addEventListener('click', startGame);
+elements.restartBtn.addEventListener('click', () => {
+    // Oyun durumunu sıfırla
+    gameState.reset();
+    watchedVideos.clear();
+    lastAct = 0;
+    clearStoryLog();
+
+    // Ana menüye dön
+    showScreen('start');
+});
 
 // Ses durumu yönetimi
 let soundEnabled = localStorage.getItem('soundEnabled') !== 'false'; // Varsayılan açık
+const choiceSound = new Audio('ses_dosyalari/secim_sesi.mp3');
+
+function playChoiceSound() {
+    if (soundEnabled) {
+        choiceSound.currentTime = 0; // Sesi başa sar (hızlı art arda çalabilmek için)
+        choiceSound.play().catch(e => console.log('Ses çalma hatası:', e));
+    }
+}
 
 function updateSoundUI() {
     if (soundEnabled) {
@@ -695,6 +725,132 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
+// Hikaye Geçmişi Toggle
+if (elements.storyLogToggle) {
+    elements.storyLogToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleStoryLog();
+    });
+}
+
+// Başlık kısmına tıklama ile de toggle
+const storyLogHeader = document.querySelector('.story-log-header');
+if (storyLogHeader) {
+    storyLogHeader.addEventListener('click', toggleStoryLog);
+}
+
+// Hikaye geçmişi toggle fonksiyonu
+function toggleStoryLog() {
+    if (elements.storyLog) {
+        elements.storyLog.classList.toggle('collapsed');
+    }
+}
+
+// Hikaye geçmişine yeni girdi ekle
+function addStoryEntry(day, act, question, direction, result) {
+    if (!elements.storyLogEntries || !question) return;
+
+    // Boş mesajı kaldır (varsa)
+    const emptyMsg = elements.storyLogEntries.querySelector('.story-log-empty');
+    if (emptyMsg) {
+        emptyMsg.remove();
+    }
+
+    const choice = result.choice;
+    const statIcons = {
+        signal: 'assets/icons/signal.png',
+        mask: 'assets/icons/mask.png',
+        suspicion: 'assets/icons/suspicion.png',
+        energy: 'assets/icons/energy.png'
+    };
+
+    const statNames = {
+        signal: 'Sinyal',
+        mask: 'Maske',
+        suspicion: 'Şüphe',
+        energy: 'Enerji'
+    };
+
+    // Stat değişimlerini hazırla
+    let statsHtml = '';
+    if (result.effects) {
+        for (const [stat, value] of Object.entries(result.effects)) {
+            if (value !== 0) {
+                const sign = value > 0 ? '+' : '';
+                const className = value > 0 ? 'positive' : 'negative';
+                statsHtml += `
+                    <span class="story-stat-change ${className}">
+                        <img src="${statIcons[stat]}" alt="${statNames[stat]}">
+                        ${sign}${value}
+                    </span>
+                `;
+            }
+        }
+    }
+
+    // Maske kazanma bilgisi
+    let maskHtml = '';
+    if (result.earnedMask) {
+        const maskImages = {
+            "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
+            "Güven Maskesi": "assets/masks/guven_maskesi.png"
+        };
+        const maskImage = maskImages[result.earnedMask];
+        if (maskImage) {
+            maskHtml = `
+                <div class="story-entry-mask-earned">
+                    <img src="${maskImage}" alt="${result.earnedMask}">
+                    <span>🎭 ${result.earnedMask} Kazanıldı!</span>
+                </div>
+            `;
+        }
+    }
+
+    // Act ismi al
+    let actName = '';
+    if (typeof QUESTION_POOL !== 'undefined' && QUESTION_POOL[act]) {
+        actName = QUESTION_POOL[act].name;
+    }
+
+    const entry = document.createElement('div');
+    entry.className = 'story-entry';
+    entry.innerHTML = `
+        <div class="story-entry-header">
+            <span class="story-entry-day">📅 Gün ${day}</span>
+            <span class="story-entry-act">${actName || `Bölüm ${act}`}</span>
+        </div>
+        <div class="story-entry-question">${question.description}</div>
+        <div class="story-entry-choice ${direction === 'left' ? 'left-choice' : 'right-choice'}">
+            <span class="story-entry-choice-arrow">${direction === 'left' ? '◄' : '►'}</span>
+            <span class="story-entry-choice-text">${choice.text}</span>
+        </div>
+        ${choice.result ? `<div class="story-entry-result">"${choice.result}"</div>` : ''}
+        ${maskHtml}
+        ${statsHtml ? `<div class="story-entry-stats">${statsHtml}</div>` : ''}
+    `;
+
+    // En üste ekle (son karar en üstte)
+    elements.storyLogEntries.insertBefore(entry, elements.storyLogEntries.firstChild);
+
+    // Çok fazla girdi varsa en eskilerini temizle (performans için)
+    const maxEntries = 50;
+    while (elements.storyLogEntries.children.length > maxEntries) {
+        elements.storyLogEntries.removeChild(elements.storyLogEntries.lastChild);
+    }
+}
+
+// Hikaye geçmişini temizle
+function clearStoryLog() {
+    if (elements.storyLogEntries) {
+        elements.storyLogEntries.innerHTML = `
+            <div class="story-log-empty">
+                <p>Henüz karar verilmedi...</p>
+                <p style="font-size: 0.8rem; margin-top: 8px;">Kararların burada görünecek</p>
+            </div>
+        `;
+    }
+}
 
 // Başlangıç ekranını göster
 showScreen('start');
