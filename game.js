@@ -220,7 +220,11 @@ class GameState {
 
         // Sonraki soruya geç
         this.currentQuestionInAct++;
-        if (this.currentQuestionInAct > 7) {
+
+        // ACT'e göre soru limiti: Bonus ACT (5) için 5 soru, diğerleri için 7 soru
+        const questionsInCurrentAct = this.currentAct === 5 ? 5 : 7;
+
+        if (this.currentQuestionInAct > questionsInCurrentAct) {
             // ACT tamamlandı, sonraki ACT'e geç
             this.currentAct++;
             this.currentQuestionInAct = 1;
