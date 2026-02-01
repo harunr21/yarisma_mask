@@ -473,33 +473,80 @@ body::before {
 /* Choice Hints */
 .choice-hint {
     position: absolute;
-    top: 50%;
-    /* Changed from 50% to roughly align with card middle visually */
+    top: 30%;
+    /* Kartın üst kısımlarına yakın */
     transform: translateY(-50%);
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid var(--text-primary);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: none;
+    /* Arkaplanı kaldırdık */
+    border: none;
+    /* Kenarlığı kaldırdık */
+    opacity: 0.8;
+    /* Başlangıçta görünür */
+    transition: opacity 0.3s ease;
     pointer-events: none;
-    /* İpuçları sadece gösterim için, tıklanamaz */
     z-index: 200;
-    /* Hikaye geçmişinin çok üstünde */
 }
 
 .left-hint {
-    left: 10%;
+    left: 5%;
+    /* Karta biraz daha yakın */
 }
 
 .right-hint {
-    right: 10%;
+    right: 5%;
+    /* Karta biraz daha yakın */
 }
 
 .hint-text {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: var(--text-primary);
     text-transform: uppercase;
+    text-shadow: 2px 2px 4px #000;
+    font-weight: bold;
 }
+
+.hint-arrow-icon svg {
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 1));
+}
+
+.left-hint .hint-arrow-icon svg {
+    color: #ff4d4d;
+    /* Daha canlı kırmızı */
+    animation: arrowFloatLeft 0.8s infinite alternate ease-in-out;
+}
+
+.right-hint .hint-arrow-icon svg {
+    color: #4df34d;
+    /* Daha canlı yeşil */
+    animation: arrowFloatRight 0.8s infinite alternate ease-in-out;
+}
+
+/* Yönlere özel animasyonlar zaten yukarıdaki sınıflarda tanımlandı */
+@keyframes arrowFloatLeft {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-25px);
+    }
+}
+
+@keyframes arrowFloatRight {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(25px);
+    }
+}
+
+/* Keyframes yukarı taşındı */
 
 .left-hint .hint-text {
     color: var(--danger);
@@ -2766,4 +2813,18 @@ body::before {
     .pause-title {
         font-size: 2.5rem;
     }
+}
+/* Story Entry New Sections */
+.story-entry-section {
+    margin-top: 8px;
+    border-top: 1px dotted rgba(255, 255, 255, 0.1);
+    padding-top: 6px;
+}
+
+.story-section-title {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    letter-spacing: 0.05em;
 }

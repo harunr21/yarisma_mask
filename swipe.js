@@ -97,27 +97,24 @@ class SwipeHandler {
         const leftHint = document.querySelector('.left-hint');
         const rightHint = document.querySelector('.right-hint');
 
-        // Opaklık hesapla
+        // Opaklık hesapla: Ne kadar çekilirse o kadar kaybolur
         const progress = Math.min(Math.abs(this.currentX) / this.threshold, 1);
+        const currentOpacity = 0.8 * (1 - progress);
 
-        if (this.currentX < 0) {
-            leftHint.style.opacity = progress;
-            rightHint.style.opacity = 0;
-        } else if (this.currentX > 0) {
-            rightHint.style.opacity = progress;
-            leftHint.style.opacity = 0;
-        } else {
-            leftHint.style.opacity = 0;
-            rightHint.style.opacity = 0;
-        }
+        leftHint.style.opacity = currentOpacity;
+        rightHint.style.opacity = currentOpacity;
     }
 
     hideHints() {
-        document.querySelector('.left-hint').style.opacity = 0;
-        document.querySelector('.right-hint').style.opacity = 0;
+        document.querySelector('.left-hint').style.opacity = 0.8;
+        document.querySelector('.right-hint').style.opacity = 0.8;
     }
 
     triggerSwipe(direction) {
+        // Okları tamamen gizle
+        document.querySelector('.left-hint').style.opacity = 0;
+        document.querySelector('.right-hint').style.opacity = 0;
+
         // Animasyon sınıfı ekle
         this.card.classList.add(direction === 'left' ? 'swipe-left' : 'swipe-right');
 

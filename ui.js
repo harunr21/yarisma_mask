@@ -1033,12 +1033,12 @@ function updateTutorialUI() {
         const navArrow = tutorialElements.nextBtn.querySelector('.nav-arrow');
 
         if (currentTutorialPage === totalTutorialPages) {
-            if (navText) navText.textContent = 'OYUNA BAŞLA';
+            if (navText) navText.textContent = 'KAYDIRMAYA BAŞLA';
             if (navArrow) navArrow.textContent = '🚀';
             tutorialElements.nextBtn.classList.add('finish-btn');
         } else {
             if (navText) navText.textContent = 'SONRAKİ';
-            if (navArrow) navArrow.textContent = '►';
+            if (navArrow) navArrow.textContent = '→';
             tutorialElements.nextBtn.classList.remove('finish-btn');
         }
     }
@@ -1150,6 +1150,7 @@ function toggleStoryLog() {
 }
 
 // Hikaye geçmişine yeni girdi ekle
+// Hikaye geçmişine yeni girdi ekle
 function addStoryEntry(day, act, question, direction, result) {
     if (!elements.storyLogEntries || !question) return;
 
@@ -1174,25 +1175,54 @@ function addStoryEntry(day, act, question, direction, result) {
         energy: 'Enerji'
     };
 
-    // Stat değişimlerini hazırla
-    let statsHtml = '';
+    // Helper to generate stat HTML
+    const generateStatHtml = (stat, value) => {
+        if (value === 0) return '';
+        const sign = value > 0 ? '+' : '';
+        const className = value > 0 ? 'positive' : 'negative';
+        const formattedValue = Math.round(value * 10) / 10;
+        return `
+            <span class="story-stat-change ${className}">
+                <img src="${statIcons[stat]}" alt="${statNames[stat]}">
+                ${sign}${formattedValue}
+            </span>
+        `;
+    };
+
+    // 1. Karar Etkileri (Choice Actions)
+    let choiceStatsHtml = '';
     if (result.effects) {
         for (const [stat, value] of Object.entries(result.effects)) {
-            if (value !== 0) {
-                const sign = value > 0 ? '+' : '';
-                const className = value > 0 ? 'positive' : 'negative';
-                statsHtml += `
-                    <span class="story-stat-change ${className}">
-                        <img src="${statIcons[stat]}" alt="${statNames[stat]}">
-                        ${sign}${value}
-                    </span>
-                `;
+            choiceStatsHtml += generateStatHtml(stat, value);
+        }
+    }
+
+    // 2. Pasif Değişimler (Passive Changes)
+    let passiveStatsHtml = '';
+    if (result.changes) {
+        for (const [stat, info] of Object.entries(result.changes)) {
+            let maskEffect = (result.maskEffects && result.maskEffects[stat]) || 0;
+            let actionEffect = (result.effects && result.effects[stat]) || 0;
+            // Pasif = Total - Action - MaskEffect
+            let passive = info.totalChange - actionEffect - maskEffect;
+
+            // Floating point precision fix
+            if (Math.abs(passive) > 0.1) {
+                passiveStatsHtml += generateStatHtml(stat, passive);
             }
         }
     }
 
-    // Maske kazanma bilgisi
-    let maskHtml = '';
+    // 3. Maske Etkileri (Mask Bonuses)
+    let maskEffectsHtml = '';
+    if (result.maskEffects) {
+        for (const [stat, value] of Object.entries(result.maskEffects)) {
+            maskEffectsHtml += generateStatHtml(stat, value);
+        }
+    }
+
+    // Maske kazanma görseli
+    let maskEarnedHtml = '';
     if (result.earnedMask) {
         const maskImages = {
             "İletişim Maskesi": "assets/masks/iletisim_maskesi.png",
@@ -1203,7 +1233,7 @@ function addStoryEntry(day, act, question, direction, result) {
         };
         const maskImage = maskImages[result.earnedMask];
         if (maskImage) {
-            maskHtml = `
+            maskEarnedHtml = `
                 <div class="story-entry-mask-earned">
                     <img src="${maskImage}" alt="${result.earnedMask}">
                     <span>🎭 ${result.earnedMask} Kazanıldı!</span>
@@ -1220,20 +1250,47 @@ function addStoryEntry(day, act, question, direction, result) {
 
     const entry = document.createElement('div');
     entry.className = 'story-entry';
-    entry.innerHTML = `
+
+    let html = `
         <div class="story-entry-header">
             <span class="story-entry-day">📅 Gün ${day}</span>
             <span class="story-entry-act">${actName || `Bölüm ${act}`}</span>
         </div>
         <div class="story-entry-question">${question.description}</div>
         <div class="story-entry-choice ${direction === 'left' ? 'left-choice' : 'right-choice'}">
-            <span class="story-entry-choice-arrow">${direction === 'left' ? '◄' : '►'}</span>
+            <span class="story-entry-choice-arrow">${direction === 'left' ? '←' : '→'}</span>
             <span class="story-entry-choice-text">${choice.text}</span>
         </div>
         ${choice.result ? `<div class="story-entry-result">"${choice.result}"</div>` : ''}
-        ${maskHtml}
-        ${statsHtml ? `<div class="story-entry-stats">${statsHtml}</div>` : ''}
     `;
+
+    // Add Sections clearly
+    if (choiceStatsHtml) {
+        html += `<div class="story-entry-section">
+                    <div class="story-section-title">KARAR ETKİSİ</div>
+                    <div class="story-entry-stats">${choiceStatsHtml}</div>
+                 </div>`;
+    }
+
+    if (maskEarnedHtml) {
+        html += maskEarnedHtml;
+    }
+
+    if (maskEffectsHtml) {
+        html += `<div class="story-entry-section">
+                    <div class="story-section-title">MASKE BONUSU</div>
+                    <div class="story-entry-stats">${maskEffectsHtml}</div>
+                 </div>`;
+    }
+
+    if (passiveStatsHtml) {
+        html += `<div class="story-entry-section">
+                    <div class="story-section-title">ZAMAN / PASİF</div>
+                    <div class="story-entry-stats">${passiveStatsHtml}</div>
+                 </div>`;
+    }
+
+    entry.innerHTML = html;
 
     // En üste ekle (son karar en üstte)
     elements.storyLogEntries.insertBefore(entry, elements.storyLogEntries.firstChild);

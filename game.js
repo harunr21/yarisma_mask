@@ -136,6 +136,7 @@ class GameState {
         const changes = {};
         const effects = choice.effects;
         let earnedMask = null;
+        let maskEffects = {};
 
         // 3. DAHA SONRA: Soru efektlerini uygula (Eğer oyun bitmediyse)
         if (!this.isGameOver) {
@@ -166,6 +167,8 @@ class GameState {
                     earnedMask = choice.award;
 
                     // YENİ: Maske kazanıldığında anlık stat etkileri - DENGELİ
+                    const beforeMaskStats = { ...this.stats };
+
                     if (earnedMask === 'İletişim Maskesi') {
                         // Sinyal artışı azaltıldı, WIN'e otomatik yönlendirmesin
                         this.stats.signal = Math.min(100, this.stats.signal + 12);
@@ -183,6 +186,14 @@ class GameState {
                         // YENİ: Kimlik Maskesi artık bonus veriyor
                         this.stats.suspicion = Math.min(100, this.stats.suspicion + 15);
                         this.stats.energy = Math.min(100, this.stats.energy + 10);
+                    }
+
+                    // Maske etkilerini kaydet
+                    for (const stat of ['signal', 'mask', 'suspicion', 'energy']) {
+                        const effect = this.stats[stat] - beforeMaskStats[stat];
+                        if (effect !== 0) {
+                            maskEffects[stat] = effect;
+                        }
                     }
 
                     // UI'ın bu büyük değişimi görmesi için changes objesini güncelle
@@ -226,6 +237,7 @@ class GameState {
         return {
             choice,
             changes,
+            maskEffects,
             effects, // Soru efeklerini de döndür
             day: this.day,
             isGameOver: this.isGameOver,
