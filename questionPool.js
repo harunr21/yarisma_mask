@@ -62,8 +62,8 @@ const QUESTION_POOL = {
                         id: "1.2-A",
                         scene: "Maskeyi taktığında yüz çizgilerin fazla pürüzsüz; sanki gerçek bir yüz değil de iyi yapılmış bir poster gibi duruyor.",
                         choices: {
-                            left: { text: "Aynada prova yap", result: "Daha doğal görünürsün ama zaman, sessizce erir.", effects: { signal: 0, mask: 3, suspicion: -2, energy: -1 } },
-                            right: { text: "Provasız çık", result: "Hız kazanırsın ama küçük bir hata 'geri dönebilir.'", effects: { signal: 0, mask: -2, suspicion: 3, energy: 0 } }
+                            left: { text: "Aynada prova yap", result: "Daha doğal görünürsün ama zaman sessizce erir.", effects: { signal: 0, mask: 3, suspicion: -2, energy: -1 } },
+                            right: { text: "Provasız çık", result: "Hız kazanırsın ama küçük bir hata 'sana geri dönebilir.'", effects: { signal: 0, mask: -2, suspicion: 3, energy: 0 } }
                         }
                     },
                     {
@@ -162,8 +162,8 @@ const QUESTION_POOL = {
                         id: "1.4-B",
                         scene: "Köşe başında kamera; üstünde küçük bir kırmızı nokta yanıyor, sanki seni 'seçmiş' gibi.",
                         choices: {
-                            left: { text: "Hızla geç", result: "Zaman kazanırsın ama kayıt ihtimali artar.", effects: { signal: 0, mask: 0, suspicion: 4, energy: -1 } },
-                            right: { text: "Kör nokta bekle", result: "Doğru anı yakalarsan izsiz geçersin.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -2 } }
+                            left: { text: "Hızla geç", result: "Zaman kazanırsın ama kayıt altına alınma ihtimali artar.", effects: { signal: 0, mask: 0, suspicion: 4, energy: -1 } },
+                            right: { text: "Kör noktada bekle", result: "Doğru anı yakalarsan izsiz geçersin.", effects: { signal: 0, mask: 0, suspicion: -2, energy: -2 } }
                         }
                     },
                     {
@@ -262,7 +262,7 @@ const QUESTION_POOL = {
                         id: "1.6-C",
                         scene: "Yakındaki sokak lambaları bir an titrer; insanlar başlarını kaldırır ama sonra devam eder.",
                         choices: {
-                            left: { text: "Kes", result: "Şehir sakinleşir.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 } },
+                            left: { text: "Durdur", result: "Şehir sakinleşir.", effects: { signal: 0, mask: 0, suspicion: -2, energy: 0 } },
                             right: { text: "Devam et", result: "Daha güçlü bir işaret doğar.", effects: { signal: 5, mask: -1, suspicion: 4, energy: -2 } }
                         }
                     },
@@ -937,7 +937,7 @@ const QUESTION_POOL = {
                     },
                     {
                         id: "3.6-E",
-                        scene: "Kara pazar 'hızlı çözüm' sunar; hızlı çözümün gölgesi de hızlıdır.",
+                        scene: "Kara borsa 'hızlı çözüm' sunar; hızlı çözümün gölgesi de hızlıdır.",
                         choices: {
                             left: { text: "Reddet", result: "Zor ama temiz.", effects: { signal: 0, mask: 0, suspicion: -1, energy: -1 } },
                             right: { text: "Kabul", result: "Hız gelir, bedel gelir.", effects: { signal: 3, mask: -1, suspicion: 4, energy: 2 } }

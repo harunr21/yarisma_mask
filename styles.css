@@ -2378,11 +2378,61 @@ body::before {
         transform: translateY(10px);
     }
 
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
+
+/* Continue button - appears when video ends */
+.continue-video-btn {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-primary);
+    color: #2C1E12;
+    border: 4px solid #000;
+    padding: var(--spacing-md) var(--spacing-xxl);
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 #000;
+    text-transform: uppercase;
+}
+
+.continue-video-btn.show {
+    opacity: 1;
+    visibility: visible;
+    animation: pulseButton 1.5s ease-in-out infinite;
+}
+
+.continue-video-btn:hover {
+    background: #FFD700;
+    transform: translateX(-50%) scale(1.05);
+}
+
+.continue-video-btn:active {
+    transform: translateX(-50%) translateY(4px);
+    box-shadow: 2px 2px 0 #000;
+}
+
+@keyframes pulseButton {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
 
 /* Mobil uyum */
 @media (max-width: 768px) {

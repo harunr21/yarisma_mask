@@ -72,6 +72,7 @@ const elements = {
     videoOverlay: document.getElementById('video-overlay'),
     storyVideo: document.getElementById('story-video'),
     skipVideoBtn: document.getElementById('skip-video-btn'),
+    continueVideoBtn: document.getElementById('continue-video-btn'),
 
     // Hikaye Geçmişi
     storyLog: document.getElementById('story-log'),
@@ -297,16 +298,9 @@ function animateDayPass(startDay, endDay, resultText, callback) {
         setTimeout(() => {
             elements.dayOverlay.classList.remove('active');
             // Event listener'ları temizle
-            document.removeEventListener('keydown', handleSkip);
             elements.dayOverlay.removeEventListener('click', finishAnimation);
             if (callback) callback();
         }, 100);
-    };
-
-    const handleSkip = (e) => {
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
-            finishAnimation();
-        }
     };
 
     const interval = setInterval(() => {
@@ -319,9 +313,8 @@ function animateDayPass(startDay, endDay, resultText, callback) {
         }
     }, durationPerStep);
 
-    // Hem tıklama hem klavye ile geçme desteği
+    // Sadece tıklama ile geçme desteği (klavye kontrolü kaldırıldı)
     elements.dayOverlay.addEventListener('click', finishAnimation);
-    document.addEventListener('keydown', handleSkip);
 }
 
 // Başarım animasyonu
@@ -656,6 +649,9 @@ function playVideo(videoKey, callback) {
     // Video overlay'i göster
     elements.videoOverlay.classList.add('active');
 
+    // Devam et butonunu gizle (başlangıçta)
+    elements.continueVideoBtn.classList.remove('show');
+
     // Atla butonunu sıfırla (animasyon tekrar çalışsın)
     elements.skipVideoBtn.style.animation = 'none';
     elements.skipVideoBtn.offsetHeight; // Reflow tetikle
@@ -663,11 +659,27 @@ function playVideo(videoKey, callback) {
 
     // Video bittiğinde
     const onVideoEnd = () => {
-        closeVideoWithFade(callback);
+        // Giriş hikayesi videosu için özel davranış
+        if (videoKey === 'giris_hikayesi') {
+            // Atla butonunu gizle
+            elements.skipVideoBtn.style.display = 'none';
+            // Devam et butonunu göster
+            elements.continueVideoBtn.classList.add('show');
+        } else {
+            // Diğer videolar için normal davranış (otomatik kapanma)
+            closeVideoWithFade(callback);
+        }
     };
 
     // Atla butonuna tıklama
     const onSkip = () => {
+        closeVideoWithFade(callback);
+    };
+
+    // Devam et butonuna tıklama
+    const onContinue = () => {
+        elements.continueVideoBtn.classList.remove('show');
+        elements.skipVideoBtn.style.display = 'block'; // Atla butonunu tekrar göster
         closeVideoWithFade(callback);
     };
 
@@ -676,6 +688,9 @@ function playVideo(videoKey, callback) {
 
     // Atla butonuna tıklama
     elements.skipVideoBtn.addEventListener('click', onSkip, { once: true });
+
+    // Devam et butonuna tıklama
+    elements.continueVideoBtn.addEventListener('click', onContinue, { once: true });
 
     // Video oynatmayı başlat
     elements.storyVideo.play().catch(err => {
@@ -687,6 +702,7 @@ function playVideo(videoKey, callback) {
         // Event listener'ları temizle
         elements.storyVideo.removeEventListener('ended', onVideoEnd);
         elements.skipVideoBtn.removeEventListener('click', onSkip);
+        elements.continueVideoBtn.removeEventListener('click', onContinue);
 
         // Fade-out animasyonunu başlat
         elements.videoOverlay.classList.add('fade-out');
@@ -696,6 +712,8 @@ function playVideo(videoKey, callback) {
             elements.storyVideo.pause();
             elements.videoOverlay.classList.remove('active');
             elements.videoOverlay.classList.remove('fade-out');
+            elements.continueVideoBtn.classList.remove('show');
+            elements.skipVideoBtn.style.display = 'block'; // Atla butonunu tekrar göster
             watchedVideos.add(videoKey);
 
             // Arkaplan müziğini fade-in ile devam ettir
@@ -1123,24 +1141,7 @@ document.addEventListener('click', () => {
     });
 });
 
-// Klavye kontrolleri (Ok tuşlarıyla seçim yapma)
-document.addEventListener('keydown', (e) => {
-    // Statik ekranlar veya overlay'ler açıkken kart kaydırmayı engelle
-    const isOverlayActive = elements.dayOverlay.classList.contains('active') ||
-        elements.achievementOverlay.classList.contains('active') ||
-        isPaused; // Pause menüsü kontrolü eklendi
-
-    // Sadece oyun ekranı aktifse, oyun bitmediyse ve bir overlay açık değilse çalışsın
-    if (screens.game.classList.contains('active') && !gameState.isGameOver && !isOverlayActive) {
-        if (e.key === 'ArrowLeft') {
-            elements.card.classList.add('swipe-left');
-            setTimeout(() => handleSwipe('left'), 300);
-        } else if (e.key === 'ArrowRight') {
-            elements.card.classList.add('swipe-right');
-            setTimeout(() => handleSwipe('right'), 300);
-        }
-    }
-});
+// Klavye kontrolleri kaldırıldı - Sadece mouse ile kaydırma aktif
 
 // Hikaye Geçmişi Toggle
 if (elements.storyLogToggle) {
