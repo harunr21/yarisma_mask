@@ -66,6 +66,7 @@ const elements = {
     achievementOverlay: document.getElementById('achievement-overlay'),
     achievementMaskName: document.getElementById('achievement-mask-name'),
     achievementMaskImageContainer: document.getElementById('achievement-mask-image-container'),
+    achievementMaskDescription: document.getElementById('achievement-mask-description'),
 
     // Video Overlay
     videoOverlay: document.getElementById('video-overlay'),
@@ -333,7 +334,20 @@ function animateMaskAward(maskName, callback) {
         "Sessizlik Maskesi": "assets/masks/sessizlik_maskesi.png"
     };
 
+    const maskDescriptions = {
+        "İletişim Maskesi": "Sinyal gücünü artırır (+12). İki dünyanın köprüsü olabilirsin.",
+        "Güven Maskesi": "Şüpheyi azaltır (-40). İnsanlar sana güvenmeye başlar.",
+        "Kimlik Maskesi": "Resmi kayıtlara geçmeni sağlar (Şüphe +15, Enerji +10).",
+        "Bakım Maskesi": "Maskeni onarır (+20). Özünü daha uzun süre korursun.",
+        "Sessizlik Maskesi": "Görünmezlik sağlar (Şüphe -30, Sinyal -10). Gölgelerde yaşarsın."
+    };
+
     elements.achievementMaskName.textContent = maskName;
+
+    // Maske açıklamasını göster
+    if (elements.achievementMaskDescription) {
+        elements.achievementMaskDescription.textContent = maskDescriptions[maskName] || "";
+    }
 
     // Görsel ekle
     const imagePath = maskImages[maskName];

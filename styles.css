@@ -2828,3 +2828,15 @@ body::before {
     margin-bottom: 2px;
     letter-spacing: 0.05em;
 }
+
+
+/* Achievement Description */
+.achievement-mask-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin: var(--spacing-md) 0;
+    max-width: 80%;
+    line-height: 1.4;
+    padding: 0 var(--spacing-sm);
+    font-style: italic;
+}
