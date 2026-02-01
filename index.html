@@ -67,6 +67,9 @@
 
     <!-- Oyun Ekranı -->
     <div id="game-screen" class="screen">
+        <!-- Dinamik Arkaplan Katmanları -->
+        <div id="game-bg-layer-1" class="game-bg-layer"></div>
+        <div id="game-bg-layer-2" class="game-bg-layer"></div>
         <!-- Stat Barları -->
         <div class="stat-container">
             <div class="stat" data-stat="signal">
@@ -184,7 +187,13 @@
                 </div>
             </div>
             <button id="resume-btn" class="btn-primary"
-                style="margin-top: 2rem; padding: 1rem 2.5rem; font-size: 1.5rem;">DEVAM ET</button>
+                style="margin-top: 1.5rem; padding: 1rem 2rem; font-size: 1.5rem; width: 100%;">DEVAM ET</button>
+            <button id="pause-restart-btn" class="btn-primary"
+                style="margin-top: 1rem; padding: 0.8rem 2rem; font-size: 1.3rem; background-color: var(--accent-secondary); color: #000; width: 100%;">YENİDEN
+                BAŞLA</button>
+            <button id="pause-main-menu-btn" class="btn-primary"
+                style="margin-top: 1rem; padding: 0.8rem 2rem; font-size: 1.3rem; background-color: #444; border-color: #222; width: 100%;">ANA
+                MENÜ</button>
         </div>
     </div>
 
@@ -209,6 +218,9 @@
             <p class="end-description" id="end-description">Sonuç açıklaması...</p>
             <div class="end-stats" id="end-stats"></div>
             <button id="restart-btn" class="btn-primary">TEKRAR OYNA</button>
+            <button id="main-menu-btn" class="btn-primary"
+                style="background-color: #555; border-color: #222; font-size: 2rem; margin-top: 1rem;">ANA MENÜYE
+                DÖN</button>
         </div>
     </div>
 

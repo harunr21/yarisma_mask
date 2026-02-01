@@ -14,6 +14,7 @@ const elements = {
     // Butonlar
     startBtn: document.getElementById('start-btn'),
     restartBtn: document.getElementById('restart-btn'),
+    mainMenuBtn: document.getElementById('main-menu-btn'),
     settingsBtn: document.getElementById('settings-btn'),
     tutorialBtn: document.getElementById('tutorial-btn'),
     settingsModal: document.getElementById('settings-modal'),
@@ -79,8 +80,51 @@ const elements = {
     pauseBtn: document.getElementById('pause-btn'),
     pauseMenu: document.getElementById('pause-menu'),
     resumeBtn: document.getElementById('resume-btn'),
-    pauseSoundToggle: document.getElementById('pause-sound-toggle')
+    pauseRestartBtn: document.getElementById('pause-restart-btn'),
+    pauseMainMenuBtn: document.getElementById('pause-main-menu-btn'),
+    pauseSoundToggle: document.getElementById('pause-sound-toggle'),
+
+    // Arkaplan Katmanları
+    bgLayer1: document.getElementById('game-bg-layer-1'),
+    bgLayer2: document.getElementById('game-bg-layer-2')
 };
+
+// ACT arkaplan görselleri
+const actBackgrounds = {
+    1: 'arkaplan_fotolari/1 - Düzenlendi.png',
+    2: 'arkaplan_fotolari/2 - Düzenlendi.png',
+    3: 'arkaplan_fotolari/4 - Düzenlendi.png',
+    4: 'arkaplan_fotolari/7 - Düzenlendi.png'
+};
+
+// Aktif arkaplan katmanı takibi
+let activeBackgroundLayer = 1;
+let currentBackgroundAct = 0;
+
+// Arkaplanı değiştir (crossfade efekti ile)
+function updateGameBackground(act) {
+    if (act === currentBackgroundAct) return; // Aynı ACT, değişiklik yok
+
+    const bgPath = actBackgrounds[act];
+    if (!bgPath) return;
+
+    currentBackgroundAct = act;
+
+    // Crossfade: Aktif olmayan katmanı güncelle, sonra aktif yap
+    if (activeBackgroundLayer === 1) {
+        // Layer 2'yi güncelle ve aktif yap
+        elements.bgLayer2.style.backgroundImage = `url('${bgPath}')`;
+        elements.bgLayer2.classList.add('active');
+        elements.bgLayer1.classList.remove('active');
+        activeBackgroundLayer = 2;
+    } else {
+        // Layer 1'i güncelle ve aktif yap
+        elements.bgLayer1.style.backgroundImage = `url('${bgPath}')`;
+        elements.bgLayer1.classList.add('active');
+        elements.bgLayer2.classList.remove('active');
+        activeBackgroundLayer = 1;
+    }
+}
 
 // Ekran geçişleri
 function showScreen(screenName) {
@@ -164,11 +208,38 @@ function animateStatChange(statName, changeAmount, passiveAmount = 0) {
     }
 }
 
+// ACT görselleri yol bilgileri
+const actImages = {
+    1: 'kart_fotolari/1.png',
+    2: 'kart_fotolari/2.png',
+    3: 'kart_fotolari/3.png',
+    4: 'kart_fotolari/4.png'
+};
+
 // Kartı render et
 function renderCard(card) {
     if (!card) return;
 
-    elements.cardEmoji.textContent = card.emoji;
+    // ACT görselini göster
+    const currentAct = gameState.currentAct;
+    const actImagePath = actImages[currentAct];
+
+    if (actImagePath) {
+        // Görsel varsa görseli göster, emoji'yi gizle
+        elements.cardImage.style.backgroundImage = `url('${actImagePath}')`;
+        elements.cardImage.style.backgroundSize = 'cover';
+        elements.cardImage.style.backgroundPosition = 'center';
+        elements.cardEmoji.style.display = 'none';
+    } else {
+        // Görsel yoksa emoji'yi göster
+        elements.cardImage.style.backgroundImage = 'none';
+        elements.cardEmoji.style.display = 'block';
+        elements.cardEmoji.textContent = card.emoji;
+    }
+
+    // Arkaplanı güncelle
+    updateGameBackground(currentAct);
+
     // elements.cardTitle.textContent = card.title; // Kaldırıldı
     elements.cardDescription.textContent = card.description;
     elements.leftChoiceText.textContent = card.choices.left.text;
@@ -629,6 +700,7 @@ function startGame() {
     watchedVideos.clear(); // İzlenen videoları sıfırla
     lastAct = 0;
     clearStoryLog(); // Hikaye geçmişini temizle
+    currentBackgroundAct = 0; // Arkaplan durumunu sıfırla
 
     // Önce intro videosunu oynat
     playVideo('intro', () => {
@@ -682,13 +754,80 @@ elements.soundToggle.addEventListener('click', () => {
 });
 
 // Event Listeners
+// Hızlı yeniden başlatma (Intro videolarını atla)
+function restartGame() {
+    gameState.reset();
+    watchedVideos.clear();
+    lastAct = 0;
+    clearStoryLog();
+    currentBackgroundAct = 0;
+
+    // Intro, Giriş Hikayesi ve ACT 1 videosunu atla (direkt oyuna başla)
+    watchedVideos.add('act1');
+
+    updateStatBars(false);
+    updateDayCounter();
+    updateActProgress();
+    updateCollectedMasks([]);
+
+    // ACT 1 videosunu kontrol et (watchedVideos'a eklediğimiz için atlayacak)
+    checkAndPlayActVideo(() => {
+        const firstCard = gameState.getNextCard();
+        renderCard(firstCard);
+
+        showScreen('game');
+        startBackgroundMusic();
+
+        if (typeof swipeHandler === 'undefined' || !swipeHandler) {
+            swipeHandler = new SwipeHandler(elements.card, handleSwipe);
+        } else {
+            swipeHandler.reset();
+        }
+    });
+}
+
 elements.startBtn.addEventListener('click', startGame);
 elements.restartBtn.addEventListener('click', () => {
     // Arkaplan müziğini durdur
     stopBackgroundMusic();
 
     // Pause menüsünü kapat (eğer açıksa)
-    if (isPaused) {
+    if (typeof isPaused !== 'undefined' && isPaused) {
+        closePauseMenu();
+    }
+
+    // Direkt oyunu yeniden başlat
+    restartGame();
+});
+
+// Pause menüsü butonları
+elements.pauseRestartBtn.addEventListener('click', () => {
+    closePauseMenu();
+    restartGame();
+});
+
+elements.pauseMainMenuBtn.addEventListener('click', () => {
+    closePauseMenu();
+    // Arkaplan müziğini durdur
+    stopBackgroundMusic();
+
+    // Oyun durumunu sıfırla
+    gameState.reset();
+    watchedVideos.clear();
+    lastAct = 0;
+    clearStoryLog();
+    currentBackgroundAct = 0;
+
+    // Ana menüye dön
+    showScreen('start');
+});
+
+elements.mainMenuBtn.addEventListener('click', () => {
+    // Arkaplan müziğini durdur
+    stopBackgroundMusic();
+
+    // Pause menüsünü kapat (eğer açıksa)
+    if (typeof isPaused !== 'undefined' && isPaused) {
         closePauseMenu();
     }
 
@@ -697,6 +836,7 @@ elements.restartBtn.addEventListener('click', () => {
     watchedVideos.clear();
     lastAct = 0;
     clearStoryLog();
+    currentBackgroundAct = 0;
 
     // Ana menüye dön
     showScreen('start');
