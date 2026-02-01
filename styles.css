@@ -660,6 +660,10 @@ body::before {
     scrollbar-color: var(--accent-secondary) transparent;
 }
 
+.end-content.win {
+    border-color: var(--success);
+}
+
 /* Custom Scrollbar */
 .end-content::-webkit-scrollbar {
     width: 8px;
@@ -1001,15 +1005,15 @@ body::before {
    =================================== */
 .collected-masks-container {
     position: absolute;
-    top: 80px;
-    /* Slightly lower to clear stats */
-    right: 20px;
+    top: 85px;
+    /* Pause butonunun altına denk gelecek şekilde */
+    right: var(--spacing-lg);
     display: flex;
-    flex-direction: row;
-    gap: 15px;
-    z-index: 90;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 215;
+    /* Pause butonu 220, onun hemen altında */
     pointer-events: none;
-    /* Passes clicks through */
 }
 
 .collected-mask-slot {
@@ -1067,14 +1071,15 @@ body::before {
 .mask-tooltip.visible {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(-50%) translateX(0);
 }
 
 .mask-tooltip {
     position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
+    top: 50%;
+    right: 120%;
+    /* Sola doğru çıksın */
+    transform: translateY(-50%) translateX(10px);
     background: rgba(0, 0, 0, 0.9);
     color: var(--accent-primary);
     padding: 5px 10px;

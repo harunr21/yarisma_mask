@@ -50,6 +50,7 @@ const elements = {
     endTitle: document.getElementById('end-title'),
     endDescription: document.getElementById('end-description'),
     endStats: document.getElementById('end-stats'),
+    endContent: document.querySelector('.end-content'),
 
     // Gün animasyon overlay
     dayOverlay: document.getElementById('day-overlay'),
@@ -512,6 +513,15 @@ function showEndScreen() {
     elements.endTitle.textContent = endMessage.title;
     elements.endTitle.className = 'end-title ' + (endMessage.isWin ? 'win' : 'lose');
     elements.endDescription.textContent = endMessage.description;
+
+    // Pencere çerçevesi rengini ayarla
+    if (elements.endContent) {
+        if (endMessage.isWin) {
+            elements.endContent.classList.add('win');
+        } else {
+            elements.endContent.classList.remove('win');
+        }
+    }
 
     // Son istatistikler
     elements.endStats.innerHTML = `
